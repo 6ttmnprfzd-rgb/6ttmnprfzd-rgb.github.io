@@ -60,17 +60,21 @@
 @media(prefers-reduced-motion:reduce){.hero-video-layout .hero-video-art video{display:none}.hero-video-layout .hero-video-art{background:#211d20 url('images/photo-01.jpeg') center/cover no-repeat}}
 
 
-/* Фирменная шапка и акцентные заголовки */
-.logo-image{display:flex;align-items:center;transform:none;min-width:0;flex-shrink:0}
-.logo-image img{display:block;width:148px;height:60px;object-fit:contain;object-position:left center}
-.section h2{font-family:Impact,'Arial Black',Arial,sans-serif;font-style:italic;letter-spacing:-.035em;transform:skew(-3deg);transform-origin:left center}
-.section-heading h2::first-line{color:var(--ink)}
-.format h3{font-family:Impact,'Arial Black',Arial,sans-serif;font-style:italic;letter-spacing:.015em}
-@media(max-width:850px){.logo-image img{width:114px;height:53px}.nav{gap:10px}.brand-sub{font-size:9px}}
-@media(max-width:440px){.logo-image img{width:112px;height:52px}.nav .btn{padding:12px 13px}}
+/* Мобильная навигация */
+html{scroll-padding-top:88px}
+.mobile-menu{display:none;position:relative;margin-left:0}
+.mobile-menu summary{list-style:none;display:flex;align-items:center;justify-content:center;width:43px;height:43px;border:1px solid #dedede;border-radius:12px;background:#fff;cursor:pointer;color:#111;user-select:none}
+.mobile-menu summary::-webkit-details-marker{display:none}
+.mobile-menu summary svg{width:22px;height:22px;stroke:currentColor;stroke-width:2.2;fill:none;stroke-linecap:round}
+.mobile-menu[open] summary{background:#f5f3f0}
+.mobile-menu-panel{position:absolute;right:0;top:calc(100% + 12px);width:min(290px,calc(100vw - 30px));padding:10px;background:white;border:1px solid #e8e4e0;border-radius:14px;box-shadow:0 18px 45px #0003;z-index:50}
+.mobile-menu-panel a{display:block;padding:14px 15px;font-size:14px;text-transform:uppercase;font-weight:800;border-radius:8px}
+.mobile-menu-panel a:hover,.mobile-menu-panel a:focus-visible{background:#f7f2f1;color:var(--red)}
+@media(max-width:850px){.mobile-menu{display:block}.nav{gap:10px}.nav .btn{margin-left:auto}.mobile-menu-panel{right:0}}
+@media(max-width:440px){.nav .btn{font-size:10px;padding:12px 12px}.mobile-menu summary{width:40px;height:40px}.nav{gap:7px}}
 </style></head>
 <body>
-<header class="top"><div class="container nav"><a href="#home" class="logo logo-image" aria-label="НОГИ в РУКИ — на главную"><img src="nogi-logo-header.png" alt="НОГИ в РУКИ"></a><span class="brand-sub">цирковая<br>команда</span><nav class="links"><a href="#home">Главная</a><a href="#formats">Форматы</a><a href="#genres">Жанры</a><a href="#gallery">Галерея</a><a href="#price">Прайс</a><a href="#contacts">Контакты</a></nav><a class="btn" href="mailto:info@welcirc.ru?subject=Заявка%20на%20мероприятие">Оставить заявку →</a></div></header>
+<header class="top"><div class="container nav"><a href="#home" class="logo">НОГИ <b>•</b><br>в РУКИ</a><span class="brand-sub">цирковая<br>команда</span><nav class="links"><a href="#home">Главная</a><a href="#formats">Форматы</a><a href="#genres">Жанры</a><a href="#gallery">Галерея</a><a href="#price">Прайс</a><a href="#contacts">Контакты</a></nav><a class="btn" href="mailto:info@welcirc.ru?subject=Заявка%20на%20мероприятие">Оставить заявку →</a><details class="mobile-menu"><summary aria-label="Открыть меню"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></summary><nav class="mobile-menu-panel" aria-label="Навигация по сайту"><a href="#home">Главная</a><a href="#formats">Форматы</a><a href="#genres">Жанры</a><a href="#gallery">Галерея</a><a href="#price">Прайс</a><a href="#contacts">Контакты</a></nav></details></div></header>
 <main>
 <section id="home" class="hero hero-video-layout"><div class="hero-art hero-video-art"><video autoplay muted loop playsinline preload="metadata" poster="images/photo-01.jpg" aria-label="Выступления цирковой команды НОГИ в РУКИ"><source src="hero-video.mp4" type="video/mp4"></video></div><div class="container"><div class="hero-copy"><h1>Цирковые<br>артисты<br><span>на ваше<br>мероприятие</span></h1><p>Встречаем гостей, создаём атмосферу, удивляем и вовлекаем. Цирк среди гостей и на сцене — это всегда особенные эмоции.</p><a class="btn" href="mailto:info@welcirc.ru?subject=Обсудить%20мероприятие">Обсудить мероприятие →</a></div></div><div class="hero-tag">Цирк<br>среди<br>гостей ↗</div></section>
 <section id="formats" class="section"><div class="container"><div class="eyebrow">01</div><div class="section-heading"><h2>Форматы<br>нашей работы</h2><p>Три варианта, которые подходят под разные задачи вашего мероприятия.</p><a href="#contacts" class="small-link">Подробнее о форматах <span>→</span></a></div><div class="formats">
@@ -92,4 +96,11 @@
 <section id="price" class="section" style="padding-top:15px"><div class="container"><div class="eyebrow">04</div><div class="price-row"><h2>Прайс</h2><p>Актуальные цены на артистов и программы. Москва и МО, дневное время, непраздничный период.</p><a href="mailto:info@welcirc.ru?subject=Запрос%20прайса" class="price-link">Запросить прайс <span>→</span></a></div></div></section>
 <section id="contacts" class="section contact"><div class="container contact-grid"><div class="contact-art"><img loading="lazy" src="images/photo-18.jpg" alt="Цирковая команда"></div><div><div class="eyebrow">05</div><h2>Обсудим ваше<br>мероприятие?</h2><p>Расскажите о дате, площадке и формате — подберём подходящее решение.</p><a href="mailto:info@welcirc.ru?subject=Заявка%20на%20мероприятие" class="btn">Оставить заявку →</a><div class="contact-details"><a href="tel:+79019060656">☎ 8 (901) 906-06-56</a><a href="mailto:info@welcirc.ru">✉ info@welcirc.ru</a></div></div></div></section>
 </main><footer class="footer"><div class="container"><a href="#home" class="logo">НОГИ <b>•</b><br>в РУКИ</a><small>Цирковая команда · Москва и МО, возможны выезды</small><nav><a href="#home">Главная</a><a href="#formats">Форматы</a><a href="#genres">Жанры</a><a href="#gallery">Галерея</a><a href="#price">Прайс</a><a href="#contacts">Контакты</a></nav></div></footer>
-</body></html>
+<script>
+const mobileMenu=document.querySelector('.mobile-menu');
+if(mobileMenu){
+  mobileMenu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{mobileMenu.open=false}));
+  document.addEventListener('click',e=>{if(!mobileMenu.contains(e.target))mobileMenu.open=false});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape')mobileMenu.open=false});
+}
+</script></body></html>
