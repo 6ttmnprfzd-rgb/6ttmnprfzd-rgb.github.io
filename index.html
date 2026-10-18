@@ -832,4 +832,47 @@ dialog.querySelector('.all-genres-close').addEventListener('click',close);
 dialog.addEventListener('click',e=>{if(e.target===dialog)close()});
 dialog.addEventListener('close',()=>toggle.setAttribute('aria-expanded','false'));
 })();
-</script></body></html>
+</script>
+<style id="genre-title-typography-fix-2026">
+/* Keep complete words; scale long titles rather than splitting their letters. */
+#genres .genres-featured .genre h3,
+#all-genres-dialog .genre h3 {
+  overflow-wrap:normal!important;
+  word-break:normal!important;
+  hyphens:none!important;
+  white-space:normal!important;
+  line-height:1.04!important;
+  max-width:calc(100% - 24px)!important;
+  text-wrap:balance;
+}
+#genres .genres-featured .genre h3.genre-title-medium{font-size:clamp(22px,2.1vw,29px)!important}
+#genres .genres-featured .genre h3.genre-title-long{font-size:clamp(18px,1.65vw,23px)!important}
+#genres .genres-featured .genre h3.genre-title-verylong{font-size:clamp(16px,1.35vw,20px)!important}
+#all-genres-dialog .genre h3.genre-title-medium{font-size:20px!important}
+#all-genres-dialog .genre h3.genre-title-long{font-size:17px!important}
+#all-genres-dialog .genre h3.genre-title-verylong{font-size:15px!important}
+@media(max-width:650px){
+ #genres .genres-featured .genre h3.genre-title-medium{font-size:27px!important}
+ #genres .genres-featured .genre h3.genre-title-long{font-size:23px!important}
+ #genres .genres-featured .genre h3.genre-title-verylong{font-size:19px!important}
+ #all-genres-dialog .genre h3.genre-title-medium{font-size:15px!important}
+ #all-genres-dialog .genre h3.genre-title-long{font-size:13px!important}
+ #all-genres-dialog .genre h3.genre-title-verylong{font-size:12px!important}
+}
+</style>
+<script id="genre-title-typography-fix-script-2026">
+(()=>{
+ const selectors='#genres .genres-featured .genre h3, #all-genres-dialog .genre h3';
+ function update(){document.querySelectorAll(selectors).forEach(el=>{
+  const name=el.textContent.trim().replace(/\s+/g,' ');
+  el.classList.remove('genre-title-medium','genre-title-long','genre-title-verylong');
+  if(name.length>=23)el.classList.add('genre-title-verylong');
+  else if(name.length>=16)el.classList.add('genre-title-long');
+  else if(name.length>=12)el.classList.add('genre-title-medium');
+ });}
+ update();
+ const grid=document.getElementById('genre-all-grid');
+ if(grid)new MutationObserver(update).observe(grid,{childList:true});
+})();
+</script>
+</body></html>
