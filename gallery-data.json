@@ -1,12 +1,12 @@
 {
   "homepage": [
     {
-      "image": "images/photo-16.jpg",
-      "alt": "Атмосфера праздника"
-    },
-    {
       "image": "images/photo-17.jpg",
       "alt": "Артисты и гости на мероприятии"
+    },
+    {
+      "image": "images/photo-16.jpg",
+      "alt": "Атмосфера праздника"
     },
     {
       "image": "images/photo-19.jpg",
