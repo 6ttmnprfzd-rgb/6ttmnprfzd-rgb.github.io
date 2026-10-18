@@ -1,7 +1,7 @@
 {
   "hero_video": "hero-video.mp4",
   "hero_poster": "images/photo-01.jpg",
-  "format_raus": "images/cms-photo-001.jpg",
+  "format_raus": "images/cms-photo-016.jpg",
   "format_show": "images/photo-06.jpg",
   "format_numbers": "images/cms-photo-002.jpg",
   "genre_01": "images/cms-photo-003.jpg",
@@ -16,9 +16,5 @@
   "genre_10": "images/cms-photo-012.jpg",
   "genre_11": "images/cms-photo-013.jpg",
   "genre_12": "images/cms-photo-014.jpg",
-  "genre_13": "",
-  "genre_14": "",
-  "genre_15": "",
-  "genre_16": "",
   "contact_photo": "images/cms-photo-015.jpg"
 }
