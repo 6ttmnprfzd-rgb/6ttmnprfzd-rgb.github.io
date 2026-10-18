@@ -296,6 +296,29 @@ ym(113666434, "init", {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLa
  .top .mobile-menu-panel:after{content:'';display:block;width:76px;height:5px;margin:10px 0 0 9px;background:#ed082c;transform:rotate(-3deg);clip-path:polygon(0 30%,100% 0,96% 100%,2% 90%)}
 }
 </style>
+
+<!-- Пробный кистевой шрифт только для пунктов навигации; откат — убрать этот блок -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rubik+Wet+Paint&display=swap" rel="stylesheet">
+<style id="brush-navigation-experiment">
+/* Буквы выглядят нарисованными кистью, без графических украшений. */
+.top .links a, .top .mobile-menu-panel a {
+  font-family:'Rubik Wet Paint', Impact, 'Arial Black', sans-serif !important;
+  font-style:normal !important;
+  font-weight:400 !important;
+  letter-spacing:.045em !important;
+  transform:none !important;
+  -webkit-text-stroke:0 !important;
+  text-shadow:none !important;
+}
+.top .links a {font-size:clamp(15px,1.2vw,19px) !important;line-height:1.35 !important;}
+.top .links a:hover,.top .links a:focus-visible {transform:translateY(-2px) !important;}
+@media(max-width:850px){
+  .top .mobile-menu-panel a {font-size:clamp(22px,5.2vw,29px) !important;line-height:1.25 !important;letter-spacing:.055em !important;}
+  .top .mobile-menu-panel a:hover,.top .mobile-menu-panel a:focus-visible {transform:translateX(5px) !important;}
+}
+</style>
 </head>
 <body>
 <header class="top"><div class="container nav"><a class="logo brand-brush" href="#home" aria-label="НОГИ в РУКИ">НОГИ в РУКИ</a><span class="brand-sub">цирковая<br/>команда</span><nav class="links"><a href="#home">Главная</a><a href="#formats">Форматы</a><a href="#genres">Жанры</a><a href="#gallery">Галерея</a><a href="#price">Прайс</a><a href="#contacts">Контакты</a></nav><a class="btn" data-request-open="true" href="#request">Оставить заявку →</a><details class="mobile-menu"><summary aria-label="Открыть меню"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"></path></svg></summary><nav aria-label="Навигация по сайту" class="mobile-menu-panel"><a href="#home">Главная</a><a href="#formats">Форматы</a><a href="#genres">Жанры</a><a href="#gallery">Галерея</a><a href="#price">Прайс</a><a href="#contacts">Контакты</a></nav></details></div></header>
