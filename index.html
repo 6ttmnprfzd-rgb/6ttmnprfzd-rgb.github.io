@@ -488,7 +488,48 @@ body:has(#all-genres-dialog[open]){overflow:hidden}
 #all-genres-dialog .genre h3{font-size:16px!important;left:11px!important;bottom:29px!important}
 #all-genres-dialog .genre h3::before{font-size:8px}
 }
-</style></head>
+</style>
+<style id="genre-readable-overlay-2026">
+/* Readable dark gradient directly on image, above photo and below typography */
+#genres .genres-featured .genre,
+#all-genres-dialog .genre {position:relative!important;isolation:isolate!important}
+#genres .genres-featured .genre .genre-img,
+#all-genres-dialog .genre .genre-img {position:absolute!important;inset:0!important;z-index:0!important;overflow:hidden}
+#genres .genres-featured .genre .genre-img::before,
+#all-genres-dialog .genre .genre-img::before{
+ content:""!important;display:block!important;position:absolute!important;
+ inset:0!important;z-index:2!important;pointer-events:none!important;
+ background:linear-gradient(to top,
+ rgba(5,5,8,.91) 0%,
+ rgba(5,5,8,.76) 17%,
+ rgba(5,5,8,.43) 37%,
+ rgba(5,5,8,.12) 60%,
+ transparent 79%)!important;
+}
+#genres .genres-featured .genre::after,
+#all-genres-dialog .genre::after {display:none!important}
+#genres .genres-featured .genre h3,
+#all-genres-dialog .genre h3{
+ z-index:5!important;color:#fff!important;
+ text-shadow:0 2px 9px rgba(0,0,0,.4)!important;
+}
+#genres .genres-featured .genre h3::after,
+#all-genres-dialog .genre h3::after{
+ content:""!important;display:block!important;
+ width:53px!important;height:5px!important;
+ margin-top:10px!important;background:#ff153a!important;
+ border-radius:2px!important;transform:skewX(-22deg)!important;
+}
+#genres .genres-featured .genre h3{bottom:83px!important}
+#genres .genres-featured .genre h3::before{top:calc(100% + 22px)!important}
+#all-genres-dialog .genre h3{bottom:52px!important}
+#all-genres-dialog .genre h3::before{top:calc(100% + 17px)!important}
+@media(max-width:650px){
+ #genres .genres-featured .genre h3{bottom:85px!important}
+ #all-genres-dialog .genre h3{bottom:52px!important}
+}
+</style>
+</head>
 <body>
 <header class="top"><div class="container nav"><a aria-label="НОГИ в РУКИ" class="logo brand-brush" href="#home">НОГИ в РУКИ</a><span class="brand-sub">цирковая<br/>команда</span><nav class="links"><a href="#home">Главная</a><a href="#formats">Форматы</a><a href="#genres">Жанры</a><a href="#gallery">Галерея</a><a href="#price">Прайс</a><a href="#contacts">Контакты</a></nav><a class="btn" data-request-open="true" href="#request">Оставить заявку →</a><details class="mobile-menu"><summary aria-label="Открыть меню"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"></path></svg></summary><nav aria-label="Навигация по сайту" class="mobile-menu-panel"><a href="#home">Главная</a><a href="#formats">Форматы</a><a href="#genres">Жанры</a><a href="#gallery">Галерея</a><a href="#price">Прайс</a><a href="#contacts">Контакты</a></nav></details></div></header>
 <main>
