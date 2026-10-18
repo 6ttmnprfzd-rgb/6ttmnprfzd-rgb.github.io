@@ -24,7 +24,6 @@ content:
           - name: alt
             label: Описание
             type: string
-
       - name: photos
         label: Общая фотогалерея
         type: object
@@ -77,80 +76,6 @@ content:
         label: Заставка главного видео
         type: image
       - name: format_raus
-        label: Формат: РАУС
-        type: image
-      - name: format_show
-        label: Формат: ШОУ
-        type: image
-      - name: format_numbers
-        label: Формат: НОМЕРА
-        type: image
-      - name: genre_01
-        label: Артист: Ходулисты
-        type: image
-      - name: genre_02
-        label: Артист: Жонглёры
-        type: image
-      - name: genre_03
-        label: Артист: Мимы
-        type: image
-      - name: genre_04
-        label: Артист: Унициклисты
-        type: image
-      - name: genre_05
-        label: Артист: Микромаг
-        type: image
-      - name: genre_06
-        label: Артист: Акробаты
-        type: image
-      - name: genre_07
-        label: Артист: Колесо Сира
-        type: image
-      - name: genre_08
-        label: Артист: Баланс на ноже
-        type: image
-      - name: genre_09
-        label: Артист: Эквилибр на тростях
-        type: image
-      - name: genre_10
-        label: Артист: Хулахупы
-        type: image
-      - name: genre_11
-        label: Артист: Гимнастка в Зорб-шаре
-        type: image
-      - name: genre_12
-        label: Артист: Гимнастка в партерном кольце
-        type: image
-      - name: genre_13
-        label: Артист: Диаболо
-        type: image
-      - name: genre_14
-        label: Артист: Эквилибр на катушках
-        type: image
-      - name: genre_15
-        label: Артист: Эквилибр на стульях
-        type: image
-      - name: genre_16
-        label: Артист: Контактное жонглирование
-        type: image
-      - name: contact_photo
-        label: Фотография внизу сайта
-        type: image 
-
-        
-        - name: test_section
-    label: Главный экран, форматы и артисты.
-    type: file
-    path: site-media.json
-    format: json
-    fields:
-      - name: hero_video
-        label: Главное видео
-        type: file      
-        - name: hero_poster
-        label: Заставка главного видео
-        type: image
-      - name: format_raus
         label: Формат РАУС
         type: image
       - name: format_show
@@ -158,4 +83,55 @@ content:
         type: image
       - name: format_numbers
         label: Формат НОМЕРА
+        type: image
+      - name: genre_01
+        label: Артист Ходулисты
+        type: image
+      - name: genre_02
+        label: Артист Жонглёры
+        type: image
+      - name: genre_03
+        label: Артист Мимы
+        type: image
+      - name: genre_04
+        label: Артист Унициклисты
+        type: image
+      - name: genre_05
+        label: Артист Микромаг
+        type: image
+      - name: genre_06
+        label: Артист Акробаты
+        type: image
+      - name: genre_07
+        label: Артист Колесо Сира
+        type: image
+      - name: genre_08
+        label: Артист Баланс на ноже
+        type: image
+      - name: genre_09
+        label: Артист Эквилибр на тростях
+        type: image
+      - name: genre_10
+        label: Артист Хулахупы
+        type: image
+      - name: genre_11
+        label: Артист Гимнастка в Зорб-шаре
+        type: image
+      - name: genre_12
+        label: Артист Гимнастка в партерном кольце
+        type: image
+      - name: genre_13
+        label: Артист Диаболо
+        type: image
+      - name: genre_14
+        label: Артист Эквилибр на катушках
+        type: image
+      - name: genre_15
+        label: Артист Эквилибр на стульях
+        type: image
+      - name: genre_16
+        label: Артист Контактное жонглирование
+        type: image
+      - name: contact_photo
+        label: Фотография внизу сайта
         type: image
