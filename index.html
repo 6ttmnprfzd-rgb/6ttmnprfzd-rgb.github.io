@@ -338,11 +338,17 @@ form.addEventListener('submit',async e=>{
   try{response=await fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),signal:controller.signal});}
   finally{clearTimeout(timeout);}
   const result=await response.json().catch(()=>null);
-  if(!response.ok||!result||result.ok!==true)throw new Error('Delivery failed');
+  if(!response.ok || !result || result.ok!==true){
+    const serverMessage=result && (result.error || result.description || result.message);
+    throw new Error('HTTP '+response.status+(serverMessage ? ': '+String(serverMessage).slice(0,180) : ': сервер не подтвердил отправку'));
+  }
   status.textContent='✓ Заявка отправлена! Спасибо, мы скоро свяжемся с вами.';status.style.color='#187347';
   form.reset();sendButton.textContent='ЗАЯВКА ОТПРАВЛЕНА ✓';
  }catch(error){
-  status.textContent='Не удалось подтвердить отправку. Попробуйте ещё раз или свяжитесь с нами по телефону: 8 (901) 906-06-56.';
+  const reason=error && error.name==='AbortError' ? 'Превышено время ожидания ответа (15 секунд)' :
+    error instanceof TypeError ? 'Браузер не смог соединиться с Cloudflare (возможно, CORS или блокировка сети)' :
+    (error && error.message ? String(error.message).slice(0,220) : 'Неизвестная ошибка');
+  status.textContent='Заявка не отправлена. Причина: '+reason+'. Можно связаться по телефону: 8 (901) 906-06-56.';
   status.style.color='#b42332';sendButton.textContent='ПОВТОРИТЬ ОТПРАВКУ →';
  }finally{sending=false;sendButton.disabled=false;}
 });
