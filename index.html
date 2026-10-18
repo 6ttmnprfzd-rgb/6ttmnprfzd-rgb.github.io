@@ -540,4 +540,22 @@ document.addEventListener('DOMContentLoaded', () => {
  dialog.querySelector('.artist-close').addEventListener('click',()=>dialog.close());dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close()});dialog.querySelector('.artist-cta').addEventListener('click',()=>dialog.close());
 })();
 </script>
+
+<style id="modern-cta-mobile-hero-trial">
+/* Пробный редизайн: плоские CTA вместо объемных кнопок */
+.btn,.artist-cta,.request-send{border-radius:12px!important;box-shadow:none!important;transform:none!important;transition:background-color .18s ease,transform .18s ease!important}
+.btn:hover,.artist-cta:hover,.request-send:hover:not(:disabled){background:#cf0627!important;box-shadow:none!important;transform:translateY(-1px)!important}
+.btn:active,.artist-cta:active,.request-send:active:not(:disabled){box-shadow:none!important;transform:translateY(0)!important}
+.nav .btn{padding:14px 19px!important}
+.hero .btn{padding:16px 24px!important}
+@media(max-width:850px){
+ .hero-video-layout h1{font-size:clamp(45px,9.8vw,76px);line-height:.98;letter-spacing:-.055em}
+ .nav .btn{padding:13px 15px!important}
+}
+@media(max-width:440px){
+ .hero-video-layout h1{font-size:clamp(39px,10.1vw,51px);line-height:.98;letter-spacing:-.055em}
+ .nav .btn{padding:12px 13px!important}
+ .hero .btn{padding:15px 21px!important}
+}
+</style>
 </body></html>
