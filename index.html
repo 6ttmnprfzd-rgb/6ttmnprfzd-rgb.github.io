@@ -616,4 +616,20 @@ document.addEventListener('DOMContentLoaded', () => {
  .hero .btn{padding:15px 21px!important}
 }
 </style>
+
+<style id="floating-header-2026">
+/* Floating header: same content, new scroll-only appearance */
+header.top{width:100%;margin-inline:auto;transition:width .28s ease,transform .28s ease,border-radius .28s ease,box-shadow .28s ease,background-color .28s ease;will-change:transform;isolation:isolate}
+header.top.is-floating{width:calc(100% - 48px);transform:translateY(12px);border-radius:18px;border:1px solid rgba(20,20,20,.09);background:rgba(255,255,255,.96);box-shadow:0 12px 35px rgba(0,0,0,.12);}
+header.top.is-floating .nav{height:66px;transition:height .28s ease}
+header.top .nav{transition:height .28s ease}
+@supports (backdrop-filter:blur(12px)){header.top.is-floating{backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);background:rgba(255,255,255,.91)}}
+@media(max-width:850px){header.top.is-floating{width:calc(100% - 20px);transform:translateY(9px);border-radius:17px}header.top.is-floating .nav{height:72px}header.top.is-floating .container{padding-left:17px;padding-right:17px}}
+@media(max-width:440px){header.top.is-floating .container{padding-left:12px;padding-right:12px}}
+@media(prefers-reduced-motion:reduce){header.top,header.top .nav{transition:none!important}}
+</style>
+
+<script id="floating-header-scroll">
+(()=>{const header=document.querySelector('header.top');if(!header)return;let ticking=false;function update(){header.classList.toggle('is-floating',window.scrollY>65);ticking=false}window.addEventListener('scroll',()=>{if(!ticking){ticking=true;requestAnimationFrame(update)}},{passive:true});update()})();
+</script>
 </body></html>
