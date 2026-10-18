@@ -133,6 +133,12 @@ html{scroll-padding-top:88px}
 .mobile-menu-panel a{color:#c90026;font-family:Arial,Helvetica,sans-serif;font-size:20px;font-weight:900;font-style:italic;letter-spacing:-.035em;line-height:1.1;padding:15px 17px;transform:skew(-4deg);border-left:3px solid transparent;transition:background .2s,color .2s,border-color .2s}
 .mobile-menu-panel a:hover,.mobile-menu-panel a:focus-visible{background:#fff0f1;color:#a70020;border-left-color:#ed082c}
 @media(max-width:440px){.mobile-menu-panel a{font-size:19px;padding:14px 16px}}
+
+/* Desktop-only: более выразительные буквы; мобильное меню без изменений */
+@media (min-width:851px){
+  .top .links a{font-size:clamp(15px,1.34vw,17px)!important;-webkit-text-stroke:.32px currentColor;letter-spacing:.075em!important;}
+  .top .links{gap:clamp(10px,1.35vw,19px)!important;}
+}
 </style><style>
 .format-more{align-self:flex-start;border:0;background:none;padding:0;margin:0 0 18px;color:var(--red);font-size:12px;font-weight:900;text-transform:uppercase;cursor:pointer;letter-spacing:.025em}.format-more:hover{text-decoration:underline}.format-more:focus-visible,.format-modal-close:focus-visible{outline:3px solid var(--red);outline-offset:4px}
 .format-modal[hidden]{display:none!important}.format-modal{position:fixed;inset:0;z-index:1000;background:rgba(13,12,15,.65);display:flex;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(5px)}.format-modal-panel{position:relative;width:min(100%,610px);max-height:min(85svh,720px);overflow:auto;background:var(--paper);border-radius:14px;padding:clamp(26px,5vw,52px);box-shadow:0 30px 90px #0005}.format-modal-panel h2{font-size:clamp(40px,7vw,66px);line-height:1;margin:15px 0 24px;letter-spacing:-.06em}.format-modal-panel p{font-size:clamp(16px,2.5vw,19px);line-height:1.65;color:#454346;margin:0}.format-modal-close{position:absolute;right:20px;top:15px;border:0;background:#ffece9;border-radius:50%;width:40px;height:40px;font-size:29px;cursor:pointer;color:#111}.modal-open{overflow:hidden}
