@@ -121,6 +121,9 @@ html{scroll-padding-top:88px}
 .contact-finale .contact-details{margin-top:20px;color:white;text-shadow:0 2px 10px #000b}
 @media(max-width:850px){.contact-finale{min-height:760px}.contact-finale-content{padding-top:55px;padding-bottom:320px}.contact-finale-photo img{object-position:center bottom}.contact-finale:before{background:linear-gradient(180deg,rgba(12,9,12,.9) 0%,rgba(12,9,12,.75) 37%,rgba(12,9,12,.08) 100%)}}
 @media(max-width:520px){.contact-finale{min-height:730px}.contact-finale-content{padding-top:42px;padding-bottom:270px}.contact-finale h2{font-size:clamp(35px,9vw,48px)}.contact-finale p{font-size:14px}.contact-finale .contact-details{font-size:12px;gap:10px 16px}.contact-finale-photo img{object-position:center bottom}}
+
+.request-honeypot{position:absolute!important;left:-10000px!important;width:1px!important;height:1px!important;overflow:hidden!important}
+.request-send:disabled{opacity:.7;cursor:wait}
 </style><style>
 .format-more{align-self:flex-start;border:0;background:none;padding:0;margin:0 0 18px;color:var(--red);font-size:12px;font-weight:900;text-transform:uppercase;cursor:pointer;letter-spacing:.025em}.format-more:hover{text-decoration:underline}.format-more:focus-visible,.format-modal-close:focus-visible{outline:3px solid var(--red);outline-offset:4px}
 .format-modal[hidden]{display:none!important}.format-modal{position:fixed;inset:0;z-index:1000;background:rgba(13,12,15,.65);display:flex;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(5px)}.format-modal-panel{position:relative;width:min(100%,610px);max-height:min(85svh,720px);overflow:auto;background:var(--paper);border-radius:14px;padding:clamp(26px,5vw,52px);box-shadow:0 30px 90px #0005}.format-modal-panel h2{font-size:clamp(40px,7vw,66px);line-height:1;margin:15px 0 24px;letter-spacing:-.06em}.format-modal-panel p{font-size:clamp(16px,2.5vw,19px);line-height:1.65;color:#454346;margin:0}.format-modal-close{position:absolute;right:20px;top:15px;border:0;background:#ffece9;border-radius:50%;width:40px;height:40px;font-size:29px;cursor:pointer;color:#111}.modal-open{overflow:hidden}
@@ -300,24 +303,50 @@ prev.addEventListener('click',()=>track.scrollBy({left:-step(),behavior:'smooth'
 <div class="request-panel" tabindex="-1"><button aria-label="Закрыть форму" class="request-close" type="button">×</button>
 <h2 id="request-title">Расскажите о мероприятии</h2><p>Заполните то, что уже известно. Мы уточним остальные детали при общении.</p>
 <form id="request-form"><div class="request-fields">
+<label class="request-field wide">Как к вам обращаться *<input name="name" placeholder="Ваше имя" autocomplete="name" maxlength="120" required=""/></label>
+<div class="request-honeypot" aria-hidden="true"><label>Сайт<input name="website" tabindex="-1" autocomplete="off"/></label></div>
 <label class="request-field">Дата мероприятия<input name="date" type="date"/></label>
 <label class="request-field">Время<input name="time" placeholder="Например, 18:00"/></label>
 <label class="request-field wide">Место проведения<input name="place" placeholder="Город, площадка или адрес"/></label>
 <label class="request-field">Формат<select name="format"><option value="Пока выбираю">Пока выбираю</option><option>Раус / встреча гостей</option><option>Шоу</option><option>Отдельный номер</option></select></label>
 <label class="request-field">Количество артистов<input name="count" placeholder="Например, 3"/></label>
 <label class="request-field">Продолжительность<input name="duration" placeholder="Например, 2 часа"/></label>
-<label class="request-field">Телефон для связи *<input name="phone" placeholder="+7 ..." required="" type="tel"/></label>
+<label class="request-field">Телефон для связи *<input name="phone" placeholder="+7 ..." autocomplete="tel" maxlength="80" required="" type="tel"/></label>
 <label class="request-field wide">Пожелания<textarea name="notes" placeholder="Интересующие артисты и другие детали"></textarea></label>
-</div><button class="request-send" type="submit">ПРОДОЛЖИТЬ К ОТПРАВКЕ →</button><p class="request-note">Пока форма открывает подготовленное письмо в почтовом приложении. Для автоматической доставки уведомлений на телефон настроим отдельный канал.</p><button class="request-copy" type="button">Скопировать текст заявки</button></form>
+</div><button class="request-send" type="submit">ОТПРАВИТЬ ЗАЯВКУ →</button><p class="request-note" id="request-status" role="status" aria-live="polite">Заявка поступит напрямую нашей команде. Мы свяжемся с вами по указанному телефону.</p><button class="request-copy" type="button">Скопировать текст заявки</button></form>
 </div></div><script>
 (()=>{const overlay=document.getElementById('request-overlay'),panel=overlay.querySelector('.request-panel'),form=document.getElementById('request-form');let previous=null;
 function open(e){if(e)e.preventDefault();previous=document.activeElement;overlay.hidden=false;document.body.style.overflow='hidden';panel.focus()}
 function close(){overlay.hidden=true;document.body.style.overflow='';previous?.focus()}
 document.querySelectorAll('[data-request-open]').forEach(a=>a.addEventListener('click',open));
 overlay.querySelector('.request-close').addEventListener('click',close);overlay.addEventListener('click',e=>{if(e.target===overlay)close()});document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!overlay.hidden)close()});
-function message(){const d=new FormData(form);return ['Заявка с сайта НОГИ в РУКИ','Дата: '+(d.get('date')||'не указана'),'Время: '+(d.get('time')||'не указано'),'Место: '+(d.get('place')||'не указано'),'Формат: '+d.get('format'),'Количество артистов: '+(d.get('count')||'не указано'),'Продолжительность: '+(d.get('duration')||'не указана'),'Телефон: '+(d.get('phone')||'не указан'),'Пожелания: '+(d.get('notes')||'нет')].join('\n')}
-form.addEventListener('submit',e=>{e.preventDefault();if(!form.reportValidity())return;window.location.href='mailto:info@welcirc.ru?subject='+encodeURIComponent('Заявка с сайта НОГИ в РУКИ')+'&body='+encodeURIComponent(message())});
-overlay.querySelector('.request-copy').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(message());overlay.querySelector('.request-copy').textContent='Текст скопирован ✓'}catch(e){alert('Не удалось скопировать. Откройте заявку через почтовое приложение.')}});
+function message(){const d=new FormData(form);return ['Заявка с сайта НОГИ в РУКИ','Имя: '+(d.get('name')||'не указано'),'Дата: '+(d.get('date')||'не указана'),'Время: '+(d.get('time')||'не указано'),'Место: '+(d.get('place')||'не указано'),'Формат: '+d.get('format'),'Количество артистов: '+(d.get('count')||'не указано'),'Продолжительность: '+(d.get('duration')||'не указана'),'Телефон: '+(d.get('phone')||'не указан'),'Пожелания: '+(d.get('notes')||'нет')].join('\n')}
+const endpoint='https://welcirc.black-mode-5b2f.workers.dev/';
+const sendButton=form.querySelector('.request-send'),status=form.querySelector('#request-status');
+let sending=false;
+form.addEventListener('submit',async e=>{
+ e.preventDefault();if(sending||!form.reportValidity())return;
+ const d=new FormData(form);
+ if(d.get('website'))return;
+ const payload={name:String(d.get('name')||'').trim(),phone:String(d.get('phone')||'').trim(),date:String(d.get('date')||''),time:String(d.get('time')||''),location:String(d.get('place')||''),format:String(d.get('format')||''),artists:String(d.get('count')||''),duration:String(d.get('duration')||''),comment:String(d.get('notes')||'')};
+ if(!payload.name||!payload.phone)return;
+ sending=true;sendButton.disabled=true;sendButton.textContent='ОТПРАВЛЯЕМ…';
+ status.textContent='Отправляем заявку, пожалуйста, подождите…';status.style.color='';
+ try{
+  const controller=new AbortController();const timeout=setTimeout(()=>controller.abort(),15000);
+  let response;
+  try{response=await fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),signal:controller.signal});}
+  finally{clearTimeout(timeout);}
+  const result=await response.json().catch(()=>null);
+  if(!response.ok||!result||result.ok!==true)throw new Error('Delivery failed');
+  status.textContent='✓ Заявка отправлена! Спасибо, мы скоро свяжемся с вами.';status.style.color='#187347';
+  form.reset();sendButton.textContent='ЗАЯВКА ОТПРАВЛЕНА ✓';
+ }catch(error){
+  status.textContent='Не удалось подтвердить отправку. Попробуйте ещё раз или свяжитесь с нами по телефону: 8 (901) 906-06-56.';
+  status.style.color='#b42332';sendButton.textContent='ПОВТОРИТЬ ОТПРАВКУ →';
+ }finally{sending=false;sendButton.disabled=false;}
+});
+overlay.querySelector('.request-copy').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(message());overlay.querySelector('.request-copy').textContent='Текст скопирован ✓'}catch(e){alert('Не удалось скопировать текст заявки.')}});
 })();
 </script><script>
 (()=>{
