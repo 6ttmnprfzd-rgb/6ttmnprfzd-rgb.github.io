@@ -546,6 +546,31 @@ body:has(#all-genres-dialog[open]){overflow:hidden}
   }
 }
 </style>
+
+<style id="modern-navigation-and-sira-2026">
+/* Site-specific, reversible visual experiment. Keep all existing JS and CMS markup. */
+header.top{background:rgba(255,255,255,.96)!important;border-bottom:1px solid rgba(15,15,19,.07)!important}
+header.top.is-floating{background:rgba(255,255,255,.82)!important;backdrop-filter:blur(22px) saturate(145%)!important;-webkit-backdrop-filter:blur(22px) saturate(145%)!important;box-shadow:0 16px 45px rgba(20,20,25,.10)!important;border:1px solid rgba(255,255,255,.75)!important}
+header.top .links{gap:clamp(11px,1.4vw,23px)!important}
+header.top .links a{position:relative!important;display:inline-flex!important;align-items:center!important;transform:none!important;skew:none!important;font-family:Arial,Helvetica,sans-serif!important;font-style:normal!important;font-size:clamp(12px,1.06vw,14px)!important;font-weight:800!important;letter-spacing:.025em!important;color:#1c1c20!important;padding:10px 0!important;transition:color .2s ease!important;white-space:nowrap!important}
+header.top .links a::after{content:"";position:absolute;bottom:4px;left:0;width:0;height:3px;border-radius:3px;background:#f00034;transition:width .22s ease}
+header.top .links a:hover,header.top .links a:focus-visible{color:#e80034!important;transform:none!important}
+header.top .links a:hover::after,header.top .links a:focus-visible::after{width:100%}
+header.top .nav>.btn{box-shadow:none!important;border-radius:13px!important;padding:14px 18px!important;font-weight:800!important;letter-spacing:.005em!important;transition:background .2s,transform .2s!important}
+header.top .nav>.btn:hover{transform:translateY(-1px)!important}
+header.top .mobile-menu summary{border-radius:13px!important;box-shadow:none!important;background:rgba(255,255,255,.85)!important;border:1px solid #dedee1!important}
+header.top .mobile-menu-panel{background:rgba(255,255,255,.96)!important;backdrop-filter:blur(22px)!important;-webkit-backdrop-filter:blur(22px)!important;border:1px solid #ecebed!important;border-radius:20px!important;padding:10px!important;box-shadow:0 22px 55px rgba(16,16,24,.15)!important}
+header.top .mobile-menu-panel a{color:#19191d!important;font-family:Arial,Helvetica,sans-serif!important;font-style:normal!important;font-size:17px!important;font-weight:850!important;letter-spacing:-.025em!important;transform:none!important;border-left:0!important;border-radius:11px!important;padding:14px 16px!important;line-height:1.15!important}
+header.top .mobile-menu-panel a:hover,header.top .mobile-menu-panel a:focus-visible{background:#f5f4f3!important;color:#eb0036!important}
+@media(min-width:851px){
+  /* Shift actual picture right within its original frame, without touching mobile layout. */
+  .contact-finale{background:#151216!important}
+  .contact-finale-photo img{object-position:78% 43%!important;transform:translateX(9%) scale(1.12)!important;transform-origin:center center!important}
+  .contact-finale:before{display:block!important;content:""!important;position:absolute!important;inset:0!important;z-index:-1!important;background:linear-gradient(90deg,#151216 0%,rgba(21,18,22,.98) 15%,rgba(21,18,22,.91) 29%,rgba(21,18,22,.65) 43%,rgba(21,18,22,.18) 61%,rgba(21,18,22,.04) 80%)!important}
+  .contact-finale-copy{max-width:min(45%,540px)!important}
+}
+@media(max-width:850px){header.top .nav>.btn{border-radius:13px!important}}
+</style>
 </head>
 <body>
 <header class="top"><div class="container nav"><a aria-label="НОГИ в РУКИ" class="logo brand-brush" href="#home">НОГИ в РУКИ</a><span class="brand-sub">цирковая<br/>команда</span><nav class="links"><a href="#home">Главная</a><a href="#formats">Форматы</a><a href="#genres">Жанры</a><a href="#gallery">Галерея</a><a href="#price">Прайс</a><a href="#contacts" data-contacts-open="true">Контакты</a></nav><a class="btn" data-request-open="true" href="#request">Оставить заявку →</a><details class="mobile-menu"><summary aria-label="Открыть меню"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"></path></svg></summary><nav aria-label="Навигация по сайту" class="mobile-menu-panel"><a href="#home">Главная</a><a href="#formats">Форматы</a><a href="#genres">Жанры</a><a href="#gallery">Галерея</a><a href="#price">Прайс</a><a href="#contacts" data-contacts-open="true">Контакты</a></nav></details></div></header>
