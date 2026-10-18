@@ -139,7 +139,7 @@ content:
 
         
         - name: test_section
-    label: ПРОВЕРКА
+    label: Главный экран, форматы и артисты.
     type: file
     path: site-media.json
     format: json
