@@ -531,7 +531,7 @@ body:has(#all-genres-dialog[open]){overflow:hidden}
 </style>
 </head>
 <body>
-<header class="top"><div class="container nav"><a aria-label="НОГИ в РУКИ" class="logo brand-brush" href="#home">НОГИ в РУКИ</a><span class="brand-sub">цирковая<br/>команда</span><nav class="links"><a href="#home">Главная</a><a href="#formats">Форматы</a><a href="#genres">Жанры</a><a href="#gallery">Галерея</a><a href="#price">Прайс</a><a href="#contacts">Контакты</a></nav><a class="btn" data-request-open="true" href="#request">Оставить заявку →</a><details class="mobile-menu"><summary aria-label="Открыть меню"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"></path></svg></summary><nav aria-label="Навигация по сайту" class="mobile-menu-panel"><a href="#home">Главная</a><a href="#formats">Форматы</a><a href="#genres">Жанры</a><a href="#gallery">Галерея</a><a href="#price">Прайс</a><a href="#contacts">Контакты</a></nav></details></div></header>
+<header class="top"><div class="container nav"><a aria-label="НОГИ в РУКИ" class="logo brand-brush" href="#home">НОГИ в РУКИ</a><span class="brand-sub">цирковая<br/>команда</span><nav class="links"><a href="#home">Главная</a><a href="#formats">Форматы</a><a href="#genres">Жанры</a><a href="#gallery">Галерея</a><a href="#price">Прайс</a><a href="#contacts" data-contacts-open="true">Контакты</a></nav><a class="btn" data-request-open="true" href="#request">Оставить заявку →</a><details class="mobile-menu"><summary aria-label="Открыть меню"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"></path></svg></summary><nav aria-label="Навигация по сайту" class="mobile-menu-panel"><a href="#home">Главная</a><a href="#formats">Форматы</a><a href="#genres">Жанры</a><a href="#gallery">Галерея</a><a href="#price">Прайс</a><a href="#contacts" data-contacts-open="true">Контакты</a></nav></details></div></header>
 <main>
 <section class="hero hero-video-layout" id="home"><div class="hero-art hero-video-art"><video aria-label="Выступления цирковой команды НОГИ в РУКИ" autoplay="" loop="" muted="" playsinline="" poster="images/photo-01.jpg" preload="metadata"><source src="hero-video.mp4" type="video/mp4"/></video></div><div class="container"><div class="hero-copy"><h1>Цирковые<br/>артисты<br/><span>на ваше<br/>мероприятие</span></h1><p>Встречаем гостей, создаём атмосферу, удивляем и вовлекаем. Цирк среди гостей и на сцене — это всегда особенные эмоции.</p><a class="btn" data-request-open="true" href="#request">Обсудить мероприятие →</a></div></div><div class="hero-tag">Цирк<br/>среди<br/>гостей ↗</div></section>
 <section class="section" id="formats"><div class="container"><div class="eyebrow">01</div><div class="section-heading"><h2>Форматы<br/>нашей работы</h2></div><div class="formats">
@@ -906,6 +906,61 @@ html.artist-dialog-pointer-safe .club-pointer {display:none!important}
  new MutationObserver(sync).observe(dialog,{attributes:true,attributeFilter:['open']});
  dialog.addEventListener('close',sync);
  sync();
+})();
+</script>
+
+<style>
+/* Контакты — отдельное окно; не меняет секцию внизу страницы */
+.wc-contact-overlay[hidden]{display:none!important}
+.wc-contact-overlay{position:fixed;inset:0;z-index:1800;background:rgba(12,12,15,.65);backdrop-filter:blur(9px);-webkit-backdrop-filter:blur(9px);display:flex;justify-content:center;align-items:center;padding:20px;cursor:default!important}
+.wc-contact-panel{position:relative;width:min(100%,620px);max-height:calc(100dvh - 32px);overflow-y:auto;overscroll-behavior:contain;background:#faf9f7;border-radius:22px;padding:40px 36px 32px;box-shadow:0 28px 100px rgba(0,0,0,.28);color:#111;cursor:default!important}
+.wc-contact-top{font-size:12px;font-weight:850;letter-spacing:.16em;color:#e70030;margin-bottom:12px}
+.wc-contact-title{font-size:clamp(40px,7vw,70px);font-weight:950;line-height:.95;letter-spacing:-.055em;margin:0 0 22px;color:#101010}
+.wc-contact-intro{font-size:15px;line-height:1.5;color:#646464;margin:0 0 26px}
+.wc-contact-primary{display:grid;gap:0;border-top:1px solid #dedbd8;border-bottom:1px solid #dedbd8}
+.wc-contact-primary a{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:17px 0;color:#111!important;text-decoration:none!important;font-size:clamp(18px,4vw,25px);font-weight:850;letter-spacing:-.035em;cursor:pointer!important}
+.wc-contact-primary a+a{border-top:1px solid #e7e4e1}
+.wc-contact-primary a span:last-child{font-size:20px;color:#e70030}
+.wc-contact-social-title{font-size:11px;font-weight:850;letter-spacing:.16em;color:#777;margin:25px 0 12px}
+.wc-contact-social{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.wc-contact-social a{display:flex;justify-content:space-between;align-items:center;gap:8px;background:#fff;border:1px solid #e5e2de;border-radius:11px;padding:15px 14px;color:#111!important;text-decoration:none!important;font-size:14px;font-weight:850;transition:border-color .2s,transform .2s;cursor:pointer!important}
+.wc-contact-social a:hover{border-color:#e70030;transform:translateY(-2px)}
+.wc-contact-social a span{color:#e70030}
+.wc-contact-close{position:absolute;top:20px;right:20px;width:41px;height:41px;display:grid;place-items:center;border:1px solid #dedbd8;border-radius:50%;background:white;color:#111;font-size:25px;line-height:1;cursor:pointer!important}
+.wc-contact-overlay a:hover,.wc-contact-overlay button:hover{cursor:pointer!important}
+@media(max-width:560px){.wc-contact-overlay{padding:0;align-items:flex-end}.wc-contact-panel{border-radius:22px 22px 0 0;padding:31px 22px 28px;max-height:94dvh}.wc-contact-title{font-size:49px}.wc-contact-primary a{font-size:21px}.wc-contact-close{top:17px;right:17px}.wc-contact-social a{font-size:13px;padding:14px 11px}}
+</style>
+<div class="wc-contact-overlay" id="wc-contact-overlay" hidden>
+  <div class="wc-contact-panel" role="dialog" aria-modal="true" aria-labelledby="wc-contact-title" tabindex="-1">
+    <button type="button" class="wc-contact-close" aria-label="Закрыть контакты">×</button>
+    <div class="wc-contact-top">НОГИ В РУКИ / КОНТАКТЫ</div>
+    <h2 class="wc-contact-title" id="wc-contact-title">НА СВЯЗИ<span style="color:#e70030">.</span></h2>
+    <p class="wc-contact-intro">Есть идея для мероприятия? Свяжитесь с нами удобным способом.</p>
+    <div class="wc-contact-primary">
+      <a href="tel:+79019060656">8 (901) 906-06-56 <span aria-hidden="true">↗</span></a>
+      <a href="mailto:info@welcirc.ru">info@welcirc.ru <span aria-hidden="true">↗</span></a>
+    </div>
+    <div class="wc-contact-social-title">МЫ В СОЦСЕТЯХ</div>
+    <div class="wc-contact-social">
+      <a href="https://t.me/welcirc" target="_blank" rel="noopener noreferrer">Telegram <span aria-hidden="true">↗</span></a>
+      <a href="https://www.instagram.com/welcirc/" target="_blank" rel="noopener noreferrer">Instagram <span aria-hidden="true">↗</span></a>
+      <a href="https://vk.ru/welcirc" target="_blank" rel="noopener noreferrer">ВКонтакте <span aria-hidden="true">↗</span></a>
+      <a href="https://www.youtube.com/@welcirc" target="_blank" rel="noopener noreferrer">YouTube <span aria-hidden="true">↗</span></a>
+    </div>
+  </div>
+</div>
+<script>
+(()=>{
+ const overlay=document.getElementById('wc-contact-overlay');
+ const panel=overlay.querySelector('.wc-contact-panel');
+ const closeBtn=overlay.querySelector('.wc-contact-close');
+ let previous=null;
+ function open(e){if(e)e.preventDefault();previous=document.activeElement;overlay.hidden=false;document.documentElement.style.overflow='hidden';document.querySelectorAll('details.mobile-menu[open]').forEach(d=>d.open=false);closeBtn.focus();}
+ function close(){overlay.hidden=true;document.documentElement.style.overflow='';if(previous&&previous.isConnected)previous.focus();}
+ document.querySelectorAll('[data-contacts-open]').forEach(a=>a.addEventListener('click',open));
+ closeBtn.addEventListener('click',close);
+ overlay.addEventListener('click',e=>{if(e.target===overlay)close()});
+ document.addEventListener('keydown',e=>{if(!overlay.hidden&&e.key==='Escape')close();if(!overlay.hidden&&e.key==='Tab'){const focusables=[...panel.querySelectorAll('button,a[href]')];const first=focusables[0],last=focusables[focusables.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}});
 })();
 </script>
 </body></html>
