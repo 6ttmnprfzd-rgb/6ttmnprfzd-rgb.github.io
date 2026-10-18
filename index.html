@@ -875,4 +875,37 @@ dialog.addEventListener('close',()=>toggle.setAttribute('aria-expanded','false')
  if(grid)new MutationObserver(update).observe(grid,{childList:true});
 })();
 </script>
+<style id="artist-cursor-and-unicycle-fix-2026">
+/* Keep the single long title within its desktop card. */
+@media (min-width:651px) {
+ #genres .genres-featured .genre h3.genre-unicycle-title {
+   font-size:clamp(19px,1.75vw,25px)!important;
+   letter-spacing:0!important;
+   max-width:calc(100% - 40px)!important;
+ }
+}
+/* The decorative cursor must not hide the native pointer in artist dialogs. */
+html.artist-dialog-pointer-safe, html.artist-dialog-pointer-safe body,
+html.artist-dialog-pointer-safe .artist-dialog,
+html.artist-dialog-pointer-safe .artist-dialog * {cursor:default!important}
+html.artist-dialog-pointer-safe .artist-dialog a,
+html.artist-dialog-pointer-safe .artist-dialog button,
+html.artist-dialog-pointer-safe .artist-dialog [role="button"] {cursor:pointer!important}
+html.artist-dialog-pointer-safe .artist-dialog input,
+html.artist-dialog-pointer-safe .artist-dialog textarea {cursor:text!important}
+html.artist-dialog-pointer-safe .club-pointer {display:none!important}
+</style>
+<script id="artist-cursor-and-unicycle-fix-script-2026">
+(()=>{
+ document.querySelectorAll('#genres .genres-featured .genre h3').forEach(el=>{
+   if(el.textContent.trim().toUpperCase()==='УНИЦИКЛИСТЫ')el.classList.add('genre-unicycle-title');
+ });
+ const dialog=document.getElementById('artist-dialog');
+ if(!dialog)return;
+ const sync=()=>document.documentElement.classList.toggle('artist-dialog-pointer-safe',dialog.open);
+ new MutationObserver(sync).observe(dialog,{attributes:true,attributeFilter:['open']});
+ dialog.addEventListener('close',sync);
+ sync();
+})();
+</script>
 </body></html>
