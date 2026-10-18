@@ -1,14 +1,14 @@
 {
   "videos": [
     {
-      "video": "videos/video-01.mp4",
-      "cover": "images/cms-photo-018.jpg",
-      "title": "Видео 01"
-    },
-    {
       "video": "videos/video-02.mp4",
       "cover": "videos/video-02.jpg",
       "title": "Видео 02"
+    },
+    {
+      "video": "videos/video-01.mp4",
+      "cover": "images/cms-photo-018.jpg",
+      "title": "Видео 01"
     },
     {
       "video": "videos/video-03.mp4",
