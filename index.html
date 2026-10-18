@@ -321,7 +321,7 @@ function close(){overlay.hidden=true;document.body.style.overflow='';previous?.f
 document.querySelectorAll('[data-request-open]').forEach(a=>a.addEventListener('click',open));
 overlay.querySelector('.request-close').addEventListener('click',close);overlay.addEventListener('click',e=>{if(e.target===overlay)close()});document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!overlay.hidden)close()});
 function message(){const d=new FormData(form);return ['Заявка с сайта НОГИ в РУКИ','Имя: '+(d.get('name')||'не указано'),'Дата: '+(d.get('date')||'не указана'),'Время: '+(d.get('time')||'не указано'),'Место: '+(d.get('place')||'не указано'),'Формат: '+d.get('format'),'Количество артистов: '+(d.get('count')||'не указано'),'Продолжительность: '+(d.get('duration')||'не указана'),'Телефон: '+(d.get('phone')||'не указан'),'Пожелания: '+(d.get('notes')||'нет')].join('\n')}
-const endpoint='https://welcirc.black-mode-5b2f.workers.dev/';
+const endpoint='https://script.google.com/macros/s/AKfycbxbTJftULMOkgRw8GXkmB3930r_yPJf-wKrNkYsBDwd0Yi5W1IsgJbeWl_Pdl1Jet-t/exec';
 const sendButton=form.querySelector('.request-send'),status=form.querySelector('#request-status');
 let sending=false;
 form.addEventListener('submit',async e=>{
@@ -331,24 +331,15 @@ form.addEventListener('submit',async e=>{
  const payload={name:String(d.get('name')||'').trim(),phone:String(d.get('phone')||'').trim(),date:String(d.get('date')||''),time:String(d.get('time')||''),location:String(d.get('place')||''),format:String(d.get('format')||''),artists:String(d.get('count')||''),duration:String(d.get('duration')||''),comment:String(d.get('notes')||'')};
  if(!payload.name||!payload.phone)return;
  sending=true;sendButton.disabled=true;sendButton.textContent='ОТПРАВЛЯЕМ…';
- status.textContent='Отправляем заявку, пожалуйста, подождите…';status.style.color='';
+ status.textContent='Передаём заявку, пожалуйста, подождите…';status.style.color='';
  try{
-  const controller=new AbortController();const timeout=setTimeout(()=>controller.abort(),15000);
-  let response;
-  try{response=await fetch(endpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),signal:controller.signal});}
-  finally{clearTimeout(timeout);}
-  const result=await response.json().catch(()=>null);
-  if(!response.ok || !result || result.ok!==true){
-    const serverMessage=result && (result.error || result.description || result.message);
-    throw new Error('HTTP '+response.status+(serverMessage ? ': '+String(serverMessage).slice(0,180) : ': сервер не подтвердил отправку'));
-  }
-  status.textContent='✓ Заявка отправлена! Спасибо, мы скоро свяжемся с вами.';status.style.color='#187347';
-  form.reset();sendButton.textContent='ЗАЯВКА ОТПРАВЛЕНА ✓';
+  // Google Apps Script does not expose a readable cross-origin response to the website.
+  // text/plain avoids CORS preflight; no-cors allows a cross-origin POST request.
+  await fetch(endpoint,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)});
+  status.textContent='✓ Заявка передана на обработку! Мы свяжемся с вами после её получения.';
+  status.style.color='#187347';form.reset();sendButton.textContent='ЗАЯВКА ПЕРЕДАНА ✓';
  }catch(error){
-  const reason=error && error.name==='AbortError' ? 'Превышено время ожидания ответа (15 секунд)' :
-    error instanceof TypeError ? 'Браузер не смог соединиться с Cloudflare (возможно, CORS или блокировка сети)' :
-    (error && error.message ? String(error.message).slice(0,220) : 'Неизвестная ошибка');
-  status.textContent='Заявка не отправлена. Причина: '+reason+'. Можно связаться по телефону: 8 (901) 906-06-56.';
+  status.textContent='Не удалось передать заявку. Пожалуйста, попробуйте ещё раз или позвоните: 8 (901) 906-06-56.';
   status.style.color='#b42332';sendButton.textContent='ПОВТОРИТЬ ОТПРАВКУ →';
  }finally{sending=false;sendButton.disabled=false;}
 });
