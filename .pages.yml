@@ -1,0 +1,15 @@
+
+media:
+  input: images
+  output: /images
+
+content:
+  - name: gallery
+    label: Галерея
+    type: file
+    path: gallery-data.json
+    format: code
+    options:
+      language: json
+    operations:
+      delete: false
