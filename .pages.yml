@@ -146,4 +146,17 @@ content:
     fields:
       - name: hero_video
         label: Главное видео
-        type: file
+        type: file      
+        - name: hero_poster
+        label: Заставка главного видео
+        type: image
+      - name: format_raus
+        label: Формат РАУС
+        type: image
+      - name: format_show
+        label: Формат ШОУ
+        type: image
+      - name: format_numbers
+        label: Формат НОМЕРА
+        type: image
+        
