@@ -1,4 +1,3 @@
-
 media:
   input: images
   output: images
@@ -40,3 +39,26 @@ content:
             label: Описание
             type: string
 
+  - name: videos
+    label: Видео сайта
+    type: file
+    path: videos-data.json
+    format: json
+    fields:
+      - name: videos
+        label: Видеоролики
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "Видео {index}"
+        fields:
+          - name: video
+            label: Видеофайл MP4
+            type: file
+          - name: cover
+            label: Обложка видео
+            type: image
+          - name: title
+            label: Название
+            type: string
