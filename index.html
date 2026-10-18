@@ -296,28 +296,29 @@ ym(113666434, "init", {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLa
  .top .mobile-menu-panel:after{content:'';display:block;width:76px;height:5px;margin:10px 0 0 9px;background:#ed082c;transform:rotate(-3deg);clip-path:polygon(0 30%,100% 0,96% 100%,2% 90%)}
 }
 </style>
-
-<!-- Пробный кистевой шрифт только для пунктов навигации; откат — убрать этот блок -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Rubik+Wet+Paint&display=swap" rel="stylesheet">
-<style id="brush-navigation-experiment">
-/* Буквы выглядят нарисованными кистью, без графических украшений. */
-.top .links a, .top .mobile-menu-panel a {
-  font-family:'Rubik Wet Paint', Impact, 'Arial Black', sans-serif !important;
-  font-style:normal !important;
-  font-weight:400 !important;
-  letter-spacing:.045em !important;
-  transform:none !important;
-  -webkit-text-stroke:0 !important;
-  text-shadow:none !important;
+<style>
+/* Desktop brush lettering for the top navigation; mobile menu remains unchanged */
+@media (min-width:851px){
+  .top .links{gap:clamp(7px,1vw,15px)!important}
+  .top .links a{
+    position:relative;display:inline-block;padding:10px 0 13px!important;
+    color:#171717!important;font-family:Impact,"Arial Black",Arial,sans-serif!important;
+    font-size:clamp(13px,1.45vw,18px)!important;font-weight:900!important;
+    font-style:italic!important;letter-spacing:.075em!important;line-height:1!important;
+    text-transform:uppercase;white-space:nowrap;-webkit-text-stroke:.25px currentColor;
+    text-shadow:.35px 0 currentColor;transform:skew(-3deg);
+    transition:color .18s,transform .18s
+  }
+  .top .links a:after{
+    content:"";position:absolute;left:-1px;bottom:6px;width:94%;height:4px;
+    background:#ed082c;opacity:.62;transform:scaleX(.72) rotate(-2deg);
+    transform-origin:left;clip-path:polygon(0 24%,18% 15%,33% 30%,58% 0,76% 20%,100% 8%,97% 76%,72% 100%,51% 75%,27% 94%,2% 100%);
+    transition:transform .2s,opacity .2s
+  }
+  .top .links a:hover,.top .links a:focus-visible{color:#c90026!important;transform:skew(-3deg) translateY(-2px)}
+  .top .links a:hover:after,.top .links a:focus-visible:after{opacity:1;transform:scaleX(1) rotate(-2deg)}
 }
-.top .links a {font-size:clamp(15px,1.2vw,19px) !important;line-height:1.35 !important;}
-.top .links a:hover,.top .links a:focus-visible {transform:translateY(-2px) !important;}
-@media(max-width:850px){
-  .top .mobile-menu-panel a {font-size:clamp(22px,5.2vw,29px) !important;line-height:1.25 !important;letter-spacing:.055em !important;}
-  .top .mobile-menu-panel a:hover,.top .mobile-menu-panel a:focus-visible {transform:translateX(5px) !important;}
-}
+@media (min-width:851px) and (max-width:1020px){.top .links a{font-size:13px!important;letter-spacing:.045em!important}}
 </style>
 </head>
 <body>
