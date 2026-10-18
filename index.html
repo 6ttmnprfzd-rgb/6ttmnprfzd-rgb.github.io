@@ -416,4 +416,28 @@ document.addEventListener('DOMContentLoaded',()=>{
   library.replaceChildren(fragment);
  }).catch(e=>console.warn('Video CMS data not loaded; using original cards',e));
 });
+</script><script>
+/* Pages CMS: independent images for the hero, formats, artists and footer. */
+document.addEventListener('DOMContentLoaded', () => {
+ fetch('site-media.json', {cache:'no-store'}).then(r => {if(!r.ok) throw Error('site-media.json unavailable');return r.json()}).then(data => {
+  if(!data || typeof data!=='object') return;
+  const valid = key => typeof data[key]==='string' ? data[key].trim() : '';
+  const setImage = (selector,key) => {const el=document.querySelector(selector),src=valid(key);if(el && src) el.src=src;};
+  const video=document.querySelector('#home video');
+  if(video){
+   const poster=valid('hero_poster'),src=valid('hero_video');
+   if(poster) video.poster=poster;
+   if(src){const source=video.querySelector('source');if(source && source.getAttribute('src')!==src){source.src=src;video.load();video.play().catch(()=>{});}}
+  }
+  ['format_raus','format_show','format_numbers'].forEach((key,i)=>setImage('#formats .format:nth-child('+(i+1)+') .format-visual img',key));
+  document.querySelectorAll('#genres .genres-featured > .genre').forEach((card,i)=>{
+   const key='genre_'+String(i+1).padStart(2,'0'),src=valid(key);if(!src)return;
+   const visual=card.querySelector('.genre-img');if(!visual)return;
+   let img=visual.querySelector('img');
+   if(!img){img=document.createElement('img');img.loading='lazy';img.alt=card.querySelector('h3')?.textContent||'Цирковой артист';visual.replaceChildren(img);visual.classList.remove('genre-placeholder');card.classList.remove('genre-pending');}
+   img.src=src;
+  });
+  setImage('#contacts .contact-finale-photo img','contact_photo');
+ }).catch(err=>console.warn('Site media CMS unavailable; keeping original images',err));
+});
 </script></body></html>
