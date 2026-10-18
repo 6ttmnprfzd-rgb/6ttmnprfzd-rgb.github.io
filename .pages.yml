@@ -135,4 +135,15 @@ content:
         type: image
       - name: contact_photo
         label: Фотография внизу сайта
-        type: image
+        type: image 
+
+        
+        - name: test_section
+    label: ПРОВЕРКА
+    type: file
+    path: site-media.json
+    format: json
+    fields:
+      - name: hero_video
+        label: Главное видео
+        type: file
