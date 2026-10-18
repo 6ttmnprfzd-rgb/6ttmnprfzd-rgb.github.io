@@ -1,15 +1,42 @@
 
 media:
   input: images
-  output: /images
+  output: images
 
 content:
   - name: gallery
-    label: Галерея
+    label: Фотографии сайта
     type: file
     path: gallery-data.json
-    format: code
-    options:
-      language: json
-    operations:
-      delete: false
+    format: json
+    fields:
+      - name: homepage
+        label: Фотографии на главной
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "Фото {index}"
+        fields:
+          - name: image
+            label: Фотография
+            type: image
+          - name: alt
+            label: Описание
+            type: string
+
+      - name: photos
+        label: Общая фотогалерея
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+            summary: "Фото {index}"
+        fields:
+          - name: image
+            label: Фотография
+            type: image
+          - name: alt
+            label: Описание
+            type: string
+
