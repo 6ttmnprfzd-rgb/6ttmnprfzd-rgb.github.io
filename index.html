@@ -347,7 +347,7 @@ overlay.querySelector('.request-copy').addEventListener('click',async()=>{try{aw
 })();
 </script><script>
 /* Pages CMS: homepage and photo library are read from gallery-data.json. */
-(()=>{
+document.addEventListener('DOMContentLoaded',()=>{
  const gallery=document.querySelector('#gallery .gallery-film');
  const grid=document.querySelector('#media-overlay [data-media-content="photos"] .media-grid');
  if(!gallery||!grid)return;
