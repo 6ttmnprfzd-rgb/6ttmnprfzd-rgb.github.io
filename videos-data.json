@@ -1,0 +1,114 @@
+{
+  "videos": [
+    {
+      "video": "videos/video-01.mp4",
+      "cover": "videos/video-01.jpg",
+      "title": "Видео 01"
+    },
+    {
+      "video": "videos/video-02.mp4",
+      "cover": "videos/video-02.jpg",
+      "title": "Видео 02"
+    },
+    {
+      "video": "videos/video-03.mp4",
+      "cover": "videos/video-03.jpg",
+      "title": "Видео 03"
+    },
+    {
+      "video": "videos/video-04.mp4",
+      "cover": "videos/video-04.jpg",
+      "title": "Видео 04"
+    },
+    {
+      "video": "videos/video-05.mp4",
+      "cover": "videos/video-05.jpg",
+      "title": "Видео 05"
+    },
+    {
+      "video": "videos/video-06.mp4",
+      "cover": "videos/video-06.jpg",
+      "title": "Видео 06"
+    },
+    {
+      "video": "videos/video-07.mp4",
+      "cover": "videos/video-07.jpg",
+      "title": "Видео 07"
+    },
+    {
+      "video": "videos/video-08.mp4",
+      "cover": "videos/video-08.jpg",
+      "title": "Видео 08"
+    },
+    {
+      "video": "videos/video-09.mp4",
+      "cover": "videos/video-09.jpg",
+      "title": "Видео 09"
+    },
+    {
+      "video": "videos/video-10.mp4",
+      "cover": "videos/video-10.jpg",
+      "title": "Видео 10"
+    },
+    {
+      "video": "videos/video-11.mp4",
+      "cover": "videos/video-11.jpg",
+      "title": "Видео 11"
+    },
+    {
+      "video": "videos/video-12.mp4",
+      "cover": "videos/video-12.jpg",
+      "title": "Видео 12"
+    },
+    {
+      "video": "videos/video-13.mp4",
+      "cover": "videos/video-13.jpg",
+      "title": "Видео 13"
+    },
+    {
+      "video": "videos/video-14.mp4",
+      "cover": "videos/video-14.jpg",
+      "title": "Видео 14"
+    },
+    {
+      "video": "videos/video-15.mp4",
+      "cover": "videos/video-15.jpg",
+      "title": "Видео 15"
+    },
+    {
+      "video": "videos/video-16.mp4",
+      "cover": "videos/video-16.jpg",
+      "title": "Видео 16"
+    },
+    {
+      "video": "videos/video-17.mp4",
+      "cover": "videos/video-17.jpg",
+      "title": "Видео 17"
+    },
+    {
+      "video": "videos/video-18.mp4",
+      "cover": "videos/video-18.jpg",
+      "title": "Видео 18"
+    },
+    {
+      "video": "videos/video-19.mp4",
+      "cover": "videos/video-19.jpg",
+      "title": "Видео 19"
+    },
+    {
+      "video": "videos/video-20.mp4",
+      "cover": "videos/video-20.jpg",
+      "title": "Видео 20"
+    },
+    {
+      "video": "videos/video-21.mp4",
+      "cover": "videos/video-21.jpg",
+      "title": "Видео 21"
+    },
+    {
+      "video": "videos/video-22.mp4",
+      "cover": "videos/video-22.jpg",
+      "title": "Видео 22"
+    }
+  ]
+}
