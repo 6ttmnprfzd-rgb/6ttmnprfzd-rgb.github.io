@@ -125,6 +125,14 @@ html{scroll-padding-top:88px}
 
 .request-honeypot{position:absolute!important;left:-10000px!important;width:1px!important;height:1px!important;overflow:hidden!important}
 .request-send:disabled{opacity:.7;cursor:wait}
+
+/* Эксперимент: фирменная типографика навигации, легко откатить */
+.links a{color:#c90026;font-family:Arial,Helvetica,sans-serif;font-size:12px;font-weight:900;font-style:italic;letter-spacing:.015em;transform:skew(-5deg);transition:color .2s,transform .2s}
+.links a:hover,.links a:focus-visible{color:#101014;transform:skew(-5deg) translateY(-2px)}
+.mobile-menu-panel{padding:13px 10px;border-radius:19px;box-shadow:0 22px 48px #00000029}
+.mobile-menu-panel a{color:#c90026;font-family:Arial,Helvetica,sans-serif;font-size:20px;font-weight:900;font-style:italic;letter-spacing:-.035em;line-height:1.1;padding:15px 17px;transform:skew(-4deg);border-left:3px solid transparent;transition:background .2s,color .2s,border-color .2s}
+.mobile-menu-panel a:hover,.mobile-menu-panel a:focus-visible{background:#fff0f1;color:#a70020;border-left-color:#ed082c}
+@media(max-width:440px){.mobile-menu-panel a{font-size:19px;padding:14px 16px}}
 </style><style>
 .format-more{align-self:flex-start;border:0;background:none;padding:0;margin:0 0 18px;color:var(--red);font-size:12px;font-weight:900;text-transform:uppercase;cursor:pointer;letter-spacing:.025em}.format-more:hover{text-decoration:underline}.format-more:focus-visible,.format-modal-close:focus-visible{outline:3px solid var(--red);outline-offset:4px}
 .format-modal[hidden]{display:none!important}.format-modal{position:fixed;inset:0;z-index:1000;background:rgba(13,12,15,.65);display:flex;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(5px)}.format-modal-panel{position:relative;width:min(100%,610px);max-height:min(85svh,720px);overflow:auto;background:var(--paper);border-radius:14px;padding:clamp(26px,5vw,52px);box-shadow:0 30px 90px #0005}.format-modal-panel h2{font-size:clamp(40px,7vw,66px);line-height:1;margin:15px 0 24px;letter-spacing:-.06em}.format-modal-panel p{font-size:clamp(16px,2.5vw,19px);line-height:1.65;color:#454346;margin:0}.format-modal-close{position:absolute;right:20px;top:15px;border:0;background:#ffece9;border-radius:50%;width:40px;height:40px;font-size:29px;cursor:pointer;color:#111}.modal-open{overflow:hidden}
@@ -254,6 +262,29 @@ ym(113666434, "init", {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLa
 .artist-cta span{font-size:21px}
 @media(max-width:600px){.artist-video-wrap video{height:min(45vh,340px)}.artist-cta,.btn,.request-send{border-radius:15px!important}}
 @media(prefers-reduced-motion:reduce){.artist-cta,.btn,.request-send{transition:none!important}}
+</style>
+
+<style>
+/* STREET NAV — пробная версия, только меню */
+.top .links{gap:clamp(10px,1.6vw,23px)}
+.top .links a{position:relative;display:inline-block;color:#171717!important;font-family:Impact,'Arial Black',Arial,sans-serif;font-weight:900;font-size:clamp(12px,1.15vw,15px);font-style:italic;letter-spacing:-.035em;transform:skew(-5deg);padding:9px 0 13px;text-shadow:none!important;transition:transform .18s,color .18s}
+.top .links a:after{content:'';position:absolute;left:0;bottom:7px;width:100%;height:4px;background:#ed082c;transform:scaleX(0) rotate(-2deg);transform-origin:left;transition:transform .18s;clip-path:polygon(0 25%,100% 0,98% 100%,2% 100%)}
+.top .links a:hover,.top .links a:focus-visible{color:#ed082c!important;transform:skew(-5deg) translateY(-2px)}
+.top .links a:hover:after,.top .links a:focus-visible:after{transform:scaleX(1) rotate(-2deg)}
+@media(max-width:850px){
+ .top .mobile-menu-panel{padding:13px 15px 17px!important;border:2px solid #171717!important;border-radius:17px!important;box-shadow:7px 8px 0 #171717,0 22px 42px #0002!important;overflow:hidden}
+ .top .mobile-menu-panel a{position:relative;display:flex!important;align-items:baseline;gap:12px;padding:10px 8px 12px!important;margin:0!important;border-radius:0!important;color:#171717!important;font-family:Impact,'Arial Black',Arial,sans-serif!important;font-size:clamp(23px,5.7vw,31px)!important;font-style:italic!important;font-weight:900!important;line-height:1.12!important;letter-spacing:-.045em!important;text-transform:uppercase;transform:skew(-5deg);border-bottom:1px solid #e8e5e1;transition:color .16s,transform .16s}
+ .top .mobile-menu-panel a:last-child{border-bottom:0}
+ .top .mobile-menu-panel a:before{font:900 11px Arial,sans-serif;font-style:normal;letter-spacing:0;color:#ed082c;transform:skew(5deg);flex:0 0 20px}
+ .top .mobile-menu-panel a:nth-child(1):before{content:'01'}
+ .top .mobile-menu-panel a:nth-child(2):before{content:'02'}
+ .top .mobile-menu-panel a:nth-child(3):before{content:'03'}
+ .top .mobile-menu-panel a:nth-child(4):before{content:'04'}
+ .top .mobile-menu-panel a:nth-child(5):before{content:'05'}
+ .top .mobile-menu-panel a:nth-child(6):before{content:'06'}
+ .top .mobile-menu-panel a:hover,.top .mobile-menu-panel a:focus-visible{color:#ed082c!important;background:transparent!important;transform:skew(-5deg) translateX(5px)}
+ .top .mobile-menu-panel:after{content:'';display:block;width:76px;height:5px;margin:10px 0 0 9px;background:#ed082c;transform:rotate(-3deg);clip-path:polygon(0 30%,100% 0,96% 100%,2% 90%)}
+}
 </style>
 </head>
 <body>
