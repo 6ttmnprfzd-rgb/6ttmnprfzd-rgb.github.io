@@ -241,6 +241,20 @@ ym(113666434, "init", {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLa
 </script>
 <noscript><div><img src="https://mc.yandex.ru/watch/113666434" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <!-- /Yandex.Metrika counter -->
+<style>
+/* Видео и современная кнопка карточек артистов */
+.artist-video-wrap[hidden]{display:none!important}
+.artist-video-wrap{position:relative;overflow:hidden;border-radius:18px;background:#171419;margin:14px 0 16px;isolation:isolate}
+.artist-video-wrap video{display:block;width:100%;height:min(48vh,410px);object-fit:contain;background:#171419}
+.artist-video-label{position:absolute;left:16px;top:15px;padding:9px 12px;border:1px solid #ffffff60;border-radius:100px;background:#1119;backdrop-filter:blur(9px);color:#fff;font:800 10px Arial,sans-serif;letter-spacing:.12em;pointer-events:none}
+.artist-cta,.btn,.request-send{border-radius:18px!important;box-shadow:0 9px 0 #a90022,0 15px 28px #ed082c3a!important;transition:transform .2s,box-shadow .2s,background .2s!important}
+.artist-cta:hover,.btn:hover,.request-send:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 11px 0 #a90022,0 20px 32px #ed082c42!important}
+.artist-cta:active,.btn:active,.request-send:active:not(:disabled){transform:translateY(5px);box-shadow:0 3px 0 #a90022,0 8px 18px #ed082c30!important}
+.artist-cta{display:flex!important;align-items:center;justify-content:center;gap:16px;padding:17px 22px!important;text-align:center}
+.artist-cta span{font-size:21px}
+@media(max-width:600px){.artist-video-wrap video{height:min(45vh,340px)}.artist-cta,.btn,.request-send{border-radius:15px!important}}
+@media(prefers-reduced-motion:reduce){.artist-cta,.btn,.request-send{transition:none!important}}
+</style>
 </head>
 <body>
 <header class="top"><div class="container nav"><a class="logo" href="#home">НОГИ <b>•</b><br/>в РУКИ</a><span class="brand-sub">цирковая<br/>команда</span><nav class="links"><a href="#home">Главная</a><a href="#formats">Форматы</a><a href="#genres">Жанры</a><a href="#gallery">Галерея</a><a href="#price">Прайс</a><a href="#contacts">Контакты</a></nav><a class="btn" data-request-open="true" href="#request">Оставить заявку →</a><details class="mobile-menu"><summary aria-label="Открыть меню"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"></path></svg></summary><nav aria-label="Навигация по сайту" class="mobile-menu-panel"><a href="#home">Главная</a><a href="#formats">Форматы</a><a href="#genres">Жанры</a><a href="#gallery">Галерея</a><a href="#price">Прайс</a><a href="#contacts">Контакты</a></nav></details></div></header>
@@ -464,7 +478,7 @@ document.addEventListener('DOMContentLoaded', () => {
  }).catch(err=>console.warn('Site media CMS unavailable; keeping original images',err));
 });
 </script>
-<dialog class="artist-dialog" id="artist-dialog" aria-labelledby="artist-dialog-title"><div class="artist-dialog-inner"><div class="artist-dialog-head"><h2 id="artist-dialog-title"></h2><button class="artist-close" type="button" aria-label="Закрыть">×</button></div><div class="artist-photo-wrap"><button type="button" class="artist-photo-nav artist-photo-prev" aria-label="Предыдущее фото">‹</button><img id="artist-dialog-photo" alt=""/><button type="button" class="artist-photo-nav artist-photo-next" aria-label="Следующее фото">›</button></div><p class="artist-photo-count" id="artist-photo-count"></p><p id="artist-dialog-description"></p><p class="artist-price" id="artist-dialog-price"></p><p class="artist-price-note">Стоимость указана за 1 час работы в Москве, в дневное время и вне праздничных дат. Ночные заказы, праздничные даты и выезды за пределы Москвы рассчитываются индивидуально.</p><a class="artist-cta" href="#contacts" id="artist-dialog-cta">Обсудить заказ ↗</a></div></dialog>
+<dialog class="artist-dialog" id="artist-dialog" aria-labelledby="artist-dialog-title"><div class="artist-dialog-inner"><div class="artist-dialog-head"><h2 id="artist-dialog-title"></h2><button class="artist-close" type="button" aria-label="Закрыть">×</button></div><div class="artist-video-wrap" id="artist-video-wrap" hidden><video id="artist-video" playsinline muted loop preload="none" controls aria-label="Видео ходулистов"></video><span class="artist-video-label">ХОДУЛИСТЫ · В ДВИЖЕНИИ</span></div><div class="artist-photo-wrap"><button type="button" class="artist-photo-nav artist-photo-prev" aria-label="Предыдущее фото">‹</button><img id="artist-dialog-photo" alt=""/><button type="button" class="artist-photo-nav artist-photo-next" aria-label="Следующее фото">›</button></div><p class="artist-photo-count" id="artist-photo-count"></p><p id="artist-dialog-description"></p><p class="artist-price" id="artist-dialog-price"></p><p class="artist-price-note">Стоимость указана за 1 час работы в Москве, в дневное время и вне праздничных дат. Ночные заказы, праздничные даты и выезды за пределы Москвы рассчитываются индивидуально.</p><a class="artist-cta" href="#contacts" id="artist-dialog-cta">Обсудить мероприятие <span aria-hidden="true">↗</span></a></div></dialog>
 <script>
 /* Карточки артистов. Основная фотография сохраняется, дополнительные фотографии ходулистов встроены в файл. */
 (()=>{
@@ -477,10 +491,11 @@ document.addEventListener('DOMContentLoaded', () => {
  let current=null,photoIndex=0;
  function renderPhoto(){const images=current.images;const photo=document.getElementById('artist-dialog-photo');photo.src=images[photoIndex];photo.alt=current.title+' — фотография '+(photoIndex+1)+' из '+images.length;document.getElementById('artist-photo-count').textContent=images.length>1?(photoIndex+1)+' / '+images.length:'';dialog.querySelectorAll('.artist-photo-nav').forEach(btn=>btn.hidden=images.length<2)}
  function shift(n){if(!current)return;photoIndex=(photoIndex+n+current.images.length)%current.images.length;renderPhoto()}
- const open=key=>{const data=entries[key];if(!data)return;current=data;photoIndex=0;document.getElementById('artist-dialog-title').textContent=data.title;document.getElementById('artist-dialog-description').textContent=data.description;document.getElementById('artist-dialog-price').textContent=data.price;renderPhoto();dialog.showModal()};
+ const open=key=>{const data=entries[key];if(!data)return;current=data;photoIndex=0;document.getElementById('artist-dialog-title').textContent=data.title;document.getElementById('artist-dialog-description').textContent=data.description;document.getElementById('artist-dialog-price').textContent=data.price;renderPhoto();const videoWrap=document.getElementById('artist-video-wrap');const video=document.getElementById('artist-video');video.pause();video.removeAttribute('src');video.load();videoWrap.hidden=key!=='stilts';if(key==='stilts'){video.src='videos/hodulisty-card.mp4';video.load()}dialog.showModal();if(key==='stilts'&&!window.matchMedia('(prefers-reduced-motion: reduce)').matches){video.play().catch(()=>{})}};
  document.querySelectorAll('.genre[data-artist]').forEach(card=>{card.addEventListener('click',()=>open(card.dataset.artist));card.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open(card.dataset.artist)}})});
  dialog.querySelector('.artist-photo-prev').addEventListener('click',()=>shift(-1));dialog.querySelector('.artist-photo-next').addEventListener('click',()=>shift(1));
  let startX=null;dialog.querySelector('.artist-photo-wrap').addEventListener('touchstart',e=>{startX=e.touches[0].clientX},{passive:true});dialog.querySelector('.artist-photo-wrap').addEventListener('touchend',e=>{if(startX===null)return;const dx=e.changedTouches[0].clientX-startX;if(Math.abs(dx)>45)shift(dx<0?1:-1);startX=null},{passive:true});
+ dialog.addEventListener('close',()=>{const v=document.getElementById('artist-video');v.pause();v.removeAttribute('src');v.load()});
  dialog.querySelector('.artist-close').addEventListener('click',()=>dialog.close());dialog.addEventListener('click',e=>{if(e.target===dialog)dialog.close()});dialog.querySelector('.artist-cta').addEventListener('click',()=>dialog.close());
 })();
 </script>
