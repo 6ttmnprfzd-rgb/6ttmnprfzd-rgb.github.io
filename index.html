@@ -638,6 +638,83 @@ header.top .mobile-menu-panel a:hover,header.top .mobile-menu-panel a:focus-visi
 .artist-dialog.stilts-showcase .artist-price-note{grid-column:1/-1;grid-row:8}
 }
 </style>
+
+<style>
+/* Desktop artist card refinement: portrait media + compact information column.
+   Only the stilt-walker modal on desktop is affected. */
+@media (min-width: 651px) {
+  .artist-dialog.stilts-showcase {
+    width:min(94vw,980px);
+    max-height:min(94dvh,760px);
+  }
+  .artist-dialog.stilts-showcase .artist-dialog-inner {
+    display:grid;
+    grid-template-columns:minmax(0,0.88fr) minmax(0,1.12fr);
+    grid-template-rows:auto minmax(0,245px) auto auto auto auto auto;
+    column-gap:22px;
+    row-gap:9px;
+    padding:22px 26px 24px;
+    align-items:start;
+  }
+  .artist-dialog.stilts-showcase .artist-dialog-head {
+    grid-column:1/-1;grid-row:1;margin-bottom:4px;
+  }
+  .artist-dialog.stilts-showcase .artist-video-wrap {
+    grid-column:1;grid-row:2/8;
+    margin:0;
+    aspect-ratio:9/16;
+    width:auto;
+    height:min(55dvh,510px);
+    max-width:100%;
+    min-height:0;
+    justify-self:center;
+    align-self:start;
+    border-radius:14px;
+    overflow:hidden;
+    background:#09090b;
+  }
+  .artist-dialog.stilts-showcase .artist-video-wrap video {
+    display:block;width:100%;height:100%;max-height:none;
+    object-fit:contain;background:#09090b;
+  }
+  .artist-dialog.stilts-showcase .artist-photo-wrap {
+    grid-column:2;grid-row:2;height:245px;min-height:0;
+    align-self:stretch;
+  }
+  .artist-dialog.stilts-showcase .artist-photo-wrap img {
+    display:block;width:100%;height:245px;min-height:0;max-height:none;
+    object-fit:cover;
+  }
+  .artist-dialog.stilts-showcase .artist-photo-count {
+    grid-column:2;grid-row:3;margin:0;
+  }
+  .artist-dialog.stilts-showcase #artist-dialog-description {
+    grid-column:2;grid-row:4;margin:2px 0 0;
+    font-size:14px;line-height:1.42;
+  }
+  .artist-dialog.stilts-showcase .artist-price {
+    grid-column:2;grid-row:5;margin:0!important;
+    font-size:26px!important;
+  }
+  .artist-dialog.stilts-showcase .artist-cta {
+    grid-column:2;grid-row:6;margin:0!important;
+    justify-self:stretch;align-self:start;text-align:center;
+  }
+  .artist-dialog.stilts-showcase .artist-price-note {
+    grid-column:2;grid-row:7;margin:0!important;
+    font-size:10px!important;line-height:1.35;
+  }
+}
+@media (min-width:651px) and (max-height:680px) {
+  .artist-dialog.stilts-showcase .artist-dialog-inner {
+    grid-template-rows:auto 205px auto auto auto auto auto;
+    row-gap:6px;padding-top:14px;padding-bottom:15px;
+  }
+  .artist-dialog.stilts-showcase .artist-photo-wrap,
+  .artist-dialog.stilts-showcase .artist-photo-wrap img {height:205px;}
+  .artist-dialog.stilts-showcase .artist-video-wrap {height:min(53dvh,425px);}
+}
+</style>
 </head>
 <body>
 <header class="top"><div class="container nav"><a aria-label="НОГИ в РУКИ" class="logo brand-brush" href="#home">НОГИ в РУКИ</a><span class="brand-sub">цирковая<br/>команда</span><nav class="links"><a href="#home">Главная</a><a href="#formats">Форматы</a><a href="#genres">Жанры</a><a href="#gallery">Галерея</a><a href="#price">Прайс</a><a href="#contacts" data-contacts-open="true">Контакты</a></nav><a class="btn" data-request-open="true" href="#request">Оставить заявку →</a><details class="mobile-menu"><summary aria-label="Открыть меню"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"></path></svg></summary><nav aria-label="Навигация по сайту" class="mobile-menu-panel"><a href="#home">Главная</a><a href="#formats">Форматы</a><a href="#genres">Жанры</a><a href="#gallery">Галерея</a><a href="#price">Прайс</a><a href="#contacts" data-contacts-open="true">Контакты</a></nav></details></div></header>
