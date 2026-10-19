@@ -770,6 +770,35 @@ header.top .mobile-menu-panel a:hover,header.top .mobile-menu-panel a:focus-visi
  .artist-dialog.stilts-showcase .artist-price-note{grid-column:2!important;grid-row:7!important}
 }
 @media(max-width:650px){.artist-info-tooltip{left:auto;right:-20px;transform:translateY(4px)}.artist-info-box:hover .artist-info-tooltip,.artist-info-box:focus-within .artist-info-tooltip{transform:translateY(0)}}
+</style><style>
+/* Desktop: price and CTA on one aligned row, preserving mobile layout. */
+@media (min-width:651px) {
+  .artist-dialog.stilts-showcase .artist-price-with-info {
+    grid-column:1!important;
+    grid-row:5!important;
+    justify-self:start!important;
+    align-self:center!important;
+    margin:0!important;
+  }
+  .artist-dialog.stilts-showcase .artist-cta {
+    grid-column:2!important;
+    grid-row:5!important;
+    align-self:center!important;
+    justify-self:stretch!important;
+    width:100%!important;
+    min-height:48px;
+    box-sizing:border-box!important;
+    margin:0!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+  }
+  .artist-dialog.stilts-showcase .artist-price-note {
+    grid-column:1/-1!important;
+    grid-row:6!important;
+    margin:0!important;
+  }
+}
 </style></head>
 <body>
 <header class="top"><div class="container nav"><a aria-label="НОГИ в РУКИ" class="logo brand-brush" href="#home">НОГИ в РУКИ</a><span class="brand-sub">цирковая<br/>команда</span><nav class="links"><a href="#home">Главная</a><a href="#formats">Форматы</a><a href="#genres">Жанры</a><a href="#gallery">Галерея</a><a href="#price">Прайс</a><a href="#contacts" data-contacts-open="true">Контакты</a></nav><a class="btn" data-request-open="true" href="#request">Оставить заявку →</a><details class="mobile-menu"><summary aria-label="Открыть меню"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"></path></svg></summary><nav aria-label="Навигация по сайту" class="mobile-menu-panel"><a href="#home">Главная</a><a href="#formats">Форматы</a><a href="#genres">Жанры</a><a href="#gallery">Галерея</a><a href="#price">Прайс</a><a href="#contacts" data-contacts-open="true">Контакты</a></nav></details></div></header>
