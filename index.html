@@ -799,6 +799,77 @@ header.top .mobile-menu-panel a:hover,header.top .mobile-menu-panel a:focus-visi
     margin:0!important;
   }
 }
+</style><style>
+/* Fine tuning: compact desktop CTA and on-screen mobile cost tooltip. */
+@media (min-width:651px) {
+  .artist-dialog.stilts-showcase .artist-cta {
+    width:min(100%, 310px)!important;
+    max-width:310px!important;
+    min-height:44px!important;
+    padding:11px 18px!important;
+    justify-self:end!important;
+    font-size:13px!important;
+    border-radius:12px!important;
+  }
+}
+@media (max-width:650px) {
+  .artist-dialog.stilts-showcase .artist-info-tooltip {
+    position:fixed!important;
+    left:50%!important;
+    right:auto!important;
+    top:50%!important;
+    bottom:auto!important;
+    width:min(320px, calc(100vw - 48px))!important;
+    max-width:calc(100vw - 48px)!important;
+    max-height:65dvh!important;
+    overflow:auto!important;
+    box-sizing:border-box!important;
+    transform:translate(-50%, -50%)!important;
+    z-index:9999!important;
+    font-size:13px!important;
+    line-height:1.5!important;
+    padding:18px 20px!important;
+  }
+  .artist-dialog.stilts-showcase .artist-info-box:hover .artist-info-tooltip,
+  .artist-dialog.stilts-showcase .artist-info-box:focus-within .artist-info-tooltip {
+    transform:translate(-50%, -50%)!important;
+  }
+}
+</style><style>
+/* Final adjustments: narrow desktop CTA; mobile info displayed outside dialog clipping. */
+@media (min-width:651px) {
+  .artist-dialog.stilts-showcase .artist-cta {
+    width:min(100%, 255px)!important;
+    max-width:255px!important;
+    min-height:42px!important;
+    padding:10px 15px!important;
+    justify-self:end!important;
+    font-size:12px!important;
+  }
+}
+@media (max-width:650px) {
+  .artist-dialog.stilts-showcase .artist-info-tooltip {display:none!important}
+}
+.stilts-mobile-info-overlay[hidden]{display:none!important}
+.stilts-mobile-info-overlay{
+  position:fixed;inset:0;z-index:2147483647;
+  display:flex;align-items:center;justify-content:center;
+  padding:22px;box-sizing:border-box;background:rgba(0,0,0,.62)
+}
+.stilts-mobile-info-panel{
+  position:relative;width:min(100%,350px);max-height:calc(100dvh - 44px);
+  overflow:auto;box-sizing:border-box;border-radius:18px;
+  padding:25px 22px 22px;background:#fafafa;color:#24242a;
+  box-shadow:0 18px 65px rgba(0,0,0,.35);
+  font:500 15px/1.55 Arial,sans-serif
+}
+.stilts-mobile-info-panel strong{display:block;margin:0 36px 10px 0;font-size:17px}
+.stilts-mobile-info-panel p{margin:0}
+.stilts-mobile-info-close{
+  position:absolute;right:12px;top:11px;border:0;border-radius:50%;
+  background:#ececf0;color:#222;width:34px;height:34px;
+  display:grid;place-items:center;font-size:23px;cursor:pointer
+}
 </style></head>
 <body>
 <header class="top"><div class="container nav"><a aria-label="НОГИ в РУКИ" class="logo brand-brush" href="#home">НОГИ в РУКИ</a><span class="brand-sub">цирковая<br/>команда</span><nav class="links"><a href="#home">Главная</a><a href="#formats">Форматы</a><a href="#genres">Жанры</a><a href="#gallery">Галерея</a><a href="#price">Прайс</a><a href="#contacts" data-contacts-open="true">Контакты</a></nav><a class="btn" data-request-open="true" href="#request">Оставить заявку →</a><details class="mobile-menu"><summary aria-label="Открыть меню"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"></path></svg></summary><nav aria-label="Навигация по сайту" class="mobile-menu-panel"><a href="#home">Главная</a><a href="#formats">Форматы</a><a href="#genres">Жанры</a><a href="#gallery">Галерея</a><a href="#price">Прайс</a><a href="#contacts" data-contacts-open="true">Контакты</a></nav></details></div></header>
@@ -1246,4 +1317,30 @@ html.artist-dialog-pointer-safe .club-pointer {display:none!important}
  document.addEventListener('keydown',e=>{if(!overlay.hidden&&e.key==='Escape')close();if(!overlay.hidden&&e.key==='Tab'){const focusables=[...panel.querySelectorAll('button,a[href]')];const first=focusables[0],last=focusables[focusables.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}}});
 })();
 </script>
-</body></html>
+<script>
+/* Mobile info dialog lives in document.body, avoiding clipping by artist modal. */
+(()=>{
+  const trigger=document.querySelector('.artist-dialog .artist-info-trigger');
+  const source=document.getElementById('artist-price-tooltip');
+  if(!trigger||!source)return;
+  const overlay=document.createElement('div');
+  overlay.className='stilts-mobile-info-overlay';
+  overlay.hidden=true;
+  overlay.setAttribute('role','presentation');
+  overlay.innerHTML='<div class="stilts-mobile-info-panel" role="dialog" aria-modal="true" aria-labelledby="stilts-mobile-info-title"><button class="stilts-mobile-info-close" type="button" aria-label="Закрыть">×</button><strong id="stilts-mobile-info-title">Условия стоимости</strong><p></p></div>';
+  overlay.querySelector('p').textContent=source.textContent.trim();
+  document.body.appendChild(overlay);
+  const closeBtn=overlay.querySelector('.stilts-mobile-info-close');
+  function close(){overlay.hidden=true;trigger.setAttribute('aria-expanded','false');if(trigger.isConnected)trigger.focus({preventScroll:true})}
+  trigger.setAttribute('aria-expanded','false');
+  trigger.addEventListener('click',e=>{
+    if(!window.matchMedia('(max-width:650px)').matches)return;
+    e.preventDefault();e.stopPropagation();
+    overlay.hidden=false;trigger.setAttribute('aria-expanded','true');closeBtn.focus({preventScroll:true});
+  });
+  closeBtn.addEventListener('click',close);
+  overlay.addEventListener('click',e=>{if(e.target===overlay)close()});
+  document.addEventListener('keydown',e=>{if(!overlay.hidden&&e.key==='Escape'){e.stopPropagation();close()}});
+  window.addEventListener('resize',()=>{if(!window.matchMedia('(max-width:650px)').matches)overlay.hidden=true});
+})();
+</script></body></html>
