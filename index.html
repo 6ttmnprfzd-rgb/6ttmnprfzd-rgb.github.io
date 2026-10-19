@@ -983,6 +983,25 @@ header.top .mobile-menu-panel a:hover,header.top .mobile-menu-panel a:focus-visi
 .seo-footer-link{font-size:11px;color:#666;text-decoration:underline;text-underline-offset:3px}
 @media(max-width:650px){.artist-dialog.stilts-showcase .artist-seo-link{margin:8px 0}}
 </style>
+
+<style id="all-artist-cards-unified-20261019">
+/* All genres share the existing dark stilts card; hide absent video cleanly. */
+.artist-dialog.stilts-showcase .artist-video-wrap[hidden]{display:none!important}
+@media(min-width:651px){
+.artist-dialog.stilts-showcase.artist-no-video .artist-photo-wrap{grid-column:1/-1!important;grid-row:2!important;height:clamp(260px,45vh,420px)!important}
+.artist-dialog.stilts-showcase.artist-no-video .artist-photo-wrap img{height:100%!important;max-height:none!important;object-fit:contain!important}
+.artist-dialog.stilts-showcase.artist-no-video .artist-photo-count{grid-column:1/-1!important;grid-row:3!important}
+}
+@media(max-width:650px){
+.artist-dialog.stilts-showcase.artist-no-video .artist-photo-wrap{grid-column:1/-1!important;grid-row:2!important;height:250px!important}
+.artist-dialog.stilts-showcase.artist-no-video .artist-photo-wrap img{height:250px!important;object-fit:contain!important}
+.artist-dialog.stilts-showcase.artist-no-video .artist-photo-count{grid-column:1/-1!important;grid-row:3!important}
+.artist-dialog.stilts-showcase.artist-no-video #artist-dialog-description{grid-column:1/-1!important;grid-row:4!important}
+.artist-dialog.stilts-showcase.artist-no-video .artist-price-with-info{grid-column:1/-1!important;grid-row:5!important}
+.artist-dialog.stilts-showcase.artist-no-video .artist-cta{grid-column:1/-1!important;grid-row:6!important}
+.artist-dialog.stilts-showcase.artist-no-video .artist-price-note{grid-column:1/-1!important;grid-row:7!important}
+}
+</style>
 </head>
 <body>
 <header class="top"><div class="container nav"><a aria-label="НОГИ в РУКИ" class="logo brand-brush" href="#home">НОГИ в РУКИ</a><span class="brand-sub">цирковая<br/>команда</span><nav class="links"><a href="#home">Главная</a><a href="#formats">Форматы</a><a href="#genres">Жанры</a><a href="#gallery">Галерея</a><a href="#price">Прайс</a><a href="#contacts" data-contacts-open="true">Контакты</a></nav><a class="btn" data-request-open="true" href="#request">Оставить заявку →</a><details class="mobile-menu"><summary aria-label="Открыть меню"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"></path></svg></summary><nav aria-label="Навигация по сайту" class="mobile-menu-panel"><a href="#home">Главная</a><a href="#formats">Форматы</a><a href="#genres">Жанры</a><a href="#gallery">Галерея</a><a href="#price">Прайс</a><a href="#contacts" data-contacts-open="true">Контакты</a></nav></details></div></header>
@@ -1219,7 +1238,7 @@ document.addEventListener('DOMContentLoaded', () => {
  let current=null,photoIndex=0;
  function renderPhoto(){const images=current.images;const photo=document.getElementById('artist-dialog-photo');const isEnd=current===entries.stilts&&photoIndex===images.length;const end=document.getElementById('stilts-gallery-end');end.hidden=!isEnd;photo.hidden=isEnd;if(!isEnd){photo.src=images[photoIndex];photo.alt=current.title+' — фотография '+(photoIndex+1)+' из '+images.length;}document.getElementById('artist-photo-count').textContent=isEnd?'Галерея':(images.length>1?(photoIndex+1)+' / '+images.length:'');dialog.querySelectorAll('.artist-photo-nav').forEach(btn=>btn.hidden=images.length<2)}
  function shift(n){if(!current)return;const count=current.images.length+(current===entries.stilts?1:0);photoIndex=(photoIndex+n+count)%count;renderPhoto()}
- const open=key=>{const data=entries[key];if(!data)return;current=data;photoIndex=0;document.getElementById('artist-dialog-title').textContent=data.title;document.getElementById('artist-dialog-description').textContent=data.description;document.getElementById('artist-dialog-price').textContent=data.price;renderPhoto();const videoWrap=document.getElementById('artist-video-wrap');const video=document.getElementById('artist-video');video.pause();video.removeAttribute('src');video.load();videoWrap.hidden=key!=='stilts';dialog.classList.toggle('stilts-showcase',key==='stilts');if(key==='stilts'){video.src='videos/hodulisty-card.mov';video.load()}dialog.showModal();if(key==='stilts'&&!window.matchMedia('(prefers-reduced-motion: reduce)').matches){video.play().catch(()=>{})}};
+ const open=key=>{const data=entries[key];if(!data)return;current=data;photoIndex=0;document.getElementById('artist-dialog-title').textContent=data.title;document.getElementById('artist-dialog-description').textContent=data.description;document.getElementById('artist-dialog-price').textContent=data.price;renderPhoto();const videoWrap=document.getElementById('artist-video-wrap');const video=document.getElementById('artist-video');video.pause();video.removeAttribute('src');video.load();videoWrap.hidden=key!=='stilts';dialog.classList.add('stilts-showcase');dialog.classList.toggle('artist-no-video',key!=='stilts');if(key==='stilts'){video.src='videos/hodulisty-card.mov';video.load()}dialog.showModal();if(key==='stilts'&&!window.matchMedia('(prefers-reduced-motion: reduce)').matches){video.play().catch(()=>{})}};
  document.querySelectorAll('.genre[data-artist]').forEach(card=>{card.addEventListener('click',()=>open(card.dataset.artist));card.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open(card.dataset.artist)}})});
  document.getElementById('stilts-gallery-link').addEventListener('click',e=>{e.preventDefault();dialog.close();document.getElementById('gallery')?.scrollIntoView({behavior:'smooth',block:'start'});history.replaceState(null,'','#gallery')});
  dialog.querySelector('.artist-photo-prev').addEventListener('click',()=>shift(-1));dialog.querySelector('.artist-photo-next').addEventListener('click',()=>shift(1));
