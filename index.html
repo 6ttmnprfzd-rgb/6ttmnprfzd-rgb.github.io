@@ -946,6 +946,37 @@ header.top .mobile-menu-panel a:hover,header.top .mobile-menu-panel a:focus-visi
   }
 }
 </style>
+<style id="price-redesign-20261019">
+/* PRICE REDESIGN 2026-10-19 — only main price section and price popup */
+#price .price-feature{background:transparent!important;border:0!important;border-top:1px solid #dedbd6!important;border-bottom:1px solid #dedbd6!important;border-radius:0!important;box-shadow:none!important;transform:none!important;padding:36px 4px 38px!important;grid-template-columns:minmax(0,1fr) auto;column-gap:20px;row-gap:16px}
+#price .price-feature:hover{box-shadow:none!important}
+#price .pf-meta{color:#85817e!important;font-size:11px;letter-spacing:.14em}
+#price .pf-title{font-size:clamp(43px,6.8vw,88px)!important;letter-spacing:-.075em;line-height:.94;color:#141416}
+#price .pf-sub{color:#77716e!important;font-size:14px;letter-spacing:.01em}
+#price .pf-action{border-radius:0!important;background:transparent!important;color:#ed082c!important;padding:14px 0 14px 18px!important;font-size:12px;letter-spacing:.035em;border-bottom:1px solid #ed082c;transition:gap .2s}
+#price .pf-action span{font-size:22px;margin-left:14px}
+#price .price-feature:focus-visible{outline:2px solid #ed082c;outline-offset:5px}
+.price-overlay{background:rgba(8,9,13,.72)!important;backdrop-filter:blur(13px)!important;-webkit-backdrop-filter:blur(13px)!important}
+.price-overlay .price-panel{color:#f5f4f3!important;background:linear-gradient(145deg,rgba(49,50,56,.96),rgba(22,23,28,.98) 60%,rgba(17,18,23,.99))!important;border:1px solid rgba(255,255,255,.16)!important;box-shadow:0 32px 100px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.12)!important;border-radius:22px!important;scrollbar-color:#666 #25262b}
+.price-overlay .price-panel .eyebrow{color:#ff5168!important;letter-spacing:.1em}
+.price-overlay .price-panel .eyebrow:after{background:rgba(255,255,255,.3)}
+.price-overlay .price-panel h2{color:#fff!important;font-size:clamp(29px,4.8vw,48px);letter-spacing:-.055em}
+.price-overlay .price-close{background:rgba(255,255,255,.1)!important;color:#fff!important;border:1px solid rgba(255,255,255,.18)!important}
+.price-overlay .price-close:hover{background:rgba(255,255,255,.2)!important}
+.price-overlay .price-tabs{background:rgba(255,255,255,.07)!important;border:1px solid rgba(255,255,255,.09)!important;border-radius:12px}
+.price-overlay .price-tab{color:#bfc0c5!important;transition:background .2s,color .2s}
+.price-overlay .price-tab[aria-selected=true]{background:#ed082c!important;color:#fff!important;box-shadow:0 4px 16px #ed082c44}
+.price-overlay .price-content>p{color:#c6c6ca!important}
+.price-overlay .price-item{border-bottom:1px solid rgba(255,255,255,.13)!important;color:#e7e6e8!important;padding:13px 0}
+.price-overlay .price-item strong{color:#fff!important;font-size:15px;font-weight:800;letter-spacing:-.015em}
+.price-overlay .price-subtitle{background:rgba(237,8,44,.12)!important;border-left:2px solid #ff3c5b!important;color:#ff7388!important;margin-top:24px;padding:14px 16px!important}
+.price-overlay .price-plan{background:rgba(255,255,255,.065)!important;border:1px solid rgba(255,255,255,.1)!important;color:#fff!important;border-radius:12px!important}
+.price-overlay .price-plan strong{color:#fff!important}
+.price-overlay .price-footnote{color:#a9aab1!important;border-top:1px solid rgba(255,255,255,.13);padding-top:20px}
+.price-overlay .price-cta{background:#ed082c!important;color:#fff!important;letter-spacing:.025em}
+.price-overlay .price-cta:hover{background:#c90025!important}
+@media(max-width:600px){#price .price-feature{grid-template-columns:1fr!important;gap:11px!important;padding:30px 0 32px!important}#price .pf-meta,#price .pf-title,#price .pf-sub,#price .pf-action{grid-column:1!important;grid-row:auto!important}#price .pf-title{font-size:clamp(46px,12vw,67px)!important}#price .pf-action{justify-self:start;padding:14px 0 10px!important;margin-top:8px}.price-overlay .price-panel{border-radius:22px 22px 0 0!important;padding:28px 20px max(30px,env(safe-area-inset-bottom))!important}.price-overlay .price-item{gap:12px}.price-overlay .price-item span{min-width:0}.price-overlay .price-item strong{font-size:13px!important;flex-shrink:0}.price-overlay .price-plan{flex-wrap:wrap}.price-overlay .price-panel h2{margin-right:36px}}
+</style>
 </head>
 <body>
 <header class="top"><div class="container nav"><a aria-label="НОГИ в РУКИ" class="logo brand-brush" href="#home">НОГИ в РУКИ</a><span class="brand-sub">цирковая<br/>команда</span><nav class="links"><a href="#home">Главная</a><a href="#formats">Форматы</a><a href="#genres">Жанры</a><a href="#gallery">Галерея</a><a href="#price">Прайс</a><a href="#contacts" data-contacts-open="true">Контакты</a></nav><a class="btn" data-request-open="true" href="#request">Оставить заявку →</a><details class="mobile-menu"><summary aria-label="Открыть меню"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"></path></svg></summary><nav aria-label="Навигация по сайту" class="mobile-menu-panel"><a href="#home">Главная</a><a href="#formats">Форматы</a><a href="#genres">Жанры</a><a href="#gallery">Галерея</a><a href="#price">Прайс</a><a href="#contacts" data-contacts-open="true">Контакты</a></nav></details></div></header>
