@@ -227,3 +227,13 @@
     line-height: 1.12 !important;
   }
 }
+
+
+/* 2026-10-21: Remove genre progress, tighten transition to atmosphere. */
+#genres .genres-progress {display:none!important}
+#genres.section {padding-bottom:28px!important}
+#gallery.section {padding-top:43px!important}
+@media(max-width:650px) {
+  #genres.section {padding-bottom:22px!important}
+  #gallery.section {padding-top:35px!important}
+}
