@@ -49,7 +49,8 @@
         "image": "images/cms-photo-006.jpg",
         "alt": "Унициклисты на мероприятии"
       }
-    ]
+    ],
+    "video": "videos/-9107598504827633725.mov"
   },
   "mikromag": {
     "photos": [
@@ -117,6 +118,11 @@
         "image": "images/cms-photo-014.jpg",
         "alt": "Гимнастка в партерном кольце на мероприятии"
       }
-    ]
+    ],
+    "video": "videos/87020D74-8395-4416-9C87-8DF73CB6530D.mp4"
+  },
+  "kontaktnoe-zhonglirovanie": {
+    "photos": [],
+    "video": "videos/804D93CA-6448-4042-948E-1F8019C09B7B.mp4"
   }
 }
