@@ -1,4 +1,5 @@
-/* Genre-to-genre navigation shared by homepage popup and artist detail pages. */
+/* Compact navigation between all 18 artist genres.
+   Desktop: just under the photo. Mobile: immediately under the title. */
 (()=>{
   'use strict';
   const genres=[
@@ -25,22 +26,34 @@
   const css=document.createElement('style');
   css.id='artist-genre-nav-style';
   css.textContent=[
-    '.artist-genre-nav {box-sizing:border-box;display:block;width:100%;padding:19px clamp(17px,3vw,32px) 23px;background:#16161b;color:#fff;border-top:1px solid #373740;font-family:Arial,Helvetica,sans-serif}',
-    '.artist-genre-nav * {box-sizing:border-box}',
-    '.artist-genre-nav-top {display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 12px}',
-    '.artist-genre-nav-heading {color:#f0f0f2;font-size:11px;line-height:1.3;font-weight:900;letter-spacing:.13em;text-transform:uppercase}',
-    '.artist-genre-nav-count {font-size:11px;color:#aaaab0;font-weight:800;letter-spacing:.10em;white-space:nowrap}',
-    '.artist-genre-nav-grid {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}',
-    '.artist-genre-nav-item {font-family:inherit;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:8px;min-width:0;min-height:88px;padding:13px 15px;border:1px solid #44444d;border-radius:12px;background:#25252b;color:#fff!important;text-align:left;text-decoration:none!important;cursor:pointer!important;box-shadow:none!important;transform:none!important;transition:background .18s,border-color .18s}',
-    '.artist-genre-nav-item:hover {background:#33333a;border-color:#92929b}',
-    '.artist-genre-nav-item:focus-visible {outline:2px solid #ff3c62;outline-offset:3px}',
-    '.artist-genre-nav-next {background:#30252d;border-color:#653846}',
-    '.artist-genre-nav-next:hover {background:#452b37;border-color:#e73355}',
-    '.artist-genre-nav-kicker {display:block;font-size:10px;font-weight:800;letter-spacing:.11em;text-transform:uppercase;color:#a8a8b0}',
-    '.artist-genre-nav-next .artist-genre-nav-kicker {color:#ff6480}',
-    '.artist-genre-nav-name {display:block;font-size:clamp(12px,1.7vw,16px);font-weight:850;line-height:1.22;overflow-wrap:anywhere;max-width:100%;text-transform:none;color:#fff}',
-    '@media(max-width:650px){.artist-genre-nav {padding:16px 17px 20px}.artist-genre-nav-grid {gap:8px}.artist-genre-nav-item {padding:11px 12px;min-height:84px;border-radius:10px}.artist-genre-nav-name {font-size:12px}.artist-genre-nav-kicker {font-size:9px;letter-spacing:.07em}}',
-    '@media(prefers-reduced-motion:reduce){.artist-genre-nav-item{transition:none}}'
+    '.artist-genre-nav,.artist-genre-nav *{box-sizing:border-box}',
+    '.artist-genre-nav{width:100%;color:#e9e9ec;font-family:Arial,Helvetica,sans-serif;border-top:1px solid #52525b;padding:9px 0 0}',
+    '.artist-genre-nav-line{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:10px}',
+    '.artist-genre-nav-item{display:flex;align-items:center;gap:6px;min-width:0;min-height:30px;padding:2px 0;border:0!important;background:transparent!important;color:#e4e4e9!important;text-align:left;text-decoration:none!important;border-radius:0!important;box-shadow:none!important;transform:none!important;transition:color .16s ease!important;cursor:pointer!important;font:600 12px/1.3 Arial,Helvetica,sans-serif!important}',
+    '.artist-genre-nav-item:hover{color:#fff!important}',
+    '.artist-genre-nav-item:focus-visible{outline:2px solid #fb4768;outline-offset:3px}',
+    '.artist-genre-nav-next{justify-content:flex-end;text-align:right!important;color:#fff!important}',
+    '.artist-genre-nav-name{min-width:0;overflow-wrap:anywhere;font:inherit!important;color:inherit!important}',
+    '.artist-genre-nav-next .artist-genre-nav-name{color:#fff!important}',
+    '.artist-genre-nav-arrow{flex:none;font-size:17px;line-height:1;color:#ff5375}',
+    '.artist-genre-nav-count{color:#aaaab2;font:700 10px/1.2 Arial,Helvetica,sans-serif;letter-spacing:.06em;white-space:nowrap}',
+    '.artist-genre-desktop-slot{display:block;width:100%;min-width:0;grid-column:2!important;grid-row:3!important;align-self:stretch!important;padding-top:21px!important}',
+    '.artist-dialog.stilts-showcase.artist-no-video .artist-genre-desktop-slot{grid-column:1/-1!important;grid-row:3!important}',
+    '.artist-dialog.stilts-showcase.artist-genre-no-photo:not(.artist-no-video) .artist-genre-desktop-slot{grid-column:2!important;grid-row:2!important;align-self:center!important;padding:0!important}',
+    '.artist-genre-mobile-slot{display:none}',
+    '@media(max-width:650px){',
+    '  .artist-genre-desktop-slot{display:none!important}',
+    '  .artist-dialog.stilts-showcase .artist-dialog-head{display:flex!important;flex-wrap:wrap!important;align-items:center!important}',
+    '  .artist-dialog.stilts-showcase .artist-dialog-head h1,.artist-dialog.stilts-showcase .artist-dialog-head h2{min-width:0;flex:1 1 0!important}',
+    '  .artist-dialog.stilts-showcase .artist-dialog-head .artist-close{flex:none!important}',
+    '  .artist-genre-mobile-slot{display:block!important;flex:0 0 100%!important;order:5;width:100%;margin:11px 0 1px}',
+    '  .artist-genre-nav{padding:10px 0 0}',
+    '  .artist-genre-nav-line{gap:7px}',
+    '  .artist-genre-nav-item{font-size:11px!important;line-height:1.22!important;min-height:36px}',
+    '  .artist-genre-nav-arrow{font-size:16px}',
+    '  .artist-genre-nav-count{font-size:9px}',
+    '}',
+    '@media(prefers-reduced-motion:reduce){.artist-genre-nav-item{transition:none!important}}'
   ].join('\n');
   document.head.appendChild(css);
 
@@ -53,33 +66,32 @@
   function createPanel(kind,onShift){
     const nav=el('nav','artist-genre-nav');
     nav.setAttribute('aria-label','Переход между цирковыми жанрами');
-    const top=el('div','artist-genre-nav-top');
-    const heading=el('span','artist-genre-nav-heading','Смотреть другие жанры');
-    const count=el('span','artist-genre-nav-count');
-    top.append(heading,count);
-    const grid=el('div','artist-genre-nav-grid');
-    const make=(direction)=>{
-      const isNext=direction===1;
-      const item=el(kind==='homepage'?'button':'a','artist-genre-nav-item'+(isNext?' artist-genre-nav-next':''));
+    const line=el('div','artist-genre-nav-line');
+    const build=(direction)=>{
+      const forward=direction===1;
+      const item=el(kind==='homepage'?'button':'a','artist-genre-nav-item'+(forward?' artist-genre-nav-next':''));
       if(item.tagName==='BUTTON')item.type='button';
-      const kicker=el('span','artist-genre-nav-kicker',isNext?'Следующий →':'← Предыдущий');
-      const name=el('strong','artist-genre-nav-name');
-      item.append(kicker,name);
+      const name=el('span','artist-genre-nav-name');
+      const arrow=el('span','artist-genre-nav-arrow',forward?'→':'←');
+      arrow.setAttribute('aria-hidden','true');
+      if(forward)item.append(name,arrow);
+      else item.append(arrow,name);
       if(kind==='homepage')item.addEventListener('click',()=>onShift(direction));
-      grid.appendChild(item);
       return {item,name};
     };
-    const previous=make(-1),next=make(1);
-    nav.append(top,grid);
+    const previous=build(-1),next=build(1);
+    const count=el('span','artist-genre-nav-count');
+    line.append(previous.item,count,next.item);
+    nav.appendChild(line);
     return {
       nav,
       render(i){
-        if(i<0||!genres.length)return;
+        if(i<0)return;
         const prev=genres[(i-1+genres.length)%genres.length];
         const following=genres[(i+1)%genres.length];
-        count.textContent=String(i+1).padStart(2,'0')+' / '+String(genres.length).padStart(2,'0');
         previous.name.textContent=prev[2];
         next.name.textContent=following[2];
+        count.textContent=String(i+1).padStart(2,'0')+' / '+genres.length;
         previous.item.setAttribute('aria-label','Предыдущий жанр: '+prev[2]);
         next.item.setAttribute('aria-label','Следующий жанр: '+following[2]);
         if(kind!=='homepage'){
@@ -89,18 +101,37 @@
       }
     };
   }
+  function mount(article,kind,onShift){
+    const heading=article.querySelector('.artist-dialog-head');
+    const counter=article.querySelector('.artist-photo-count');
+    if(!heading||!counter)return null;
+    const inner=article.querySelector('.artist-dialog-inner');
+    if(!inner)return null;
+    const desktop=createPanel(kind,onShift);
+    const mobile=createPanel(kind,onShift);
+    const desktopSlot=el('div','artist-genre-desktop-slot');
+    const mobileSlot=el('div','artist-genre-mobile-slot');
+    desktopSlot.appendChild(desktop.nav);
+    mobileSlot.appendChild(mobile.nav);
+    counter.after(desktopSlot);
+    heading.appendChild(mobileSlot);
+    const wrap=article.querySelector('.artist-photo-wrap');
+    const sync=()=>article.classList.toggle('artist-genre-no-photo',!wrap||wrap.hidden);
+    sync();
+    if(wrap)new MutationObserver(sync).observe(wrap,{attributes:true,attributeFilter:['hidden']});
+    return i=>{desktop.render(i);mobile.render(i)};
+  }
   function initHomepage(dialog){
     const track=document.querySelector('#genres .genres-featured');
     if(!track)return;
     let activeKey=null;
-    const panel=createPanel('homepage',direction=>{
+    const shift=direction=>{
       if(!dialog.open||!activeKey)return;
       const i=genres.findIndex(g=>g[0]===activeKey);
       if(i<0)return;
       const key=genres[(i+direction+genres.length)%genres.length][0];
       const target=track.querySelector('.genre[data-artist="'+key+'"]');
       if(!target)return;
-      // The close event allows the existing media cleanup to finish before reopening.
       dialog.addEventListener('close',()=>{
         requestAnimationFrame(()=>{
           target.click();
@@ -108,8 +139,9 @@
         });
       },{once:true});
       dialog.close();
-    });
-    dialog.appendChild(panel.nav);
+    };
+    const render=mount(dialog,'homepage',shift);
+    if(!render)return;
     function select(event){
       if(event.type==='keydown'&&event.key!=='Enter'&&event.key!==' ')return;
       const card=event.target.closest?.('#genres .genres-featured .genre[data-artist]');
@@ -117,19 +149,18 @@
       const index=genres.findIndex(g=>g[0]===card.dataset.artist);
       if(index<0)return;
       activeKey=card.dataset.artist;
-      panel.render(index);
+      render(index);
     }
     document.addEventListener('click',select,true);
     document.addEventListener('keydown',select,true);
   }
   function initDetailPage(){
     const article=document.querySelector('article.artist-dialog');
-    const slug=document.body.dataset.artistSlug;
-    const i=genres.findIndex(g=>g[1]===slug);
-    if(!article||i<0)return;
-    const panel=createPanel('detail');
-    panel.render(i);
-    article.appendChild(panel.nav);
+    const slug=document.body.dataset.artistSlug||'';
+    const index=genres.findIndex(g=>g[1]===slug);
+    if(!article||index<0)return;
+    const render=mount(article,'detail');
+    if(render)render(index);
   }
   const setup=()=>{
     const dialog=document.getElementById('artist-dialog');
