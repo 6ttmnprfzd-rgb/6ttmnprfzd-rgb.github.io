@@ -273,3 +273,12 @@ document.addEventListener('DOMContentLoaded',()=>{
     }
   }).catch(()=>{});
 });
+
+/* Load lightweight navigation without editing the huge homepage HTML. */
+(()=>{
+  if(document.querySelector('script[data-artist-genre-navigation]'))return;
+  const s=document.createElement('script');
+  s.src='/artist-genre-navigation.js?v=20261021';
+  s.dataset.artistGenreNavigation='true';
+  document.head.appendChild(s);
+})();
