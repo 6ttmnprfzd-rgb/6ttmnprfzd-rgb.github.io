@@ -1,0 +1,138 @@
+{
+  "hodulisty": {
+    "video": "videos/hodulisty-card.mov",
+    "photos": [
+      {
+        "image": "images/cms-photo-003.jpg",
+        "alt": "Ходулисты на мероприятии"
+      },
+      {
+        "image": "images/stilts-card-02.jpg",
+        "alt": "Ходулисты — фотография 2"
+      },
+      {
+        "image": "images/stilts-card-03.jpg",
+        "alt": "Ходулисты — фотография 3"
+      },
+      {
+        "image": "images/stilts-card-04.jpg",
+        "alt": "Ходулисты — фотография 4"
+      }
+    ]
+  },
+  "zhonglery": {
+    "video": "",
+    "photos": [
+      {
+        "image": "images/cms-photo-004.jpg",
+        "alt": "Жонглёры на мероприятии"
+      }
+    ]
+  },
+  "mimy": {
+    "video": "",
+    "photos": [
+      {
+        "image": "images/cms-photo-005.jpg",
+        "alt": "Мимы на мероприятии"
+      }
+    ]
+  },
+  "unitsiklisty": {
+    "video": "",
+    "photos": [
+      {
+        "image": "images/cms-photo-006.jpg",
+        "alt": "Унициклисты на мероприятии"
+      }
+    ]
+  },
+  "mikromag": {
+    "video": "",
+    "photos": [
+      {
+        "image": "images/cms-photo-007.jpg",
+        "alt": "Микромаг на мероприятии"
+      }
+    ]
+  },
+  "akrobaty": {
+    "video": "",
+    "photos": [
+      {
+        "image": "images/cms-photo-008.jpg",
+        "alt": "Акробаты на мероприятии"
+      }
+    ]
+  },
+  "koleso-sira": {
+    "video": "",
+    "photos": [
+      {
+        "image": "images/cms-photo-009.jpg",
+        "alt": "Колесо Сира на мероприятии"
+      }
+    ]
+  },
+  "balans-na-nozhe": {
+    "video": "",
+    "photos": [
+      {
+        "image": "images/cms-photo-010.jpg",
+        "alt": "Баланс на ноже на мероприятии"
+      }
+    ]
+  },
+  "ekvilibr-na-trostyah": {
+    "video": "",
+    "photos": [
+      {
+        "image": "images/cms-photo-011.jpg",
+        "alt": "Эквилибр на тростях на мероприятии"
+      }
+    ]
+  },
+  "hulahupy": {
+    "video": "",
+    "photos": [
+      {
+        "image": "images/cms-photo-012.jpg",
+        "alt": "Хулахупы на мероприятии"
+      }
+    ]
+  },
+  "gimnastka-v-zorb-share": {
+    "video": "",
+    "photos": [
+      {
+        "image": "images/cms-photo-013.jpg",
+        "alt": "Гимнастка в Зорб-шаре на мероприятии"
+      }
+    ]
+  },
+  "gimnastka-v-parternom-koltse": {
+    "video": "",
+    "photos": [
+      {
+        "image": "images/cms-photo-014.jpg",
+        "alt": "Гимнастка в партерном кольце на мероприятии"
+      }
+    ]
+  },
+  "diabolo": {
+    "video": "",
+    "photos": []
+  },
+  "ekvilibr-na-katushkah": {
+    "video": "",
+    "photos": []
+  },
+  "ekvilibr-na-stulyah": {
+    "video": "",
+    "photos": []
+  },
+  "kontaktnoe-zhonglirovanie": {
+    "video": "",
+    "photos": []
+  }
+}
