@@ -152,6 +152,14 @@ document.addEventListener('DOMContentLoaded',()=>{
     }
   ];
   const priceNote='Стоимость зависит от формата выступления, даты, площадки и технических условий. Подробности уточняем при обсуждении мероприятия.';
+  const originalNote=dialog.querySelector('.artist-price-note')?.textContent||'';
+  const originalVideoLabel=dialog.querySelector('.artist-video-label')?.textContent||'';
+  dialog.addEventListener('close',()=>{
+    const note=dialog.querySelector('.artist-price-note');
+    const label=dialog.querySelector('.artist-video-label');
+    if(note)note.textContent=originalNote;
+    if(label)label.textContent=originalVideoLabel;
+  });
   const cards=[];
   const safePhoto=path=>{
     if(typeof path!=='string')return null;
