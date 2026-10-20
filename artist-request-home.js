@@ -282,3 +282,13 @@ document.addEventListener('DOMContentLoaded',()=>{
   s.dataset.artistGenreNavigation='true';
   document.head.appendChild(s);
 })();
+
+/* Load the small, homepage-only genre catalog stylesheet after inline site styles. */
+(()=>{
+  if(document.querySelector('link[data-genre-catalog-polish]'))return;
+  const sheet=document.createElement('link');
+  sheet.rel='stylesheet';
+  sheet.href='/genre-catalog-polish.css?v=20261021a';
+  sheet.dataset.genreCatalogPolish='true';
+  document.head.appendChild(sheet);
+})();
