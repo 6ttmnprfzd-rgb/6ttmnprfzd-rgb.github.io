@@ -280,3 +280,7 @@
     transform:translateX(calc(-50% + var(--offset)*64%)) scale(.73);
   }
 }
+
+
+/* Atmosphere redesign 3/4: keep photo counter and arrows, hide redundant progress. */
+#gallery .film-progress {display:none!important}
