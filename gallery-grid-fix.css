@@ -258,3 +258,25 @@
   #gallery .section-heading {margin-bottom:34px}
   #gallery .section-heading::after {bottom:-13px}
 }
+
+
+/* Atmosphere redesign 2/4: compact floating photo stage on desktop. */
+@media(min-width:851px){
+  #gallery .gallery-film{
+    height:clamp(310px,34vw,460px)!important;
+    margin-top:10px!important;
+  }
+  #gallery .gallery-film .shot,
+  #gallery .gallery-film .shot:first-child,
+  #gallery .gallery-film .shot:nth-child(4){
+    box-shadow:0 12px 33px rgba(16,10,18,.15);
+  }
+  #gallery .gallery-film .shot.is-active{
+    box-shadow:0 30px 60px rgba(16,10,18,.25)!important;
+  }
+  #gallery .gallery-film .shot[data-distance="1"]{
+    opacity:.72;
+    filter:brightness(.9);
+    transform:translateX(calc(-50% + var(--offset)*64%)) scale(.73);
+  }
+}
