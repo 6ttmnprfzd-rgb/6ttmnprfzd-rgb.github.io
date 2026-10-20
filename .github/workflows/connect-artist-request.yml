@@ -1,0 +1,35 @@
+name: Connect artist request button on homepage
+on:
+  push:
+    paths:
+      - .github/workflows/connect-artist-request.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  connect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Add small artist CTA script without rewriting homepage assets
+        shell: python
+        run: |
+          from pathlib import Path
+          path = Path('index.html')
+          html = path.read_text(encoding='utf-8')
+          tag = '<script src="/artist-request-home.js" defer></script>'
+          if tag not in html:
+              assert '<head>' in html, "Unexpected page markup"
+              html = html.replace('<head>', '<head>\n' + tag, 1)
+              path.write_text(html, encoding='utf-8')
+      - name: Commit only when changed
+        run: |
+          if ! git diff --quiet -- index.html; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add index.html
+            git commit -m "Connect artist card CTA to existing form"
+            git push
+          fi
