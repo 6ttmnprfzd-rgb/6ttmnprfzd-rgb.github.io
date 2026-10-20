@@ -1,4 +1,4 @@
-name: Apply gallery layout fix
+name: Repair gallery markup
 on:
   push:
     paths:
@@ -13,23 +13,32 @@ jobs:
       - uses: actions/checkout@v4
         with:
           persist-credentials: true
-      - name: Add stylesheet link without rewriting embedded media
+      - name: Move photo tiles back into gallery grid
         shell: python
         run: |
           from pathlib import Path
           file = Path("index.html")
           html = file.read_text(encoding="utf-8")
-          link = '<link rel="stylesheet" href="/gallery-grid-fix.css">'
-          if link not in html:
-              assert "<head>" in html, "Missing HTML head"
-              html = html.replace("<head>", "<head>\n" + link, 1)
+          broken_start = 'src="images/cms-photo-045.jpg"/></button></div><button'
+          fixed_start = 'src="images/cms-photo-045.jpg"/></button><button'
+          broken_end = 'src="images/cms-photo-061.jpg"/></button></div><div class="media-content" data-media-content="videos"'
+          fixed_end = 'src="images/cms-photo-061.jpg"/></button></div></div><div class="media-content" data-media-content="videos"'
+          if broken_start in html:
+              assert html.count(broken_start) == 1, "Ambiguous gallery start"
+              assert html.count(broken_end) == 1, "Gallery end not found"
+              html = html.replace(broken_start, fixed_start, 1)
+              html = html.replace(broken_end, fixed_end, 1)
               file.write_text(html, encoding="utf-8")
-      - name: Commit if changed
+              print("Repaired gallery HTML")
+          else:
+              assert fixed_start in html and fixed_end in html, "Unexpected gallery markup"
+              print("Gallery HTML already repaired")
+      - name: Commit HTML fix if needed
         run: |
           if ! git diff --quiet -- index.html; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
             git add index.html
-            git commit -m "Connect gallery layout stylesheet to homepage"
+            git commit -m "Move 16 orphan gallery images inside photo grid"
             git push
           fi
