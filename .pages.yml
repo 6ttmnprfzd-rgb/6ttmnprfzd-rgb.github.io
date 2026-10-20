@@ -477,3 +477,45 @@ content:
               - name: alt
                 label: Описание фотографии
                 type: string
+      - name: volnostoyashchaya-lestnitsa
+        label: Вольностоящая лестница
+        type: object
+        fields:
+          - name: video
+            label: Видео MP4 (можно заполнить позже)
+            type: file
+          - name: photos
+            label: Фотографии карточки
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "Фото {index}"
+            fields:
+              - name: image
+                label: Фотография
+                type: image
+              - name: alt
+                label: Описание фотографии
+                type: string
+      - name: shlyapnik
+        label: Шляпник
+        type: object
+        fields:
+          - name: video
+            label: Видео MP4 (можно заполнить позже)
+            type: file
+          - name: photos
+            label: Фотографии карточки
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "Фото {index}"
+            fields:
+              - name: image
+                label: Фотография
+                type: image
+              - name: alt
+                label: Описание фотографии
+                type: string
