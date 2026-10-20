@@ -143,3 +143,12 @@ form.addEventListener('submit',async e=>{
 overlay.querySelector('.request-copy').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(message());overlay.querySelector('.request-copy').textContent='Текст скопирован ✓'}catch(e){alert('Не удалось скопировать текст заявки.')}});
 })();
 })();
+
+/* Add previous/next genre links on standalone artist pages too. */
+(()=>{
+  if(document.querySelector('script[data-artist-genre-navigation]'))return;
+  const s=document.createElement('script');
+  s.src='/artist-genre-navigation.js?v=20261021';
+  s.dataset.artistGenreNavigation='true';
+  document.head.appendChild(s);
+})();
