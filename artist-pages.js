@@ -152,3 +152,11 @@ overlay.querySelector('.request-copy').addEventListener('click',async()=>{try{aw
   s.dataset.artistGenreNavigation='true';
   document.head.appendChild(s);
 })();
+
+
+/* Route standalone artist gallery links to the homepage media library. */
+document.addEventListener('DOMContentLoaded',()=>{
+  const galleryLink=document.getElementById('stilts-gallery-link');
+  if(!galleryLink)return;
+  galleryLink.href='/#media-library';
+});
