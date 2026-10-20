@@ -135,3 +135,345 @@ content:
       - name: contact_photo
         label: Фотография внизу сайта
         type: image
+  - name: artist_media
+    label: Фото и видео карточек артистов
+    type: file
+    path: artist-media.json
+    format: json
+    fields:
+      - name: hodulisty
+        label: Ходулисты
+        type: object
+        fields:
+          - name: video
+            label: Видео MP4 (можно заполнить позже)
+            type: file
+          - name: photos
+            label: Фотографии карточки
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "Фото {index}"
+            fields:
+              - name: image
+                label: Фотография
+                type: image
+              - name: alt
+                label: Описание фотографии
+                type: string
+      - name: zhonglery
+        label: Жонглёры
+        type: object
+        fields:
+          - name: video
+            label: Видео MP4 (можно заполнить позже)
+            type: file
+          - name: photos
+            label: Фотографии карточки
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "Фото {index}"
+            fields:
+              - name: image
+                label: Фотография
+                type: image
+              - name: alt
+                label: Описание фотографии
+                type: string
+      - name: mimy
+        label: Мимы
+        type: object
+        fields:
+          - name: video
+            label: Видео MP4 (можно заполнить позже)
+            type: file
+          - name: photos
+            label: Фотографии карточки
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "Фото {index}"
+            fields:
+              - name: image
+                label: Фотография
+                type: image
+              - name: alt
+                label: Описание фотографии
+                type: string
+      - name: unitsiklisty
+        label: Унициклисты
+        type: object
+        fields:
+          - name: video
+            label: Видео MP4 (можно заполнить позже)
+            type: file
+          - name: photos
+            label: Фотографии карточки
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "Фото {index}"
+            fields:
+              - name: image
+                label: Фотография
+                type: image
+              - name: alt
+                label: Описание фотографии
+                type: string
+      - name: mikromag
+        label: Микромаг
+        type: object
+        fields:
+          - name: video
+            label: Видео MP4 (можно заполнить позже)
+            type: file
+          - name: photos
+            label: Фотографии карточки
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "Фото {index}"
+            fields:
+              - name: image
+                label: Фотография
+                type: image
+              - name: alt
+                label: Описание фотографии
+                type: string
+      - name: akrobaty
+        label: Акробаты
+        type: object
+        fields:
+          - name: video
+            label: Видео MP4 (можно заполнить позже)
+            type: file
+          - name: photos
+            label: Фотографии карточки
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "Фото {index}"
+            fields:
+              - name: image
+                label: Фотография
+                type: image
+              - name: alt
+                label: Описание фотографии
+                type: string
+      - name: koleso-sira
+        label: Колесо Сира
+        type: object
+        fields:
+          - name: video
+            label: Видео MP4 (можно заполнить позже)
+            type: file
+          - name: photos
+            label: Фотографии карточки
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "Фото {index}"
+            fields:
+              - name: image
+                label: Фотография
+                type: image
+              - name: alt
+                label: Описание фотографии
+                type: string
+      - name: balans-na-nozhe
+        label: Баланс на ноже
+        type: object
+        fields:
+          - name: video
+            label: Видео MP4 (можно заполнить позже)
+            type: file
+          - name: photos
+            label: Фотографии карточки
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "Фото {index}"
+            fields:
+              - name: image
+                label: Фотография
+                type: image
+              - name: alt
+                label: Описание фотографии
+                type: string
+      - name: ekvilibr-na-trostyah
+        label: Эквилибр на тростях
+        type: object
+        fields:
+          - name: video
+            label: Видео MP4 (можно заполнить позже)
+            type: file
+          - name: photos
+            label: Фотографии карточки
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "Фото {index}"
+            fields:
+              - name: image
+                label: Фотография
+                type: image
+              - name: alt
+                label: Описание фотографии
+                type: string
+      - name: hulahupy
+        label: Хулахупы
+        type: object
+        fields:
+          - name: video
+            label: Видео MP4 (можно заполнить позже)
+            type: file
+          - name: photos
+            label: Фотографии карточки
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "Фото {index}"
+            fields:
+              - name: image
+                label: Фотография
+                type: image
+              - name: alt
+                label: Описание фотографии
+                type: string
+      - name: gimnastka-v-zorb-share
+        label: Гимнастка в Зорб-шаре
+        type: object
+        fields:
+          - name: video
+            label: Видео MP4 (можно заполнить позже)
+            type: file
+          - name: photos
+            label: Фотографии карточки
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "Фото {index}"
+            fields:
+              - name: image
+                label: Фотография
+                type: image
+              - name: alt
+                label: Описание фотографии
+                type: string
+      - name: gimnastka-v-parternom-koltse
+        label: Гимнастка в партерном кольце
+        type: object
+        fields:
+          - name: video
+            label: Видео MP4 (можно заполнить позже)
+            type: file
+          - name: photos
+            label: Фотографии карточки
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "Фото {index}"
+            fields:
+              - name: image
+                label: Фотография
+                type: image
+              - name: alt
+                label: Описание фотографии
+                type: string
+      - name: diabolo
+        label: Диаболо
+        type: object
+        fields:
+          - name: video
+            label: Видео MP4 (можно заполнить позже)
+            type: file
+          - name: photos
+            label: Фотографии карточки
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "Фото {index}"
+            fields:
+              - name: image
+                label: Фотография
+                type: image
+              - name: alt
+                label: Описание фотографии
+                type: string
+      - name: ekvilibr-na-katushkah
+        label: Эквилибр на катушках
+        type: object
+        fields:
+          - name: video
+            label: Видео MP4 (можно заполнить позже)
+            type: file
+          - name: photos
+            label: Фотографии карточки
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "Фото {index}"
+            fields:
+              - name: image
+                label: Фотография
+                type: image
+              - name: alt
+                label: Описание фотографии
+                type: string
+      - name: ekvilibr-na-stulyah
+        label: Эквилибр на стульях
+        type: object
+        fields:
+          - name: video
+            label: Видео MP4 (можно заполнить позже)
+            type: file
+          - name: photos
+            label: Фотографии карточки
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "Фото {index}"
+            fields:
+              - name: image
+                label: Фотография
+                type: image
+              - name: alt
+                label: Описание фотографии
+                type: string
+      - name: kontaktnoe-zhonglirovanie
+        label: Контактное жонглирование
+        type: object
+        fields:
+          - name: video
+            label: Видео MP4 (можно заполнить позже)
+            type: file
+          - name: photos
+            label: Фотографии карточки
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "Фото {index}"
+            fields:
+              - name: image
+                label: Фотография
+                type: image
+              - name: alt
+                label: Описание фотографии
+                type: string
