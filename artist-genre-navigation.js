@@ -37,9 +37,22 @@
     '.artist-genre-nav-next .artist-genre-nav-name{color:#fff!important}',
     '.artist-genre-nav-arrow{flex:none;font-size:17px;line-height:1;color:#ff5375}',
     '.artist-genre-nav-count{color:#aaaab2;font:700 10px/1.2 Arial,Helvetica,sans-serif;letter-spacing:.06em;white-space:nowrap}',
-    '.artist-genre-desktop-slot{display:block;width:100%;min-width:0;grid-column:2!important;grid-row:3!important;align-self:stretch!important;padding-top:21px!important}',
-    '.artist-dialog.stilts-showcase.artist-no-video .artist-genre-desktop-slot{grid-column:1/-1!important;grid-row:3!important}',
+    '.artist-genre-desktop-slot{display:block;width:100%;min-width:0;grid-column:2!important;grid-row:4!important;align-self:stretch!important;padding-top:0!important}',
+    '.artist-dialog.stilts-showcase.artist-no-video .artist-genre-desktop-slot{grid-column:1/-1!important;grid-row:4!important}',
     '.artist-dialog.stilts-showcase.artist-genre-no-photo:not(.artist-no-video) .artist-genre-desktop-slot{grid-column:2!important;grid-row:2!important;align-self:center!important;padding:0!important}',
+    '@media(min-width:651px){
+      .artist-dialog.stilts-showcase .artist-genre-desktop-slot{grid-column:2!important;grid-row:4!important}
+      .artist-dialog.stilts-showcase #artist-dialog-description{grid-row:5!important;grid-column:1/-1!important}
+      .artist-dialog.stilts-showcase .artist-price-with-info{grid-column:1!important;grid-row:6!important;align-self:center!important}
+      .artist-dialog.stilts-showcase .artist-cta{grid-column:2!important;grid-row:6!important;align-self:center!important}
+      .artist-dialog.stilts-showcase .artist-price-note{grid-column:1/-1!important;grid-row:7!important}
+      .artist-dialog.stilts-showcase.artist-no-video .artist-genre-desktop-slot{grid-column:1/-1!important;grid-row:4!important}
+      .artist-dialog.stilts-showcase.artist-no-video #artist-dialog-description{grid-column:1/-1!important;grid-row:5!important}
+      .artist-dialog.stilts-showcase.artist-no-video .artist-price-with-info{grid-column:1/-1!important;grid-row:6!important}
+      .artist-dialog.stilts-showcase.artist-no-video .artist-cta{grid-column:1/-1!important;grid-row:7!important}
+      .artist-dialog.stilts-showcase.artist-no-video .artist-price-note{grid-column:1/-1!important;grid-row:8!important}
+      .artist-dialog.stilts-showcase.artist-genre-no-photo:not(.artist-no-video) .artist-genre-desktop-slot{grid-column:2!important;grid-row:2!important;align-self:center!important}
+    }',
     '.artist-genre-mobile-slot{display:none}',
     '@media(max-width:650px){',
     '  .artist-genre-desktop-slot{display:none!important}',
