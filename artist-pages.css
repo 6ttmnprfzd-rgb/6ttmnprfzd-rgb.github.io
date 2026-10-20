@@ -1,0 +1,424 @@
+
+:root{--red:#ed082c;--paper:#faf9f6;--ink:#111114;--line:#e6e1dc}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;min-height:100dvh;background:#101015;color:#fff;font-family:Arial,Helvetica,sans-serif}
+a{text-decoration:none;color:inherit}button{font:inherit}
+.page-background{position:fixed;inset:0;overflow:hidden;z-index:0;pointer-events:none;background:linear-gradient(160deg,#fff,#f7f4f1)}
+.fake-top{padding:26px max(4vw,22px);border-bottom:1px solid #e9e6e2;font-weight:900;font-size:23px;letter-spacing:-.05em}
+.fake-top span{color:#ed082c}
+.fake-text{margin:90px auto;max-width:1100px;padding:0 25px;color:#111;font-size:clamp(55px,8vw,108px);line-height:.92;font-weight:900;letter-spacing:-.075em;opacity:.15}
+.dim{position:fixed;inset:0;z-index:1;background:rgba(12,12,18,.45);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
+.preview-stage{position:relative;z-index:2;display:flex;align-items:center;justify-content:center;min-height:100dvh;padding:16px 0}
+/* Тест: подробности популярных артистов */
+.genre[data-artist]{cursor:pointer}.genre[data-artist]:focus-visible{outline:3px solid var(--red);outline-offset:4px}
+.artist-dialog{border:0;padding:0;width:min(92vw,760px);max-height:88dvh;border-radius:18px;background:#fff;color:#111;box-shadow:0 25px 80px #0005;overflow:auto}
+.artist-dialog::backdrop{background:#111b;backdrop-filter:blur(5px)}
+.artist-dialog-inner{padding:clamp(20px,4vw,38px)}.artist-dialog-head{display:flex;align-items:flex-start;justify-content:space-between;gap:20px}
+.artist-dialog h1{font-size:clamp(30px,5vw,52px);text-transform:uppercase;letter-spacing:-.05em;margin:0 0 14px}
+.artist-dialog p{font-size:15px;line-height:1.65;color:#555}.artist-dialog img{display:block;width:100%;height:clamp(220px,45vw,340px);object-fit:cover;border-radius:12px;margin:14px 0}
+.artist-dialog .artist-price{font-weight:900;font-size:21px;margin:15px 0;color:#111}.artist-dialog .artist-close{background:#f4f1ef;border:0;border-radius:50%;width:42px;height:42px;cursor:pointer;font-size:25px;flex-shrink:0}
+.artist-dialog .artist-cta{display:inline-block;background:var(--red);color:white;border-radius:40px;padding:15px 22px;font-size:13px;font-weight:800;margin-top:6px}
+.artist-photo-wrap{position:relative}.artist-photo-wrap img{object-position:center 35%}.artist-photo-nav{position:absolute;top:50%;transform:translateY(-50%);border:0;border-radius:50%;width:42px;height:42px;background:#fffE;color:#171717;font-size:32px;cursor:pointer;z-index:1;box-shadow:0 2px 10px #0002}.artist-photo-prev{left:9px}.artist-photo-next{right:9px}.artist-dialog .artist-photo-count{text-align:center;font-size:12px;color:#777;margin:-5px 0 9px}.artist-dialog .artist-price-note{font-size:12px;line-height:1.5;color:#777;margin:0 0 15px}
+
+
+/* Видео и современная кнопка карточек артистов */
+.artist-video-wrap[hidden]{display:none!important}
+.artist-video-wrap{position:relative;overflow:hidden;border-radius:18px;background:#171419;margin:14px 0 16px;isolation:isolate}
+.artist-video-wrap video{display:block;width:100%;height:min(48vh,410px);object-fit:contain;background:#171419}
+.artist-video-label{position:absolute;left:16px;top:15px;padding:9px 12px;border:1px solid #ffffff60;border-radius:100px;background:#1119;backdrop-filter:blur(9px);color:#fff;font:800 10px Arial,sans-serif;letter-spacing:.12em;pointer-events:none}
+.artist-cta,.btn,.request-send{border-radius:18px!important;box-shadow:0 9px 0 #a90022,0 15px 28px #ed082c3a!important;transition:transform .2s,box-shadow .2s,background .2s!important}
+.artist-cta:hover,.btn:hover,.request-send:hover:not(:disabled){transform:translateY(-2px);box-shadow:0 11px 0 #a90022,0 20px 32px #ed082c42!important}
+.artist-cta:active,.btn:active,.request-send:active:not(:disabled){transform:translateY(5px);box-shadow:0 3px 0 #a90022,0 8px 18px #ed082c30!important}
+.artist-cta{display:flex!important;align-items:center;justify-content:center;gap:16px;padding:17px 22px!important;text-align:center}
+.artist-cta span{font-size:21px}
+@media(max-width:600px){.artist-video-wrap video{height:min(45vh,340px)}.artist-cta,.btn,.request-send{border-radius:15px!important}}
+@media(prefers-reduced-motion:reduce){.artist-cta,.btn,.request-send{transition:none!important}}
+
+
+/* Experimental stilt-walker media portfolio; other artist dialogs remain untouched. */
+.artist-dialog.stilts-showcase{width:min(94vw,1050px);max-height:min(90dvh,900px);background:#17171a;color:#fff;border:1px solid #3b3b40;border-radius:24px;overflow:auto;cursor:default!important}
+.artist-dialog.stilts-showcase .artist-dialog-inner{display:grid;grid-template-columns:minmax(0,1.08fr) minmax(0,.92fr);gap:12px 20px;padding:clamp(18px,3vw,32px)}
+.artist-dialog.stilts-showcase .artist-dialog-head{grid-column:1/-1;align-items:center;margin-bottom:6px}
+.artist-dialog.stilts-showcase .artist-dialog-head:before{content:'НОГИ В РУКИ / АРТИСТЫ';position:absolute;top:13px;left:clamp(18px,3vw,32px);font-size:10px;letter-spacing:.17em;font-weight:800;color:#ff3154}
+.artist-dialog.stilts-showcase .artist-dialog-head{padding-top:22px}
+.artist-dialog.stilts-showcase h1{font-family:Impact,'Arial Black',Arial,sans-serif;font-style:normal;font-weight:900;letter-spacing:-.025em;font-size:clamp(35px,5vw,65px);color:#fff;margin:0;line-height:1.02}
+.artist-dialog.stilts-showcase h1:after{content:'';display:block;background:#f20a3a;width:75px;height:4px;margin-top:11px;border-radius:6px}
+.artist-dialog.stilts-showcase .artist-close{background:#29292e!important;color:#fff!important;border:1px solid #505057!important;box-shadow:none!important;cursor:pointer!important}
+.artist-dialog.stilts-showcase .artist-video-wrap{grid-column:1;grid-row:2/4;margin:0;background:#080809;min-height:0;aspect-ratio:3/4;display:flex;align-items:center;justify-content:center}
+.artist-dialog.stilts-showcase .artist-video-wrap video{width:100%;height:100%;max-height:min(56vh,520px);object-fit:contain;background:#09090b}
+.artist-dialog.stilts-showcase .artist-photo-wrap{grid-column:2;grid-row:2;min-height:0;align-self:stretch;overflow:hidden;border-radius:16px;background:#26262b;position:relative}
+.artist-dialog.stilts-showcase .artist-photo-wrap img{width:100%;height:100%;min-height:210px;max-height:min(49vh,450px);object-fit:cover;margin:0;border-radius:16px}
+.artist-dialog.stilts-showcase .artist-photo-count{grid-column:2;grid-row:3;margin:0;color:#aaa;text-align:left;font-size:12px}
+.artist-dialog.stilts-showcase #artist-dialog-description{grid-column:1/-1;margin:3px 0;color:#d1d1d5;font-size:14px;line-height:1.5}
+.artist-dialog.stilts-showcase .artist-price{grid-column:1;margin:0!important;color:#fff!important;font-size:clamp(20px,2.5vw,27px)!important;font-weight:900}
+.artist-dialog.stilts-showcase .artist-price-note{grid-column:1/-1;grid-row:6;margin:0!important;color:#96969e!important;font-size:11px!important}
+.artist-dialog.stilts-showcase .artist-cta{grid-column:2;grid-row:5;align-self:center;margin:0!important;background:#f2073b!important;border-radius:12px!important;box-shadow:none!important;color:white!important;cursor:pointer!important}
+.artist-dialog.stilts-showcase .artist-photo-nav{cursor:pointer!important}
+@media(max-width:650px){
+.artist-dialog.stilts-showcase{width:calc(100vw - 22px);max-height:calc(100dvh - 32px);border-radius:21px}
+.artist-dialog.stilts-showcase .artist-dialog-inner{grid-template-columns:1fr 1fr;gap:11px;padding:17px}
+.artist-dialog.stilts-showcase .artist-dialog-head{grid-column:1/-1;padding-top:24px}
+.artist-dialog.stilts-showcase .artist-dialog-head:before{top:12px;left:17px}
+.artist-dialog.stilts-showcase h1{font-size:clamp(31px,8vw,43px)}
+.artist-dialog.stilts-showcase .artist-video-wrap{grid-column:1/-1;grid-row:2;aspect-ratio:unset;height:min(41dvh,340px)}
+.artist-dialog.stilts-showcase .artist-video-wrap video{height:100%;max-height:unset}
+.artist-dialog.stilts-showcase .artist-photo-wrap{grid-column:1/-1;grid-row:3;height:185px}
+.artist-dialog.stilts-showcase .artist-photo-wrap img{height:185px;min-height:0;max-height:unset}
+.artist-dialog.stilts-showcase .artist-photo-count{grid-column:1/-1;grid-row:4}
+.artist-dialog.stilts-showcase #artist-dialog-description{grid-column:1/-1;grid-row:5}
+.artist-dialog.stilts-showcase .artist-price{grid-column:1/-1;grid-row:6}
+.artist-dialog.stilts-showcase .artist-cta{grid-column:1/-1;grid-row:7}
+.artist-dialog.stilts-showcase .artist-price-note{grid-column:1/-1;grid-row:8}
+}
+
+
+/* Desktop artist card refinement: portrait media + compact information column.
+   Only the stilt-walker modal on desktop is affected. */
+@media (min-width: 651px) {
+  .artist-dialog.stilts-showcase {
+    width:min(94vw,980px);
+    max-height:min(94dvh,760px);
+  }
+  .artist-dialog.stilts-showcase .artist-dialog-inner {
+    display:grid;
+    grid-template-columns:minmax(0,0.88fr) minmax(0,1.12fr);
+    grid-template-rows:auto minmax(0,245px) auto auto auto auto auto;
+    column-gap:22px;
+    row-gap:9px;
+    padding:22px 26px 24px;
+    align-items:start;
+  }
+  .artist-dialog.stilts-showcase .artist-dialog-head {
+    grid-column:1/-1;grid-row:1;margin-bottom:4px;
+  }
+  .artist-dialog.stilts-showcase .artist-video-wrap {
+    grid-column:1;grid-row:2/8;
+    margin:0;
+    aspect-ratio:9/16;
+    width:auto;
+    height:min(55dvh,510px);
+    max-width:100%;
+    min-height:0;
+    justify-self:center;
+    align-self:start;
+    border-radius:14px;
+    overflow:hidden;
+    background:#09090b;
+  }
+  .artist-dialog.stilts-showcase .artist-video-wrap video {
+    display:block;width:100%;height:100%;max-height:none;
+    object-fit:contain;background:#09090b;
+  }
+  .artist-dialog.stilts-showcase .artist-photo-wrap {
+    grid-column:2;grid-row:2;height:245px;min-height:0;
+    align-self:stretch;
+  }
+  .artist-dialog.stilts-showcase .artist-photo-wrap img {
+    display:block;width:100%;height:245px;min-height:0;max-height:none;
+    object-fit:cover;
+  }
+  .artist-dialog.stilts-showcase .artist-photo-count {
+    grid-column:2;grid-row:3;margin:0;
+  }
+  .artist-dialog.stilts-showcase #artist-dialog-description {
+    grid-column:2;grid-row:4;margin:2px 0 0;
+    font-size:14px;line-height:1.42;
+  }
+  .artist-dialog.stilts-showcase .artist-price {
+    grid-column:2;grid-row:5;margin:0!important;
+    font-size:26px!important;
+  }
+  .artist-dialog.stilts-showcase .artist-cta {
+    grid-column:2;grid-row:6;margin:0!important;
+    justify-self:stretch;align-self:start;text-align:center;
+  }
+  .artist-dialog.stilts-showcase .artist-price-note {
+    grid-column:2;grid-row:7;margin:0!important;
+    font-size:10px!important;line-height:1.35;
+  }
+}
+@media (min-width:651px) and (max-height:680px) {
+  .artist-dialog.stilts-showcase .artist-dialog-inner {
+    grid-template-rows:auto 205px auto auto auto auto auto;
+    row-gap:6px;padding-top:14px;padding-bottom:15px;
+  }
+  .artist-dialog.stilts-showcase .artist-photo-wrap,
+  .artist-dialog.stilts-showcase .artist-photo-wrap img {height:205px;}
+  .artist-dialog.stilts-showcase .artist-video-wrap {height:min(53dvh,425px);}
+}
+
+
+/* Only the stilt-walker popup changes. The rest of the site stays intact. */
+.artist-dialog.stilts-showcase .artist-video-label{display:none!important}
+@media (min-width:651px){
+ .artist-dialog.stilts-showcase{width:min(94vw,1020px)!important;max-height:min(94dvh,900px)!important}
+ .artist-dialog.stilts-showcase .artist-dialog-inner{
+  display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;
+  grid-template-rows:auto minmax(300px,44dvh) auto auto auto auto!important;
+  gap:9px 18px!important;padding:21px 26px 24px!important;
+ }
+ .artist-dialog.stilts-showcase .artist-dialog-head{grid-column:1/-1!important;grid-row:1!important;margin:0 0 3px!important}
+ .artist-dialog.stilts-showcase .artist-video-wrap,
+ .artist-dialog.stilts-showcase .artist-photo-wrap{
+  grid-row:2!important;align-self:stretch!important;justify-self:stretch!important;
+  height:100%!important;width:100%!important;max-height:none!important;min-height:0!important;
+  aspect-ratio:auto!important;border-radius:15px!important;overflow:hidden!important;
+  background:#14151c!important;
+ }
+ .artist-dialog.stilts-showcase .artist-video-wrap{grid-column:1!important}
+ .artist-dialog.stilts-showcase .artist-photo-wrap{grid-column:2!important}
+ .artist-dialog.stilts-showcase .artist-video-wrap video{
+  display:block!important;width:100%!important;height:100%!important;max-height:none!important;
+  object-fit:contain!important;background:#14151c!important;
+ }
+ .artist-dialog.stilts-showcase .artist-photo-wrap img{
+  display:block!important;width:100%!important;height:100%!important;min-height:0!important;
+  max-height:none!important;object-fit:contain!important;background:#14151c!important;
+ }
+ .artist-dialog.stilts-showcase .artist-photo-count{grid-column:2!important;grid-row:3!important;margin:0!important}
+ .artist-dialog.stilts-showcase #artist-dialog-description{grid-column:1/-1!important;grid-row:4!important;margin:3px 0!important;font-size:14px!important;line-height:1.45!important}
+ .artist-dialog.stilts-showcase .artist-price{grid-column:1!important;grid-row:5!important;margin:0!important;align-self:center!important;font-size:25px!important}
+ .artist-dialog.stilts-showcase .artist-cta{grid-column:2!important;grid-row:5!important;align-self:center!important;justify-self:stretch!important;margin:0!important}
+ .artist-dialog.stilts-showcase .artist-price-note{grid-column:1/-1!important;grid-row:6!important;margin:0!important;font-size:10px!important;line-height:1.35!important}
+}
+@media (max-width:650px){
+ /* Keep the approved mobile layout; show complete portrait photos. */
+ .artist-dialog.stilts-showcase .artist-photo-wrap img{object-fit:contain!important;background:#171922!important}
+}
+
+
+/* Price and action: balanced right-hand column on desktop; accessible cost explanation. */
+.artist-price-with-info{display:flex;align-items:center;gap:12px;min-width:0}
+.artist-price-with-info .artist-price{margin:0!important}
+.artist-info-box{position:relative;display:inline-flex;flex:none;align-items:center}
+.artist-info-trigger{display:inline-grid;place-items:center;width:24px;height:24px;border:1px solid rgba(255,255,255,.5);border-radius:50%;background:rgba(255,255,255,.09);color:#fff;font:700 14px Arial,sans-serif;cursor:pointer;transition:background .2s,border-color .2s}
+.artist-info-trigger:hover,.artist-info-trigger:focus-visible{background:#ec2948;border-color:#ec2948;outline-offset:3px}
+.artist-info-tooltip{position:absolute;left:50%;bottom:calc(100% + 12px);transform:translateX(-50%) translateY(4px);width:min(300px,76vw);padding:13px 15px;background:#f9f9fa;color:#202126;border:1px solid #e8e8ea;border-radius:11px;box-shadow:0 10px 35px #0006;font:500 12px/1.5 Arial,sans-serif;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .15s,transform .15s;z-index:30}
+.artist-info-box:hover .artist-info-tooltip,.artist-info-box:focus-within .artist-info-tooltip{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+@media(min-width:651px){
+ .artist-dialog.stilts-showcase .artist-price-with-info{grid-column:2!important;grid-row:5!important;justify-content:flex-start;align-self:center}
+ .artist-dialog.stilts-showcase .artist-cta{grid-column:2!important;grid-row:6!important;justify-self:stretch!important;width:100%!important;box-sizing:border-box!important;margin:0!important}
+ .artist-dialog.stilts-showcase .artist-price-note{grid-column:2!important;grid-row:7!important}
+}
+@media(max-width:650px){.artist-info-tooltip{left:auto;right:-20px;transform:translateY(4px)}.artist-info-box:hover .artist-info-tooltip,.artist-info-box:focus-within .artist-info-tooltip{transform:translateY(0)}}
+
+
+/* Desktop: price and CTA on one aligned row, preserving mobile layout. */
+@media (min-width:651px) {
+  .artist-dialog.stilts-showcase .artist-price-with-info {
+    grid-column:1!important;
+    grid-row:5!important;
+    justify-self:start!important;
+    align-self:center!important;
+    margin:0!important;
+  }
+  .artist-dialog.stilts-showcase .artist-cta {
+    grid-column:2!important;
+    grid-row:5!important;
+    align-self:center!important;
+    justify-self:stretch!important;
+    width:100%!important;
+    min-height:48px;
+    box-sizing:border-box!important;
+    margin:0!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+  }
+  .artist-dialog.stilts-showcase .artist-price-note {
+    grid-column:1/-1!important;
+    grid-row:6!important;
+    margin:0!important;
+  }
+}
+
+
+/* Fine tuning: compact desktop CTA and on-screen mobile cost tooltip. */
+@media (min-width:651px) {
+  .artist-dialog.stilts-showcase .artist-cta {
+    width:min(100%, 310px)!important;
+    max-width:310px!important;
+    min-height:44px!important;
+    padding:11px 18px!important;
+    justify-self:end!important;
+    font-size:13px!important;
+    border-radius:12px!important;
+  }
+}
+@media (max-width:650px) {
+  .artist-dialog.stilts-showcase .artist-info-tooltip {
+    position:fixed!important;
+    left:50%!important;
+    right:auto!important;
+    top:50%!important;
+    bottom:auto!important;
+    width:min(320px, calc(100vw - 48px))!important;
+    max-width:calc(100vw - 48px)!important;
+    max-height:65dvh!important;
+    overflow:auto!important;
+    box-sizing:border-box!important;
+    transform:translate(-50%, -50%)!important;
+    z-index:9999!important;
+    font-size:13px!important;
+    line-height:1.5!important;
+    padding:18px 20px!important;
+  }
+  .artist-dialog.stilts-showcase .artist-info-box:hover .artist-info-tooltip,
+  .artist-dialog.stilts-showcase .artist-info-box:focus-within .artist-info-tooltip {
+    transform:translate(-50%, -50%)!important;
+  }
+}
+
+
+/* Final adjustments: narrow desktop CTA; mobile info displayed outside dialog clipping. */
+@media (min-width:651px) {
+  .artist-dialog.stilts-showcase .artist-cta {
+    width:min(100%, 255px)!important;
+    max-width:255px!important;
+    min-height:42px!important;
+    padding:10px 15px!important;
+    justify-self:end!important;
+    font-size:12px!important;
+  }
+}
+@media (max-width:650px) {
+  .artist-dialog.stilts-showcase .artist-info-tooltip {display:none!important}
+}
+.stilts-mobile-info-overlay[hidden]{display:none!important}
+.stilts-mobile-info-overlay{
+  position:fixed;inset:0;z-index:2147483647;
+  display:flex;align-items:center;justify-content:center;
+  padding:22px;box-sizing:border-box;background:rgba(0,0,0,.62)
+}
+.stilts-mobile-info-panel{
+  position:relative;width:min(100%,350px);max-height:calc(100dvh - 44px);
+  overflow:auto;box-sizing:border-box;border-radius:18px;
+  padding:25px 22px 22px;background:#fafafa;color:#24242a;
+  box-shadow:0 18px 65px rgba(0,0,0,.35);
+  font:500 15px/1.55 Arial,sans-serif
+}
+.stilts-mobile-info-panel strong{display:block;margin:0 36px 10px 0;font-size:17px}
+.stilts-mobile-info-panel p{margin:0}
+.stilts-mobile-info-close{
+  position:absolute;right:12px;top:11px;border:0;border-radius:50%;
+  background:#ececf0;color:#222;width:34px;height:34px;
+  display:grid;place-items:center;font-size:23px;cursor:pointer
+}
+
+
+/* A native dialog is required to appear above another native dialog. */
+.stilts-info-native{border:0;border-radius:19px;padding:0;width:min(90vw,370px);max-width:370px;max-height:calc(100dvh - 40px);overflow:auto;color:#202027;background:#f9f9fa;box-shadow:0 22px 65px #0006;position:fixed;margin:auto;}
+.stilts-info-native::backdrop{background:rgba(0,0,0,.58)}
+.stilts-info-native-inner{position:relative;padding:27px 23px 25px;font:500 15px/1.55 Arial,sans-serif}
+.stilts-info-native-inner strong{display:block;font-size:19px;margin:0 35px 12px 0}
+.stilts-info-native-inner p{margin:0}
+.stilts-info-native-close{position:absolute;right:13px;top:13px;border:0;border-radius:50%;width:35px;height:35px;background:#e9e9ee;color:#202027;font-size:25px;cursor:pointer}
+@media(min-width:651px){
+ .artist-dialog.stilts-showcase .artist-cta{justify-self:center!important;width:min(255px,86%)!important;max-width:255px!important}
+}
+/* Final frame of the stilts photo carousel */
+.artist-dialog .stilts-gallery-end[hidden]{display:none!important}
+.artist-dialog .stilts-gallery-end{position:absolute;inset:0;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:16px;padding:35px 52px;box-sizing:border-box;background:linear-gradient(145deg,#24242b,#111116);color:#fff;border-radius:inherit}
+.stilts-gallery-end .gallery-end-kicker{font:700 11px Arial,sans-serif;letter-spacing:.14em;color:#ff687f;text-transform:uppercase}
+.stilts-gallery-end strong{font:800 clamp(19px,2.5vw,28px)/1.16 Arial,sans-serif}
+.stilts-gallery-end a{display:inline-block;background:#f2073b;color:white;text-decoration:none;border-radius:10px;padding:13px 17px;font:800 13px Arial,sans-serif}
+.artist-dialog .artist-photo-nav{z-index:3}
+@media(max-width:650px){.artist-dialog .stilts-gallery-end{padding:20px 55px;gap:11px}.stilts-gallery-end strong{font-size:21px}.stilts-gallery-end a{font-size:12px;padding:11px 12px}}
+
+
+/* Subtle translucent floating artist panel, across desktop and mobile. */
+.artist-dialog.stilts-showcase {
+  background:rgba(20,20,25,.88)!important;
+  -webkit-backdrop-filter:blur(20px) saturate(115%);
+  backdrop-filter:blur(20px) saturate(115%);
+  border-color:rgba(255,255,255,.16)!important;
+  box-shadow:0 28px 90px rgba(0,0,0,.42), inset 0 1px 0 rgba(255,255,255,.055)!important;
+}
+/* iOS emoji fallback: replace blue emoji-style diagonal arrows with a simple vector icon. */
+@media(max-width:650px){
+  .artist-dialog.stilts-showcase .artist-cta span[aria-hidden="true"],
+  .artist-dialog.stilts-showcase .gallery-link-arrow{display:none!important}
+  .artist-dialog.stilts-showcase .artist-cta::after,
+  .artist-dialog.stilts-showcase #stilts-gallery-link::after{
+    content:"";display:inline-block;vertical-align:middle;flex:0 0 18px;
+    width:18px;height:18px;margin-left:7px;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 18 18 6M8 6h10v10'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;background-position:center;background-size:contain;
+  }
+}
+
+
+/* Stronger glass effect on the popup itself, on all screen sizes. */
+.artist-dialog.stilts-showcase {
+  background:rgba(19,20,27,.67)!important;
+  -webkit-backdrop-filter:blur(28px) saturate(135%)!important;
+  backdrop-filter:blur(28px) saturate(135%)!important;
+  border:1px solid rgba(255,255,255,.24)!important;
+  box-shadow:0 30px 85px rgba(0,0,0,.43),inset 0 1px 0 rgba(255,255,255,.13)!important;
+}
+/* Let more of the underlying page show through while retaining readability. */
+.artist-dialog.stilts-showcase::backdrop {
+  background:rgba(12,12,18,.45)!important;
+  -webkit-backdrop-filter:blur(3px)!important;
+  backdrop-filter:blur(3px)!important;
+}
+/* Desktop genre carousel: show the first tile completely with a little extra breathing room. */
+@media (min-width:901px) {
+  #genres .genres-carousel .genres-featured .genre {
+    flex-basis:calc((100% - 56px)/4.8)!important;
+  }
+}
+/* Keep the complete ХОДУЛИСТЫ title comfortably inside its tile. */
+#genres .genres-featured .genre[data-artist="stilts"] h3 {
+  right:14px!important;
+  max-width:calc(100% - 34px)!important;
+  font-size:clamp(21px,2vw,28px)!important;
+}
+@media (max-width:600px) {
+  #genres .genres-featured .genre[data-artist="stilts"] h3 {
+    font-size:clamp(25px,7vw,32px)!important;
+  }
+}
+
+.artist-dialog.stilts-showcase{position:relative;left:auto;top:auto;display:block;margin:auto;width:min(94vw,1020px);min-width:0;max-height:calc(100dvh - 32px);overflow:auto}
+.artist-dialog.stilts-showcase h1{font-size:clamp(35px,5vw,65px);color:#fff;margin:0;line-height:1.02;letter-spacing:-.025em;font-family:Impact,'Arial Black',Arial,sans-serif;text-transform:uppercase;font-weight:900}
+.artist-dialog.stilts-showcase h1:after{content:'';display:block;background:#f20a3a;width:75px;height:4px;margin-top:11px;border-radius:6px}
+.artist-dialog.stilts-showcase #artist-dialog-description{color:#d1d1d5}
+.artist-dialog .artist-price-with-info{color:#fff}
+.artist-dialog .artist-info-tooltip{z-index:9}
+.artist-dialog .artist-photo-count{color:#aaa}
+.artist-dialog .artist-cta{white-space:normal;text-align:center}
+.artist-dialog.stilts-showcase .artist-close{display:grid;place-items:center;flex:none;text-decoration:none}
+.artist-dialog .artist-video-wrap video{width:100%}
+.artist-dialog .artist-photo-wrap img{width:100%}
+@media(max-width:650px){.preview-stage{padding:13px 0}.artist-dialog.stilts-showcase{max-height:calc(100dvh - 26px)}}
+
+/* Dark standalone preview: display the original styled artist card immediately, without an introductory white page. */
+html,body{background:#101015!important}
+.preview-stage{background:radial-gradient(circle at 50% 15%,#32313a 0,#16161d 55%,#0e0e12 100%);padding:16px 0;min-height:100dvh}
+.artist-dialog.stilts-showcase{flex:0 1 auto}
+@media(max-width:650px){.preview-stage{padding:12px 0}}
+/* Show the last slide of original portfolio and keep the price details accessible on mobile. */
+.stilts-gallery-end[hidden],#artist-info-dialog:not([open]){display:none!important}
+.artist-dialog .artist-info-trigger{display:inline-flex!important;align-items:center;justify-content:center;flex:none;min-width:26px;min-height:26px;cursor:pointer}
+.stilts-info-native{z-index:1500}
+.stilts-info-native::backdrop{background:rgba(6,6,10,.64);backdrop-filter:blur(4px)}
+@media(max-width:650px){.artist-dialog.stilts-showcase .stilts-gallery-end{padding:20px 42px}}
+
+/* Shared responsive layout for other artist pages, including genres without media yet. */
+.artist-dialog.stilts-showcase .artist-video-wrap[hidden],.artist-photo-wrap[hidden],.artist-photo-count[hidden]{display:none!important}
+@media(min-width:651px){
+  .artist-dialog.stilts-showcase.artist-no-video .artist-photo-wrap{grid-column:1/-1!important;grid-row:2!important;height:min(42vh,380px)!important}
+  .artist-dialog.stilts-showcase.artist-no-video .artist-photo-wrap img{height:100%!important;object-fit:contain!important}
+  .artist-dialog.stilts-showcase.artist-no-video #artist-dialog-description{grid-column:1/-1!important;grid-row:4!important}
+  .artist-dialog.stilts-showcase.artist-no-video .artist-price-with-info{grid-column:1!important;grid-row:5!important}
+  .artist-dialog.stilts-showcase.artist-no-video .artist-cta{grid-column:2!important;grid-row:5!important}
+  .artist-dialog.stilts-showcase.artist-no-video .artist-price-note{grid-column:1/-1!important;grid-row:6!important}
+}
+.artist-empty-media{min-height:175px;display:flex;align-items:center;justify-content:center;text-align:center;color:#d1cbd1;background:linear-gradient(140deg,#292931,#14141b);border-radius:15px;padding:22px;font-size:13px;letter-spacing:.02em}
+.artist-empty-media[hidden]{display:none!important}
+.artist-dialog.stilts-showcase.artist-no-media .artist-dialog-inner{display:flex!important;flex-direction:column;align-items:stretch;gap:12px}
+.artist-dialog.stilts-showcase.artist-no-media .artist-cta{align-self:flex-start!important}
+.artist-dialog.stilts-showcase.artist-no-media .artist-price-note{font-size:11px!important}
+.artist-dialog.stilts-showcase .stilts-gallery-end{display:flex}
+.artist-dialog.stilts-showcase .stilts-gallery-end[hidden]{display:none!important}
