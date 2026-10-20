@@ -1,28 +1,45 @@
-/* Stable two-column photo gallery; independent of photo count and image orientation. */
-#media-overlay [data-media-content="photos"] .media-grid {
+/* Gallery: four columns on desktop, two on mobile.
+   Apply to the entire photo gallery, including CMS-loaded items. */
+#media-overlay [data-media-content="photos"] .media-grid,
+#media-overlay .media-grid[data-media-content="photos"],
+#media-overlay [data-media-content="photos"].media-grid {
   display: grid !important;
-  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-  gap: 10px !important;
+  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  grid-auto-flow: row !important;
+  gap: 12px !important;
+  align-items: stretch !important;
 }
-#media-overlay [data-media-content="photos"] .media-grid > .media-tile {
-  display: block !important;
+#media-overlay [data-media-content="photos"] .media-grid > *,
+#media-overlay .media-grid[data-media-content="photos"] > *,
+#media-overlay [data-media-content="photos"].media-grid > * {
   grid-column: auto !important;
   grid-row: auto !important;
   width: 100% !important;
   min-width: 0 !important;
-  max-width: 100% !important;
+  max-width: none !important;
   height: auto !important;
   aspect-ratio: 4 / 3 !important;
   overflow: hidden !important;
+  margin: 0 !important;
 }
-#media-overlay [data-media-content="photos"] .media-grid > .media-tile img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+#media-overlay [data-media-content="photos"] .media-grid > * img,
+#media-overlay .media-grid[data-media-content="photos"] > * img,
+#media-overlay [data-media-content="photos"].media-grid > * img {
+  display: block !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
 }
 @media (max-width: 650px) {
-  #media-overlay [data-media-content="photos"] .media-grid > .media-tile {
+  #media-overlay [data-media-content="photos"] .media-grid,
+  #media-overlay .media-grid[data-media-content="photos"],
+  #media-overlay [data-media-content="photos"].media-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 8px !important;
+  }
+  #media-overlay [data-media-content="photos"] .media-grid > *,
+  #media-overlay .media-grid[data-media-content="photos"] > *,
+  #media-overlay [data-media-content="photos"].media-grid > * {
     aspect-ratio: 3 / 4 !important;
   }
 }
