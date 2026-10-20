@@ -148,7 +148,7 @@ overlay.querySelector('.request-copy').addEventListener('click',async()=>{try{aw
 (()=>{
   if(document.querySelector('script[data-artist-genre-navigation]'))return;
   const s=document.createElement('script');
-  s.src='/artist-genre-navigation.js?v=20261021b';
+  s.src='/artist-genre-navigation.js?v=20261021c';
   s.dataset.artistGenreNavigation='true';
   document.head.appendChild(s);
 })();
