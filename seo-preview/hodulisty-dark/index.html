@@ -407,6 +407,12 @@ html,body{background:#101015!important}
 .preview-stage{background:radial-gradient(circle at 50% 15%,#32313a 0,#16161d 55%,#0e0e12 100%);padding:16px 0;min-height:100dvh}
 .artist-dialog.stilts-showcase{flex:0 1 auto}
 @media(max-width:650px){.preview-stage{padding:12px 0}}
+/* Show the last slide of original portfolio and keep the price details accessible on mobile. */
+.stilts-gallery-end[hidden],#artist-info-dialog:not([open]){display:none!important}
+.artist-dialog .artist-info-trigger{display:inline-flex!important;align-items:center;justify-content:center;flex:none;min-width:26px;min-height:26px;cursor:pointer}
+.stilts-info-native{z-index:1500}
+.stilts-info-native::backdrop{background:rgba(6,6,10,.64);backdrop-filter:blur(4px)}
+@media(max-width:650px){.artist-dialog.stilts-showcase .stilts-gallery-end{padding:20px 42px}}
 </style>
 </head>
 <body>
@@ -418,7 +424,7 @@ html,body{background:#101015!important}
       <a href="/#genres" class="artist-close" aria-label="На главную, к артистам">×</a>
     </div>
     <div class="artist-video-wrap" id="artist-video-wrap">
-      <video controls muted loop playsinline preload="metadata" poster="/images/cms-photo-003.jpg" aria-label="Видео ходулистов">
+      <video controls autoplay muted loop playsinline webkit-playsinline preload="auto" poster="/images/cms-photo-003.jpg" aria-label="Видео ходулистов">
         <source src="/videos/hodulisty-card.mov" type="video/quicktime">
         Видео недоступно в вашем браузере.
       </video>
@@ -426,14 +432,19 @@ html,body{background:#101015!important}
     <div class="artist-photo-wrap">
       <button class="artist-photo-nav artist-photo-prev" type="button" aria-label="Предыдущее фото">‹</button>
       <img id="artist-dialog-photo" src="/images/cms-photo-003.jpg" alt="Ходулист на мероприятии" loading="eager">
+      <div class="stilts-gallery-end" id="stilts-gallery-end" hidden>
+        <span class="gallery-end-kicker">НОГИ В РУКИ / ГАЛЕРЕЯ</span>
+        <strong>Больше моментов — в нашей галерее</strong>
+        <a href="/#gallery" id="stilts-gallery-link">Смотреть галерею <span class="gallery-link-arrow" aria-hidden="true">↗</span></a>
+      </div>
       <button class="artist-photo-nav artist-photo-next" type="button" aria-label="Следующее фото">›</button>
     </div>
-    <p class="artist-photo-count" id="artist-photo-count" aria-live="polite">1 / 5</p>
+    <p class="artist-photo-count" id="artist-photo-count" aria-live="polite">1 / 4</p>
     <p id="artist-dialog-description">Артисты на ходулях встречают гостей, общаются, фотографируются и создают яркую атмосферу. Подходят для welcome-зоны, фестиваля, корпоратива и праздника в Москве и Московской области.</p>
     <div class="artist-price-with-info">
       <p class="artist-price">9 000 ₽ / час</p>
       <span class="artist-info-box">
-        <button type="button" class="artist-info-trigger" aria-label="Условия стоимости" aria-expanded="false" aria-controls="price-explanation">i</button>
+        <button type="button" class="artist-info-trigger" aria-label="Условия стоимости" aria-expanded="false" aria-controls="artist-info-dialog">i</button>
         <span class="artist-info-tooltip" id="price-explanation" role="tooltip">Стоимость указана за 1 час работы в Москве, в дневное время и вне праздничных дат. Ночные заказы, праздничные даты и выезды за пределы Москвы рассчитываются индивидуально.</span>
       </span>
     </div>
@@ -442,24 +453,56 @@ html,body{background:#101015!important}
   </div>
 </article>
 </main>
+<dialog class="stilts-info-native" id="artist-info-dialog" aria-labelledby="artist-info-title">
+  <div class="stilts-info-native-inner">
+    <button type="button" class="stilts-info-native-close" aria-label="Закрыть условия стоимости">×</button>
+    <strong id="artist-info-title">Условия стоимости</strong>
+    <p>Стоимость указана за 1 час работы в Москве, в дневное время и вне праздничных дат. Ночные заказы, праздничные даты и выезды за пределы Москвы рассчитываются индивидуально.</p>
+  </div>
+</dialog>
 <script>
 (()=>{
 const images=[
-["/images/cms-photo-003.jpg","Ходулист на мероприятии"],
-["/images/cms-photo-020.jpg","Ходулисты на городском празднике"],
-["/images/cms-photo-029.jpg","Ходулист в красном цилиндре"],
-["/images/cms-photo-036.jpg","Ходулисты у циркового шатра"],
-["/images/cms-photo-037.jpg","Ходулист и артистка в прозрачном шаре"]
+  ["/images/cms-photo-003.jpg","Ходулисты — фотография 1 из 4"],
+  ["/images/stilts-card-02.jpg","Ходулисты — фотография 2 из 4"],
+  ["/images/stilts-card-03.jpg","Ходулисты — фотография 3 из 4"],
+  ["/images/stilts-card-04.jpg","Ходулисты — фотография 4 из 4"]
 ];
-let index=0;
-const img=document.getElementById("artist-dialog-photo");
-const counter=document.getElementById("artist-photo-count");
-function show(delta){index=(index+delta+images.length)%images.length;img.src=images[index][0];img.alt=images[index][1];counter.textContent=(index+1)+" / "+images.length}
-document.querySelector(".artist-photo-prev").addEventListener("click",()=>show(-1));
-document.querySelector(".artist-photo-next").addEventListener("click",()=>show(1));
-const b=document.querySelector(".artist-info-trigger");
-const t=document.getElementById("price-explanation");
-b.addEventListener("click",()=>{const on=b.getAttribute("aria-expanded")!=="true";b.setAttribute("aria-expanded",String(on));t.style.opacity=on?"1":"";t.style.visibility=on?"visible":"";});
+let index=0, touchStart=null;
+const img=document.getElementById('artist-dialog-photo');
+const end=document.getElementById('stilts-gallery-end');
+const counter=document.getElementById('artist-photo-count');
+function render(){
+  const isEnd=index===images.length;
+  end.hidden=!isEnd;
+  img.hidden=isEnd;
+  if(!isEnd){img.src=images[index][0];img.alt=images[index][1];}
+  counter.textContent=isEnd?'Галерея':(index+1)+' / '+images.length;
+}
+function shift(delta){index=(index+delta+images.length+1)%(images.length+1);render();}
+document.querySelector('.artist-photo-prev').addEventListener('click',()=>shift(-1));
+document.querySelector('.artist-photo-next').addEventListener('click',()=>shift(1));
+const swipe=document.querySelector('.artist-photo-wrap');
+swipe.addEventListener('touchstart',e=>{touchStart=e.changedTouches[0].clientX},{passive:true});
+swipe.addEventListener('touchend',e=>{if(touchStart===null)return;let d=e.changedTouches[0].clientX-touchStart;if(Math.abs(d)>45)shift(d<0?1:-1);touchStart=null},{passive:true});
+const info=document.getElementById('artist-info-dialog');
+const trigger=document.querySelector('.artist-info-trigger');
+const closeInfo=()=>{if(info.open)info.close();trigger.setAttribute('aria-expanded','false');};
+trigger.addEventListener('click',()=>{if(info.open){closeInfo();return;}info.showModal();trigger.setAttribute('aria-expanded','true');});
+info.querySelector('.stilts-info-native-close').addEventListener('click',closeInfo);
+info.addEventListener('click',e=>{if(e.target===info)closeInfo()});
+info.addEventListener('close',()=>trigger.setAttribute('aria-expanded','false'));
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&info.open)closeInfo();});
+const video=document.querySelector('#artist-video-wrap video');
+video.defaultMuted=true;video.muted=true;
+const tryPlay=()=>{if(document.hidden)return;const p=video.play();if(p&&typeof p.catch==='function')p.catch(()=>{});};
+if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+  tryPlay();
+  window.addEventListener('pageshow',tryPlay,{once:true});
+  video.addEventListener('loadeddata',tryPlay,{once:true});
+  document.addEventListener('pointerdown',()=>{if(video.paused)tryPlay()},{once:true,passive:true});
+}
+render();
 })();
 </script>
 </body>
