@@ -422,3 +422,70 @@ html,body{background:#101015!important}
 .artist-dialog.stilts-showcase.artist-no-media .artist-price-note{font-size:11px!important}
 .artist-dialog.stilts-showcase .stilts-gallery-end{display:flex}
 .artist-dialog.stilts-showcase .stilts-gallery-end[hidden]{display:none!important}
+
+/* Layout correction: maintain natural photo -> description -> price order when video is missing. */
+.artist-dialog.stilts-showcase.artist-no-video .artist-dialog-inner{
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:stretch!important;
+  gap:12px!important;
+}
+.artist-dialog.stilts-showcase.artist-no-video .artist-dialog-head{
+  width:100%!important;
+  margin:0 0 4px!important;
+}
+.artist-dialog.stilts-showcase.artist-no-video .artist-photo-wrap:not([hidden]){
+  display:block!important;
+  width:100%!important;
+  height:clamp(210px,42dvh,385px)!important;
+  min-height:0!important;
+  max-height:none!important;
+  flex:none!important;
+  align-self:stretch!important;
+  margin:0!important;
+  aspect-ratio:auto!important;
+}
+.artist-dialog.stilts-showcase.artist-no-video .artist-photo-wrap img{
+  width:100%!important;
+  height:100%!important;
+  min-height:0!important;
+  max-height:none!important;
+  object-fit:contain!important;
+  margin:0!important;
+}
+.artist-dialog.stilts-showcase.artist-no-video .artist-photo-count{
+  margin:0!important;
+  align-self:stretch!important;
+}
+.artist-dialog.stilts-showcase.artist-no-video #artist-dialog-description{
+  margin:0!important;
+  width:100%!important;
+  align-self:stretch!important;
+}
+.artist-dialog.stilts-showcase.artist-no-video .artist-price-with-info{
+  margin:0!important;
+  align-self:flex-start!important;
+  width:auto!important;
+  max-width:100%!important;
+}
+.artist-dialog.stilts-showcase.artist-no-video .artist-cta{
+  align-self:flex-start!important;
+  justify-self:auto!important;
+  width:min(100%,255px)!important;
+  max-width:255px!important;
+  margin:0!important;
+}
+.artist-dialog.stilts-showcase.artist-no-video .artist-price-note{
+  margin:0!important;
+  align-self:stretch!important;
+}
+@media(max-width:650px){
+ .artist-dialog.stilts-showcase.artist-no-video .artist-photo-wrap:not([hidden]){
+   height:clamp(180px,34dvh,300px)!important;
+ }
+ .artist-dialog.stilts-showcase.artist-no-video .artist-cta{
+   align-self:stretch!important;
+   width:100%!important;
+   max-width:100%!important;
+ }
+}
