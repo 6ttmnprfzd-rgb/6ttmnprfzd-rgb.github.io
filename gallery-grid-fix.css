@@ -384,3 +384,19 @@
   #gallery .media-open,
   #gallery .media-open .wc-media-row-arrow {transition:none!important}
 }
+
+
+/* Full genre catalog: restore native mouse cursor inside top-layer dialog. */
+html.club-cursor-active #all-genres-dialog,
+html.club-cursor-active #all-genres-dialog * {
+  cursor: default !important;
+}
+html.club-cursor-active #all-genres-dialog .genre,
+html.club-cursor-active #all-genres-dialog .genre *,
+html.club-cursor-active #all-genres-dialog button,
+html.club-cursor-active #all-genres-dialog button * {
+  cursor: pointer !important;
+}
+html:has(#all-genres-dialog[open]) .club-pointer {
+  display: none !important;
+}
