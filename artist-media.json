@@ -58,7 +58,8 @@
         "image": "images/cms-photo-007.jpg",
         "alt": "Микромаг на мероприятии"
       }
-    ]
+    ],
+    "video": "videos/copy_925FA7A1-AB13-4486-83F2-51E62A60AD58.mov"
   },
   "akrobaty": {
     "photos": [
@@ -125,5 +126,9 @@
   "kontaktnoe-zhonglirovanie": {
     "photos": [],
     "video": "videos/804D93CA-6448-4042-948E-1F8019C09B7B.mp4"
+  },
+  "diabolo": {
+    "photos": [],
+    "video": "videos/9100551323254244463.mov"
   }
 }
