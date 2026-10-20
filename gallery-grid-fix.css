@@ -175,3 +175,33 @@
 @media(prefers-reduced-motion:reduce) {
   #genres .genre-all-toggle { transition:none!important; }
 }
+
+
+/* 2026-10-21: Fix three desktop genre word breaks.
+   Do not touch the mobile carousel or the other 15 headings. */
+@media (min-width: 651px) {
+  #genres .genres-carousel .genres-featured .genre[data-artist="stilts"] h3,
+  #genres .genres-carousel .genres-featured .genre[data-artist="unicycle"] h3,
+  #genres .genres-carousel .genres-featured .genre[data-artist="ladder"] h3 {
+    overflow-wrap: normal !important;
+    word-break: normal !important;
+    hyphens: none !important;
+    max-width: none !important;
+    letter-spacing: -.025em !important;
+  }
+  /* These are single words: never break after the last syllable. */
+  #genres .genres-carousel .genres-featured .genre[data-artist="stilts"] h3 {
+    white-space: nowrap !important;
+    font-size: clamp(18px, 1.8vw, 24px) !important;
+  }
+  #genres .genres-carousel .genres-featured .genre[data-artist="unicycle"] h3 {
+    white-space: nowrap !important;
+    font-size: clamp(15px, 1.55vw, 21px) !important;
+  }
+  /* The two-word title wraps only at the space between words. */
+  #genres .genres-carousel .genres-featured .genre[data-artist="ladder"] h3 {
+    white-space: normal !important;
+    font-size: clamp(12px, 1.18vw, 16px) !important;
+    line-height: 1.12 !important;
+  }
+}
