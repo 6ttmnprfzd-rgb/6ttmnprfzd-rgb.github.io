@@ -1,0 +1,35 @@
+name: Apply gallery layout fix
+on:
+  push:
+    paths:
+      - .github/workflows/apply-gallery-fix.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Add stylesheet link without rewriting embedded media
+        shell: python
+        run: |
+          from pathlib import Path
+          file = Path("index.html")
+          html = file.read_text(encoding="utf-8")
+          link = '<link rel="stylesheet" href="/gallery-grid-fix.css">'
+          if link not in html:
+              assert "<head>" in html, "Missing HTML head"
+              html = html.replace("<head>", "<head>\n" + link, 1)
+              file.write_text(html, encoding="utf-8")
+      - name: Commit if changed
+        run: |
+          if ! git diff --quiet -- index.html; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add index.html
+            git commit -m "Connect gallery layout stylesheet to homepage"
+            git push
+          fi
