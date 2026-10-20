@@ -85,7 +85,8 @@
         "image": "images/cms-photo-010.jpg",
         "alt": "Баланс на ноже на мероприятии"
       }
-    ]
+    ],
+    "video": "videos/4664389728094929978.mp4"
   },
   "ekvilibr-na-trostyah": {
     "photos": [
@@ -132,5 +133,9 @@
   "diabolo": {
     "photos": [],
     "video": "videos/9100551323254244463.mov"
+  },
+  "ekvilibr-na-katushkah": {
+    "photos": [],
+    "video": "videos/-8934617001882082733.mov"
   }
 }
