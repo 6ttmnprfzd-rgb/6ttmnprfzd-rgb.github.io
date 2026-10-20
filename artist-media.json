@@ -21,7 +21,6 @@
     ]
   },
   "zhonglery": {
-    "video": "",
     "photos": [
       {
         "image": "images/cms-photo-004.jpg",
@@ -30,7 +29,6 @@
     ]
   },
   "mimy": {
-    "video": "",
     "photos": [
       {
         "image": "images/cms-photo-005.jpg",
@@ -39,7 +37,6 @@
     ]
   },
   "unitsiklisty": {
-    "video": "",
     "photos": [
       {
         "image": "images/cms-photo-006.jpg",
@@ -48,7 +45,6 @@
     ]
   },
   "mikromag": {
-    "video": "",
     "photos": [
       {
         "image": "images/cms-photo-007.jpg",
@@ -57,7 +53,6 @@
     ]
   },
   "akrobaty": {
-    "video": "",
     "photos": [
       {
         "image": "images/cms-photo-008.jpg",
@@ -66,7 +61,6 @@
     ]
   },
   "koleso-sira": {
-    "video": "",
     "photos": [
       {
         "image": "images/cms-photo-009.jpg",
@@ -75,7 +69,6 @@
     ]
   },
   "balans-na-nozhe": {
-    "video": "",
     "photos": [
       {
         "image": "images/cms-photo-010.jpg",
@@ -84,7 +77,6 @@
     ]
   },
   "ekvilibr-na-trostyah": {
-    "video": "",
     "photos": [
       {
         "image": "images/cms-photo-011.jpg",
@@ -93,7 +85,6 @@
     ]
   },
   "hulahupy": {
-    "video": "",
     "photos": [
       {
         "image": "images/cms-photo-012.jpg",
@@ -102,37 +93,22 @@
     ]
   },
   "gimnastka-v-zorb-share": {
-    "video": "",
     "photos": [
       {
         "image": "images/cms-photo-013.jpg",
         "alt": "Гимнастка в Зорб-шаре на мероприятии"
+      },
+      {
+        "image": "images/IMG_3172.jpeg"
       }
     ]
   },
   "gimnastka-v-parternom-koltse": {
-    "video": "",
     "photos": [
       {
         "image": "images/cms-photo-014.jpg",
         "alt": "Гимнастка в партерном кольце на мероприятии"
       }
     ]
-  },
-  "diabolo": {
-    "video": "",
-    "photos": []
-  },
-  "ekvilibr-na-katushkah": {
-    "video": "",
-    "photos": []
-  },
-  "ekvilibr-na-stulyah": {
-    "video": "",
-    "photos": []
-  },
-  "kontaktnoe-zhonglirovanie": {
-    "video": "",
-    "photos": []
   }
 }
