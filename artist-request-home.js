@@ -21,7 +21,8 @@ document.addEventListener('DOMContentLoaded',()=>{
     knife:'balans-na-nozhe',canes:'ekvilibr-na-trostyah',hoops:'hulahupy',
     zorb:'gimnastka-v-zorb-share',aerialring:'gimnastka-v-parternom-koltse',
     diabolo:'diabolo',rollers:'ekvilibr-na-katushkah',
-    chairs:'ekvilibr-na-stulyah',contact:'kontaktnoe-zhonglirovanie'
+    chairs:'ekvilibr-na-stulyah',contact:'kontaktnoe-zhonglirovanie',
+    ladder:'volnostoyashchaya-lestnitsa',hatter:'shlyapnik'
   };
   const photo=modal.querySelector('#artist-dialog-photo');
   const frame=modal.querySelector('.artist-photo-wrap');
@@ -129,4 +130,138 @@ document.addEventListener('DOMContentLoaded',()=>{
     }
   },{capture:true,passive:true});
   modal.addEventListener('close',()=>{selected=null;photos=null;++request;});
+});
+
+
+/* Extra artist genres: freestanding ladder and Hatter.
+   Build cards from the small script instead of rewriting the huge homepage HTML. */
+document.addEventListener('DOMContentLoaded',()=>{
+  const root=document.getElementById('genres');
+  const track=root?.querySelector('.genres-featured');
+  const dialog=document.getElementById('artist-dialog');
+  if(!root||!track||!dialog)return;
+  const artists=[
+    {
+      key:'ladder',slug:'volnostoyashchaya-lestnitsa',
+      title:'Вольностоящая лестница',
+      description:'Цирковой эквилибр на вольностоящей лестнице — зрелищный номер, в котором артист демонстрирует равновесие и точность движений.'
+    },
+    {
+      key:'hatter',slug:'shlyapnik',title:'Шляпник',
+      description:'Цирковое выступление с использованием шляп и выразительных трюков. Формат и наполнение подбираются под мероприятие.'
+    }
+  ];
+  const priceNote='Стоимость зависит от формата выступления, даты, площадки и технических условий. Подробности уточняем при обсуждении мероприятия.';
+  const cards=[];
+  const safePhoto=path=>{
+    if(typeof path!=='string')return null;
+    path=path.trim().replace(/^\/+/,'');
+    return path.startsWith('images/')&&!path.includes('..')&&!/[?#<>"']/.test(path)?'/'+path:null;
+  };
+  function openArtist(info){
+    const heading=dialog.querySelector('#artist-dialog-title');
+    const description=dialog.querySelector('#artist-dialog-description');
+    const price=dialog.querySelector('#artist-dialog-price');
+    const photo=dialog.querySelector('#artist-dialog-photo');
+    const wrap=dialog.querySelector('.artist-photo-wrap');
+    const count=dialog.querySelector('#artist-photo-count');
+    const end=dialog.querySelector('#stilts-gallery-end');
+    const videoWrap=dialog.querySelector('#artist-video-wrap');
+    const video=dialog.querySelector('#artist-video');
+    if(dialog.open)return;
+    heading.textContent=info.title;
+    description.textContent=info.description;
+    price.textContent='Стоимость по запросу';
+    const note=dialog.querySelector('.artist-price-note');
+    if(note)note.textContent=priceNote;
+    if(photo){photo.hidden=true;photo.removeAttribute('src')}
+    if(wrap)wrap.hidden=true;
+    if(end)end.hidden=true;
+    if(count)count.textContent='';
+    if(video){video.pause();video.removeAttribute('src');video.load()}
+    if(videoWrap)videoWrap.hidden=true;
+    const videoLabel=dialog.querySelector('.artist-video-label');
+    if(videoLabel)videoLabel.textContent=info.title.toUpperCase()+' · В ДВИЖЕНИИ';
+    dialog.classList.add('stilts-showcase','artist-no-video');
+    dialog.showModal();
+    // CMS photo and video data load through the shared artist-request-home.js handler.
+  }
+  artists.forEach(info=>{
+    if(track.querySelector('[data-artist="'+info.key+'"]'))return;
+    const card=document.createElement('article');
+    card.className='genre genre-pending';
+    card.dataset.artist=info.key;
+    card.setAttribute('role','button');
+    card.setAttribute('tabindex','0');
+    card.setAttribute('aria-haspopup','dialog');
+    card.setAttribute('aria-label','Подробнее: '+info.title);
+    const visual=document.createElement('div');
+    visual.className='genre-img genre-placeholder';
+    const placeholder=document.createElement('span');
+    placeholder.textContent='НОГИ В РУКИ';
+    visual.appendChild(placeholder);
+    const label=document.createElement('h3');
+    label.textContent=info.title;
+    if(info.title.length>=23)label.classList.add('genre-title-verylong');
+    else if(info.title.length>=16)label.classList.add('genre-title-long');
+    card.append(visual,label);
+    card.addEventListener('click',()=>openArtist(info));
+    card.addEventListener('keydown',e=>{
+      if(e.key==='Enter'||e.key===' '){e.preventDefault();openArtist(info)}
+    });
+    track.appendChild(card);
+    cards.push(card);
+  });
+  // The homepage's existing carousel listeners captured the original 16 cards.
+  // Keep its counter accurate for the two additional cards, without replacing the carousel.
+  const count=root.querySelector('.genres-count');
+  function updateCount(){
+    if(!count)return;
+    const all=[...track.querySelectorAll('.genre')];
+    if(!all.length)return;
+    const step=all.length>1?all[1].offsetLeft-all[0].offsetLeft:track.clientWidth;
+    const index=step>0?Math.max(0,Math.min(all.length-1,Math.round(track.scrollLeft/step))):0;
+    count.textContent=String(index+1).padStart(2,'0')+' / '+String(all.length).padStart(2,'0');
+  }
+  track.addEventListener('scroll',updateCount,{passive:true});
+  window.addEventListener('resize',updateCount);
+  updateCount();
+  // "All genres" is built by a pre-existing script from the old 16 cards.
+  // Append clones after that script first opens the gallery.
+  const toggle=root.querySelector('.genre-all-toggle');
+  const allDialog=document.getElementById('all-genres-dialog');
+  const grid=allDialog?.querySelector('#genre-all-grid');
+  toggle?.addEventListener('click',()=>{
+    if(!grid)return;
+    cards.forEach(original=>{
+      if(grid.querySelector('[data-artist="'+original.dataset.artist+'"]'))return;
+      const copy=original.cloneNode(true);
+      copy.addEventListener('click',()=>{
+        if(allDialog.open)allDialog.close();
+        toggle.setAttribute('aria-expanded','false');
+        original.click();
+      });
+      copy.addEventListener('keydown',e=>{
+        if(e.key==='Enter'||e.key===' '){e.preventDefault();copy.click()}
+      });
+      grid.appendChild(copy);
+    });
+  });
+  // Populate carousel covers from the first CMS photo, as for existing cards.
+  fetch('/artist-media.json',{cache:'no-store'}).then(r=>{
+    if(!r.ok)throw Error('Artist media unavailable');
+    return r.json();
+  }).then(data=>{
+    for(const info of artists){
+      const cover=safePhoto(data?.[info.slug]?.photos?.[0]?.image);
+      const card=track.querySelector('[data-artist="'+info.key+'"]');
+      if(!card||!cover)continue;
+      const visual=card.querySelector('.genre-img');
+      const img=document.createElement('img');
+      img.src=cover;img.alt=info.title;img.loading='lazy';
+      visual.replaceChildren(img);
+      visual.classList.remove('genre-placeholder');
+      card.classList.remove('genre-pending');
+    }
+  }).catch(()=>{});
 });
