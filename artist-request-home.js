@@ -312,3 +312,30 @@ document.addEventListener('DOMContentLoaded',()=>{
     requestAnimationFrame(()=>opener.click());
   },true);
 });
+
+
+/* Atmosphere redesign 4/4: semantic media-library row inside the existing button. */
+document.addEventListener('DOMContentLoaded',()=>{
+  const button=document.getElementById('open-media');
+  if(!button||button.dataset.mediaRowReady)return;
+  button.dataset.mediaRowReady='true';
+  const symbol=document.createElement('span');
+  symbol.className='wc-media-row-icon';
+  symbol.setAttribute('aria-hidden','true');
+  symbol.innerHTML='<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>';
+  const copy=document.createElement('span');
+  copy.className='wc-media-row-copy';
+  const label=document.createElement('span');
+  label.className='wc-media-row-kicker';
+  label.textContent='МЕДИАТЕКА';
+  const title=document.createElement('span');
+  title.className='wc-media-row-title';
+  title.textContent='Смотреть все фото и видео';
+  copy.append(label,title);
+  const arrow=document.createElement('span');
+  arrow.className='wc-media-row-arrow';
+  arrow.textContent='↗';
+  arrow.setAttribute('aria-hidden','true');
+  button.replaceChildren(symbol,copy,arrow);
+  button.setAttribute('aria-label','Смотреть все фото и видео');
+});
