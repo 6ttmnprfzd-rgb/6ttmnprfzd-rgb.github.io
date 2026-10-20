@@ -43,3 +43,11 @@
     aspect-ratio: 3 / 4 !important;
   }
 }
+
+/* Orphan tiles in the original HTML are outside .media-grid.
+   gallery-data.json inserts all photos into .media-grid, so these
+   16 leftover static tiles would otherwise appear as oversized duplicates.
+   Keep them hidden without changing the large embedded-media HTML file. */
+#media-overlay [data-media-content="photos"] > .media-tile {
+  display: none !important;
+}
