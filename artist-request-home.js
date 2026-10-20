@@ -292,3 +292,23 @@ document.addEventListener('DOMContentLoaded',()=>{
   sheet.dataset.genreCatalogPolish='true';
   document.head.appendChild(sheet);
 })();
+
+
+/* Open the existing media library from every homepage artist popup. */
+document.addEventListener('DOMContentLoaded',()=>{
+  const opener=document.getElementById('open-media');
+  if(!opener)return;
+
+  // A standalone artist page can link to /#media-library.
+  if(window.location.hash==='#media-library')opener.click();
+
+  document.addEventListener('click',event=>{
+    const link=event.target.closest?.('#artist-dialog #stilts-gallery-link');
+    if(!link)return;
+    event.preventDefault();
+    event.stopPropagation();
+    const dialog=document.getElementById('artist-dialog');
+    if(dialog?.open)dialog.close();
+    requestAnimationFrame(()=>opener.click());
+  },true);
+});
