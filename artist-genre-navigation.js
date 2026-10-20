@@ -183,3 +183,43 @@
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup);
   else setup();
 })();
+
+
+/* Open the existing photo/video media library from every artist photo carousel. */
+(()=>{
+  'use strict';
+  const destination='/?openMedia=photos';
+  function openLibrary(){
+    const button=document.getElementById('open-media');
+    if(!button)return false;
+    const artistDialog=document.getElementById('artist-dialog');
+    if(artistDialog?.open)artistDialog.close();
+    // Always show photographs first, even if the visitor previously viewed videos.
+    document.querySelector('#media-overlay [data-media-tab="photos"]')?.click();
+    button.click(); // Reuse the site's original media-library open handler.
+    return true;
+  }
+  function setup(){
+    const link=document.getElementById('stilts-gallery-link');
+    if(link){
+      // Also works on standalone artist pages and when opening in a new tab.
+      link.href=destination;
+      if(document.getElementById('open-media')){
+        link.addEventListener('click',event=>{
+          if(event.defaultPrevented||event.button!==0||event.metaKey||event.ctrlKey||event.shiftKey||event.altKey)return;
+          event.preventDefault();
+          openLibrary();
+        });
+      }
+    }
+    if(!document.getElementById('open-media'))return;
+    const query=new URLSearchParams(window.location.search);
+    if(query.get('openMedia')!=='photos')return;
+    query.delete('openMedia');
+    const remaining=query.toString();
+    window.history.replaceState(window.history.state,'',window.location.pathname+(remaining?'?'+remaining:'')+window.location.hash);
+    window.requestAnimationFrame(openLibrary);
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup);
+  else setup();
+})();
