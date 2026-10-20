@@ -453,3 +453,29 @@ html:has(#all-genres-dialog[open]) .club-pointer {
 @media(prefers-reduced-motion:reduce){
   #media-overlay .video-library .video-cover .video-cover-play{transition:none!important}
 }
+
+
+/* Native cursor inside media overlays; decorative club is hidden while open. */
+html:has(#media-overlay:not([hidden])) .club-pointer,
+html:has(#photo-lightbox:not([hidden])) .club-pointer,
+html:has(#video-player-overlay:not([hidden])) .club-pointer {
+  display:none!important;
+}
+html.club-cursor-active #media-overlay,
+html.club-cursor-active #media-overlay *,
+html.club-cursor-active #photo-lightbox,
+html.club-cursor-active #photo-lightbox *,
+html.club-cursor-active #video-player-overlay,
+html.club-cursor-active #video-player-overlay * {
+  cursor:default!important;
+}
+html.club-cursor-active #media-overlay button,
+html.club-cursor-active #media-overlay button *,
+html.club-cursor-active #media-overlay a[href],
+html.club-cursor-active #media-overlay a[href] *,
+html.club-cursor-active #photo-lightbox button,
+html.club-cursor-active #photo-lightbox button *,
+html.club-cursor-active #video-player-overlay button,
+html.club-cursor-active #video-player-overlay button * {
+  cursor:pointer!important;
+}
