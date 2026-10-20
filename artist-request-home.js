@@ -101,7 +101,8 @@ document.addEventListener('DOMContentLoaded',()=>{
   function choose(key){
     if(!Object.prototype.hasOwnProperty.call(artistToPage,key))return;
     selected=artistToPage[key];photos=null;
-    queueMicrotask(()=>{if(modal.open)refresh(selected)});
+    // The popup opens in a later click handler; run after that event has finished.
+    setTimeout(()=>{if(modal.open&&selected===artistToPage[key])refresh(selected)},0);
   }
   document.addEventListener('click',e=>{
     const card=e.target.closest?.('.genre[data-artist]');
