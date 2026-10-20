@@ -41,7 +41,8 @@
         "image": "images/cms-photo-005.jpg",
         "alt": "Мимы на мероприятии"
       }
-    ]
+    ],
+    "video": "videos/copy_719A5889-42A7-495A-991D-17B662A48116.mov"
   },
   "unitsiklisty": {
     "photos": [
@@ -100,7 +101,8 @@
         "image": "images/cms-photo-012.jpg",
         "alt": "Хулахупы на мероприятии"
       }
-    ]
+    ],
+    "video": "videos/copy_39F060C3-8104-453D-BC23-2C3D50638045.mov"
   },
   "gimnastka-v-zorb-share": {
     "photos": [
@@ -125,7 +127,7 @@
   },
   "kontaktnoe-zhonglirovanie": {
     "photos": [],
-    "video": "videos/804D93CA-6448-4042-948E-1F8019C09B7B.mp4"
+    "video": "videos/kontaktnoe_zhonglirovanie_compatible.mp4"
   },
   "diabolo": {
     "photos": [],
