@@ -237,3 +237,24 @@
   #genres.section {padding-bottom:22px!important}
   #gallery.section {padding-top:35px!important}
 }
+
+
+/* Atmosphere redesign 1/4: consistent heading accent. */
+#gallery .section-heading {
+  position:relative;
+  margin-bottom:36px;
+}
+#gallery .section-heading::after {
+  content:"";
+  display:block;
+  position:absolute;
+  left:0;
+  bottom:-14px;
+  width:65px;
+  height:4px;
+  background:#ed082c;
+}
+@media(max-width:650px){
+  #gallery .section-heading {margin-bottom:34px}
+  #gallery .section-heading::after {bottom:-13px}
+}
