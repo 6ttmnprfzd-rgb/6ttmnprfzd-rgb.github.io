@@ -51,3 +51,60 @@
 #media-overlay [data-media-content="photos"] > .media-tile {
   display: none !important;
 }
+
+
+/* 2026-10-21: Scale genre titles without touching the large homepage.
+   Extra specificity intentionally overrides the historical inline rules. */
+#genres .genres-carousel .genres-featured .genre h3,
+#all-genres-dialog .genre-all-grid .genre h3 {
+  box-sizing: border-box !important;
+  max-width: none !important;
+  min-width: 0 !important;
+  white-space: normal !important;
+  overflow-wrap: break-word !important;
+  word-break: normal !important;
+  hyphens: none !important;
+  line-height: 1.06 !important;
+  text-wrap: balance;
+}
+#genres .genres-carousel .genres-featured .genre h3 {
+  font-size: clamp(22px, 2.1vw, 27px) !important;
+  letter-spacing: -.025em !important;
+}
+#genres .genres-carousel .genres-featured .genre h3.genre-title-medium,
+#genres .genres-carousel .genres-featured .genre h3.genre-unicycle-title {
+  font-size: clamp(19px, 1.8vw, 23px) !important;
+  letter-spacing: -.03em !important;
+}
+#genres .genres-carousel .genres-featured .genre h3.genre-title-long {
+  font-size: clamp(17px, 1.5vw, 19px) !important;
+  letter-spacing: -.02em !important;
+}
+#genres .genres-carousel .genres-featured .genre h3.genre-title-verylong {
+  font-size: clamp(14px, 1.28vw, 16px) !important;
+  letter-spacing: -.012em !important;
+}
+#all-genres-dialog .genre-all-grid .genre h3 { font-size: 19px !important; }
+#all-genres-dialog .genre-all-grid .genre h3.genre-title-medium { font-size: 17px !important; }
+#all-genres-dialog .genre-all-grid .genre h3.genre-title-long { font-size: 15px !important; }
+#all-genres-dialog .genre-all-grid .genre h3.genre-title-verylong { font-size: 13px !important; }
+
+@media (max-width: 650px) {
+  #genres .genres-carousel .genres-featured .genre h3 {
+    font-size: clamp(24px, 6.4vw, 32px) !important;
+  }
+  #genres .genres-carousel .genres-featured .genre h3.genre-title-medium,
+  #genres .genres-carousel .genres-featured .genre h3.genre-unicycle-title {
+    font-size: clamp(22px, 5.6vw, 28px) !important;
+  }
+  #genres .genres-carousel .genres-featured .genre h3.genre-title-long {
+    font-size: clamp(19px, 4.8vw, 24px) !important;
+  }
+  #genres .genres-carousel .genres-featured .genre h3.genre-title-verylong {
+    font-size: clamp(16px, 4vw, 20px) !important;
+  }
+  #all-genres-dialog .genre-all-grid .genre h3 { font-size: 17px !important; }
+  #all-genres-dialog .genre-all-grid .genre h3.genre-title-medium { font-size: 15px !important; }
+  #all-genres-dialog .genre-all-grid .genre h3.genre-title-long { font-size: 13px !important; }
+  #all-genres-dialog .genre-all-grid .genre h3.genre-title-verylong { font-size: 11px !important; }
+}
