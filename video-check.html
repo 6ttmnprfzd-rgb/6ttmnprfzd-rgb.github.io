@@ -49,16 +49,43 @@ video{display:block;width:min(100%,420px);max-height:480px;background:#161616;bo
      else await response.arrayBuffer();
    }catch(e){log('Сбой запроса: '+e.name+' — '+e.message);}
  }
+
+ async function checkChunk(url,label,start,end){
+   const controller=new AbortController();
+   const timer=setTimeout(()=>controller.abort(),10000);
+   const now=performance.now();
+   log('\n'+label+': bytes='+start+'-'+end);
+   try{
+     const response=await fetch(url+'?range-test='+Date.now(),{
+       method:'GET',headers:{Range:'bytes='+start+'-'+end},
+       cache:'no-store',signal:controller.signal
+     });
+     const data=await response.arrayBuffer();
+     const duration=Math.round(performance.now()-now);
+     log('HTTP '+response.status+'; получено '+data.byteLength+' байт за '+duration+' мс');
+     log('content-range: '+(response.headers.get('content-range')||'—'));
+     log('content-type: '+(response.headers.get('content-type')||'—'));
+     log('Проверка количества: '+(response.status===206&&data.byteLength===end-start+1?'OK':'ОТКЛОНЕНИЕ'));
+   }catch(error){
+     log('ОШИБКА '+error.name+': '+error.message+' (через '+Math.round(performance.now()-now)+' мс)');
+   }finally{clearTimeout(timer)}
+ }
  button.addEventListener('click',async()=>{
    button.disabled=true;results=[];log('Адрес страницы: '+location.origin);log('Браузер: '+navigator.userAgent);
    await range(main,'Видео 19 (1,9 МБ)');
    await range(extra,'Видео 01 (13 МБ)');
+   await checkChunk(main,'Реальные данные: начало видео 19',0,262143);
+   await checkChunk(main,'Реальные данные: конец видео 19',1916196,1981731);
    video.src=main+'?video-play='+Date.now();
    video.load();
-   log('\nЗапуск встроенного плеера…');
-   try{await video.play();log('Вызов play(): успешно');}
-   catch(e){log('Вызов play(): '+e.name+' — '+e.message);}
-   log('Текущее состояние: '+state());
+   log('\nПроверка проигрывателя (до 10 секунд)…');
+   const outcome=await Promise.race([
+     video.play().then(()=> 'play(): успешно').catch(e=>'play(): '+e.name+' — '+e.message),
+     new Promise(resolve=>setTimeout(()=>resolve('play(): не завершился за 10 секунд'),10000))
+   ]);
+   log(outcome);
+   log('Финал: '+state()+'; размеры='+video.videoWidth+'×'+video.videoHeight);
+   log('\nПроверка закончена. Пришлите снимок экрана.');
    button.disabled=false;
  });
 })();
