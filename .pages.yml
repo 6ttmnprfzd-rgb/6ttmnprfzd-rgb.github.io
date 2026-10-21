@@ -158,6 +158,23 @@ content:
             label: Примечание к стоимости
             type: text
 
+      - name: zhonglery
+        label: Жонглёры
+        type: object
+        fields:
+          - name: title
+            label: Название жанра
+            type: string
+          - name: description
+            label: Описание выступления
+            type: text
+          - name: price
+            label: Стоимость (например, 10 000 ₽ / час)
+            type: string
+          - name: price_note
+            label: Примечание к стоимости
+            type: text
+
   - name: artist_media
     label: Фото и видео карточек артистов
     type: file
