@@ -984,3 +984,35 @@ html.club-cursor-active #request-overlay textarea {
 html:not(.club-cursor-active) #formats .formats > article.format {
   cursor:pointer;
 }
+
+/* One consistent brand label: large НОГИ / РУКИ, smaller lowercase в. */
+#wc-contact-overlay .wc-contact-top .site-brand-small-v,
+#all-genres-dialog .genres-modal-brand .site-brand-small-v {
+  font-size:.72em!important;
+  letter-spacing:0!important;
+  text-transform:none!important;
+}
+#all-genres-dialog .all-genres-dialog-header h2::before {
+  content:none!important;
+  display:none!important;
+}
+#all-genres-dialog .all-genres-dialog-header .genres-modal-brand {
+  display:block;
+  margin:0 0 19px;
+  color:#ff6078;
+  font:800 11px/1.3 Arial,Helvetica,sans-serif;
+  letter-spacing:.17em;
+  text-transform:none!important;
+}
+@media(max-width:650px) {
+  #all-genres-dialog .all-genres-dialog-header .genres-modal-brand {
+    font-size:10px;
+    letter-spacing:.13em;
+    margin-bottom:18px;
+  }
+}
+/* No thin grey divider after the price popup's upper brand line. */
+#price-overlay .price-panel .eyebrow::after {
+  content:none!important;
+  display:none!important;
+}
