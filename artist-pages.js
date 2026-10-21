@@ -164,12 +164,13 @@ document.addEventListener('DOMContentLoaded',()=>{
 
 /* Acrobat standalone CMS copy and price; the original HTML remains a fallback. */
 document.addEventListener('DOMContentLoaded',()=>{
-  if(document.body.dataset.artistSlug!=='akrobaty')return;
+  const slug=document.body.dataset.artistSlug;
+  if(slug!=='akrobaty'&&slug!=='zhonglery')return;
   fetch('/artist-content.json',{cache:'no-store'}).then(response=>{
     if(!response.ok)throw Error('Artist text unavailable');
     return response.json();
   }).then(data=>{
-    const cms=data?.akrobaty;
+    const cms=data?.[slug];
     if(!cms||typeof cms!=='object')return;
     const set=(selector,value)=>{
       if(typeof value!=='string'||!value.trim())return;
