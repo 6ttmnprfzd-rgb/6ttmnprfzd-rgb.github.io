@@ -555,11 +555,16 @@ document.addEventListener('DOMContentLoaded',()=>{
     const slug=overlay.dataset.returnArtistSlug;
     back.hidden=overlay.hidden||!Object.values(slugs).includes(slug);
   };
+  let wasOpen=!overlay.hidden;
   const observer=new MutationObserver(()=>{
-    if(overlay.hidden){
+    const isOpen=!overlay.hidden;
+    // Only clear a previous origin after the library actually closes.
+    // On an artist click the origin is recorded BEFORE the library opens.
+    if(wasOpen&&!isOpen){
       delete overlay.dataset.returnArtistSlug;
       delete overlay.dataset.returnSource;
     }
+    wasOpen=isOpen;
     update();
   });
   observer.observe(overlay,{
