@@ -970,3 +970,17 @@ html.club-cursor-active #request-overlay input,
 html.club-cursor-active #request-overlay textarea {
   cursor:text!important;
 }
+
+/* Format popups: brand's lowercase "в" is smaller; remove only the upper grey rule. */
+#format-modal .format-modal-panel .eyebrow .format-brand-small-v {
+  font-size:.72em!important;
+  letter-spacing:0!important;
+}
+#format-modal .format-modal-panel .eyebrow::after {
+  content:none!important;
+  display:none!important;
+}
+/* Whole format cards are clickable, while the original Подробнее buttons remain. */
+html:not(.club-cursor-active) #formats .formats > article.format {
+  cursor:pointer;
+}
