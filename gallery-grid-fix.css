@@ -648,3 +648,25 @@ html.club-cursor-active #format-modal .format-modal-panel,
 html.club-cursor-active #format-modal .format-modal-panel * { cursor:default!important; }
 html.club-cursor-active #format-modal button,
 html.club-cursor-active #format-modal button * { cursor:pointer!important; }
+
+
+/* Price popup: restore the native cursor while hiding the decorative club. */
+html:has(#price-overlay:not([hidden])) .club-pointer {
+  display:none!important;
+}
+html.club-cursor-active #price-overlay,
+html.club-cursor-active #price-overlay .price-panel,
+html.club-cursor-active #price-overlay .price-panel * {
+  cursor:default!important;
+}
+html.club-cursor-active #price-overlay button,
+html.club-cursor-active #price-overlay button *,
+html.club-cursor-active #price-overlay a[href],
+html.club-cursor-active #price-overlay a[href] * {
+  cursor:pointer!important;
+}
+html.club-cursor-active #price-overlay input,
+html.club-cursor-active #price-overlay textarea,
+html.club-cursor-active #price-overlay select {
+  cursor:text!important;
+}
