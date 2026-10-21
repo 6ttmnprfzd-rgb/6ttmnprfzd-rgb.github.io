@@ -491,13 +491,13 @@ html.club-cursor-active #video-player-overlay button * {
   width:min(100%,650px);
   max-height:min(88dvh,760px);
   overflow-y:auto;
-  background:rgba(24,24,29,.91)!important;
+  background:rgba(20,20,25,.82)!important;
   color:#fff!important;
   border:1px solid rgba(255,255,255,.20)!important;
   border-radius:22px!important;
   box-shadow:0 28px 85px rgba(0,0,0,.42),inset 0 1px 0 rgba(255,255,255,.10)!important;
-  -webkit-backdrop-filter:blur(16px) saturate(115%);
-  backdrop-filter:blur(16px) saturate(115%);
+  -webkit-backdrop-filter:blur(12px) saturate(115%);
+  backdrop-filter:blur(12px) saturate(115%);
   padding:clamp(27px,5vw,46px)!important;
 }
 #format-modal .format-modal-panel .eyebrow {
@@ -562,4 +562,12 @@ html.club-cursor-active #video-player-overlay button * {
   #format-modal .format-modal-panel .eyebrow {padding-right:34px}
   #format-modal #format-modal-title {padding-right:20px}
   #format-modal #format-modal-description {font-size:16px!important;line-height:1.55!important}
+}
+
+
+/* Gentle backdrop: keep page visible through the formats' glass panel. */
+#format-modal.format-modal:not([hidden]) {
+  background:rgba(13,12,15,.43)!important;
+  -webkit-backdrop-filter:blur(3px)!important;
+  backdrop-filter:blur(3px)!important;
 }
