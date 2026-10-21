@@ -571,3 +571,45 @@ html.club-cursor-active #video-player-overlay button * {
   -webkit-backdrop-filter:blur(3px)!important;
   backdrop-filter:blur(3px)!important;
 }
+
+
+/* Media library graphite glass, step 1: panel and navigation. */
+/* The background site should remain subtly visible, not become a black slab. */
+#media-overlay:not([hidden]) {
+  background:rgba(13,12,15,.43)!important;
+  -webkit-backdrop-filter:blur(3px)!important;
+  backdrop-filter:blur(3px)!important;
+}
+#media-overlay .media-panel {
+  box-sizing:border-box;
+  background:rgba(20,20,25,.82)!important;
+  color:#fff!important;
+  border:1px solid rgba(255,255,255,.2)!important;
+  box-shadow:0 28px 85px rgba(0,0,0,.42),inset 0 1px 0 rgba(255,255,255,.10)!important;
+  -webkit-backdrop-filter:blur(12px) saturate(115%)!important;
+  backdrop-filter:blur(12px) saturate(115%)!important;
+}
+#media-overlay .media-head h2 {color:#fff!important}
+#media-overlay .media-kicker {color:#ff6078!important}
+#media-overlay .media-close {
+  background:rgba(255,255,255,.09)!important;
+  color:#fff!important;
+  border:1px solid rgba(255,255,255,.25)!important;
+  box-shadow:none!important;
+}
+#media-overlay .media-close:hover {background:rgba(255,255,255,.17)!important}
+#media-overlay .media-tabs .media-tab {
+  color:#e7e7ea!important;
+  background:rgba(255,255,255,.04)!important;
+  border:1px solid rgba(255,255,255,.21)!important;
+}
+#media-overlay .media-tabs .media-tab[aria-selected="true"] {
+  color:#fff!important;
+  background:rgba(255,255,255,.17)!important;
+  border-color:rgba(255,255,255,.57)!important;
+}
+#media-overlay .media-tab:focus-visible,
+#media-overlay .media-close:focus-visible {
+  outline:2px solid #ff6078!important;
+  outline-offset:3px!important;
+}
