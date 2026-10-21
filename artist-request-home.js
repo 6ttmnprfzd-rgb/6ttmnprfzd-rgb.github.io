@@ -719,3 +719,34 @@ document.addEventListener('DOMContentLoaded',()=>{
     heading.prepend(prefix);
   }
 });
+
+/* Request form content: presentation only; submission fields remain unchanged. */
+document.addEventListener('DOMContentLoaded',()=>{
+  const panel=document.querySelector('#request-overlay .request-panel');
+  const title=panel?.querySelector('#request-title');
+  const form=panel?.querySelector('#request-form');
+  if(!title||!form)return;
+  if(!panel.querySelector('.request-brand-kicker')){
+    const kicker=document.createElement('div');
+    kicker.className='request-brand-kicker';
+    kicker.append('НОГИ ');
+    const small=document.createElement('span');
+    small.className='request-brand-small-v';
+    small.textContent='в';
+    kicker.append(small,' РУКИ / ЗАЯВКА');
+    title.before(kicker);
+  }
+  const intro=title.nextElementSibling;
+  if(intro?.tagName==='P')intro.textContent='Укажите детали мероприятия, чтобы мы могли подготовить предложение и рассчитать стоимость.';
+  const select=form.querySelector('select[name="format"]');
+  if(select&&!select.dataset.polished){
+    const previous=select.value;
+    const formats=['Раус / встреча гостей','Шоу','Отдельный номер'];
+    const placeholder=new Option('Выберите формат','',true,true);
+    placeholder.disabled=true;
+    select.replaceChildren(placeholder,...formats.map(x=>new Option(x,x)));
+    select.required=true;
+    if(formats.includes(previous))select.value=previous;
+    select.dataset.polished='true';
+  }
+});
