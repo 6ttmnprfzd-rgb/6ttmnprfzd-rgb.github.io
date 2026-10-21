@@ -1134,3 +1134,76 @@ html:not(.club-cursor-active) #formats .formats > article.format {
 @media(max-width:550px) {
   #request-overlay .request-fields {grid-template-columns:minmax(0,1fr)!important}
 }
+
+/* Request performer checklist: compact, collapsible, accessible on iPhone. */
+#request-overlay .request-performers.request-field {
+  display:block!important;
+  min-width:0;
+}
+#request-overlay .request-performers > summary {
+  cursor:pointer!important;
+  list-style-position:inside;
+  padding:15px 14px;
+  border:1px solid rgba(255,255,255,.26);
+  background:rgba(255,255,255,.085);
+  border-radius:10px;
+  color:#fff;
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:.04em;
+}
+#request-overlay .request-performers > summary:focus-visible {
+  outline:2px solid #ff6078;
+  outline-offset:2px;
+}
+#request-overlay .request-performers-count {
+  color:#d0d0d7;
+  font-weight:500;
+  font-size:11px;
+  letter-spacing:0;
+  text-transform:none;
+}
+#request-overlay .request-performers-list {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:9px 16px;
+  padding:16px 3px 5px;
+}
+#request-overlay .request-performer-option {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  min-width:0;
+  cursor:pointer;
+  color:#f1f1f5;
+  font-size:13px;
+  font-weight:500;
+  letter-spacing:0;
+  text-transform:none;
+  line-height:1.4;
+}
+#request-overlay .request-performer-option input[type="checkbox"] {
+  display:block;
+  flex:0 0 19px;
+  width:19px!important;
+  height:19px!important;
+  min-width:19px!important;
+  margin:0!important;
+  padding:0!important;
+  border-radius:4px!important;
+  background:initial!important;
+  -webkit-appearance:checkbox!important;
+  appearance:auto!important;
+  accent-color:#ed082c;
+  cursor:pointer!important;
+}
+html.club-cursor-active #request-overlay .request-performer-option input[type="checkbox"] {
+  cursor:pointer!important;
+}
+@media(max-width:550px) {
+  #request-overlay .request-performers-list {
+    grid-template-columns:minmax(0,1fr);
+    gap:13px;
+  }
+  #request-overlay .request-performer-option {font-size:14px}
+}
