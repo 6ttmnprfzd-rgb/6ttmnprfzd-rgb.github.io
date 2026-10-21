@@ -21,6 +21,7 @@
     ]
   },
   "zhonglery": {
+    "video": "videos/5ac3f49f-f448-4bf1-add7-5ab6c6a52ed4.mov",
     "photos": [
       {
         "image": "images/cms-photo-004.jpg",
@@ -32,81 +33,106 @@
       {
         "image": "images/IMG_5923.jpeg"
       }
-    ],
-    "video": "videos/5ac3f49f-f448-4bf1-add7-5ab6c6a52ed4.mov"
+    ]
   },
   "mimy": {
+    "video": "videos/copy_719A5889-42A7-495A-991D-17B662A48116.mov",
     "photos": [
       {
         "image": "images/cms-photo-005.jpg",
         "alt": "Мимы на мероприятии"
       }
-    ],
-    "video": "videos/copy_719A5889-42A7-495A-991D-17B662A48116.mov"
+    ]
   },
   "unitsiklisty": {
+    "video": "videos/-9107598504827633725.mov",
     "photos": [
       {
         "image": "images/cms-photo-006.jpg",
         "alt": "Унициклисты на мероприятии"
       }
-    ],
-    "video": "videos/-9107598504827633725.mov"
+    ]
   },
   "mikromag": {
+    "video": "videos/copy_925FA7A1-AB13-4486-83F2-51E62A60AD58.mov",
     "photos": [
       {
         "image": "images/cms-photo-007.jpg",
         "alt": "Микромаг на мероприятии"
+      },
+      {
+        "image": "images/dd745610-d7c9-4759-b83a-30ce9b5b1350.jpeg"
       }
-    ],
-    "video": "videos/copy_925FA7A1-AB13-4486-83F2-51E62A60AD58.mov"
+    ]
   },
   "akrobaty": {
+    "video": "videos/copy_9FD8D596-0A01-401B-94E0-71D2B15DE0AD.mov",
     "photos": [
       {
         "image": "images/cms-photo-008.jpg",
         "alt": "Акробаты на мероприятии"
       }
-    ],
-    "video": "videos/copy_9FD8D596-0A01-401B-94E0-71D2B15DE0AD.mov"
+    ]
   },
   "koleso-sira": {
+    "video": "videos/-7069860093755677855.mov",
     "photos": [
       {
         "image": "images/cms-photo-009.jpg",
         "alt": "Колесо Сира на мероприятии"
+      },
+      {
+        "image": "images/IMG_3390.jpeg"
+      },
+      {
+        "image": "images/IMG_3391.jpeg"
+      },
+      {
+        "image": "images/IMG_8997.jpeg"
       }
-    ],
-    "video": "videos/-7069860093755677855.mov"
+    ]
   },
   "balans-na-nozhe": {
+    "video": "videos/4664389728094929978.mp4",
     "photos": [
       {
         "image": "images/cms-photo-010.jpg",
         "alt": "Баланс на ноже на мероприятии"
-      }
-    ],
-    "video": "videos/4664389728094929978.mp4"
+      },
+      {
+        "image": "images/IMG_3398.jpeg"
+      },
+      {
+        "image": "images/c70532b5-c534-4791-a3e4-4cda9509ea52.jpeg"
+      },
+      {}
+    ]
   },
   "ekvilibr-na-trostyah": {
     "photos": [
       {
         "image": "images/cms-photo-011.jpg",
         "alt": "Эквилибр на тростях на мероприятии"
+      },
+      {
+        "image": "images/IMG_3388.jpeg"
+      },
+      {
+        "image": "images/IMG_3386.jpeg"
       }
     ]
   },
   "hulahupy": {
+    "video": "videos/copy_39F060C3-8104-453D-BC23-2C3D50638045.mov",
     "photos": [
       {
         "image": "images/cms-photo-012.jpg",
         "alt": "Хулахупы на мероприятии"
       }
-    ],
-    "video": "videos/copy_39F060C3-8104-453D-BC23-2C3D50638045.mov"
+    ]
   },
   "gimnastka-v-zorb-share": {
+    "video": "videos/411713016821160568.mov",
     "photos": [
       {
         "image": "images/cms-photo-013.jpg",
@@ -114,37 +140,83 @@
       },
       {
         "image": "images/IMG_3172.jpeg"
+      },
+      {
+        "image": "images/IMG_3384.jpeg"
       }
-    ],
-    "video": "videos/411713016821160568.mov"
+    ]
   },
   "gimnastka-v-parternom-koltse": {
+    "video": "videos/parternoe_koltso_compatible.mp4",
     "photos": [
       {
         "image": "images/cms-photo-014.jpg",
         "alt": "Гимнастка в партерном кольце на мероприятии"
-      }
-    ],
-    "video": "videos/parternoe_koltso_compatible.mp4"
-  },
-  "kontaktnoe-zhonglirovanie": {
-    "photos": [],
-    "video": "videos/kontaktnoe_zhonglirovanie_compatible.mp4"
+      },
+      {}
+    ]
   },
   "diabolo": {
-    "photos": [],
-    "video": "videos/9100551323254244463.mov"
+    "video": "videos/9100551323254244463.mov",
+    "photos": [
+      {
+        "image": "images/IMG_3401.jpeg"
+      }
+    ]
   },
   "ekvilibr-na-katushkah": {
-    "photos": [],
-    "video": "videos/-8934617001882082733.mov"
+    "video": "videos/-8934617001882082733.mov",
+    "photos": [
+      {
+        "image": "images/IMG_3395.jpeg"
+      },
+      {
+        "image": "images/IMG_3396.jpeg"
+      },
+      {
+        "image": "images/IMG_3394-1.jpeg"
+      }
+    ]
+  },
+  "ekvilibr-na-stulyah": {
+    "photos": [
+      {
+        "image": "images/IMG_3400.jpeg"
+      }
+    ]
+  },
+  "kontaktnoe-zhonglirovanie": {
+    "video": "videos/kontaktnoe_zhonglirovanie_compatible.mp4",
+    "photos": [
+      {
+        "image": "images/IMG_3381.jpeg"
+      },
+      {
+        "image": "images/IMG_3392.jpeg"
+      },
+      {
+        "image": "images/IMG_3382.jpeg"
+      }
+    ]
   },
   "volnostoyashchaya-lestnitsa": {
-    "photos": [],
-    "video": "videos/1d1e5641-ed2b-4c4b-bf7f-a3efd4bd12c1.mov"
+    "video": "videos/1d1e5641-ed2b-4c4b-bf7f-a3efd4bd12c1.mov",
+    "photos": [
+      {
+        "image": "images/39fba1b6-626f-4a84-b1a9-29688dca72d7.jpeg"
+      },
+      {
+        "image": "images/4852c702-7b5d-4c68-9576-078eb58b8b69.jpeg"
+      },
+      {
+        "image": "images/IMG_3402.jpeg"
+      },
+      {
+        "image": "images/IMG_1631.jpeg"
+      }
+    ]
   },
   "shlyapnik": {
-    "photos": [],
     "video": "videos/-3564800886256053923.mp4"
   }
 }
