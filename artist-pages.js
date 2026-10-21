@@ -158,7 +158,8 @@ overlay.querySelector('.request-copy').addEventListener('click',async()=>{try{aw
 document.addEventListener('DOMContentLoaded',()=>{
   const galleryLink=document.getElementById('stilts-gallery-link');
   if(!galleryLink)return;
-  galleryLink.href='/#media-library';
+  const slug=document.body.dataset.artistSlug;
+  galleryLink.href=slug ? '/?from-artist='+encodeURIComponent(slug)+'#media-library' : '/#media-library';
 });
 
 
