@@ -503,11 +503,11 @@ html,body{background:#101015!important}
 
 
 /* Acrobat standalone CMS: unified price line and no duplicate terms. */
-body[data-artist-slug="akrobaty"] .artist-dialog.stilts-showcase .artist-price-note {
+body:is([data-artist-slug="akrobaty"],[data-artist-slug="zhonglery"]) .artist-dialog.stilts-showcase .artist-price-note {
   display:none!important;
 }
 @media(max-width:650px){
-  body[data-artist-slug="akrobaty"] .artist-dialog.stilts-showcase .artist-price-with-info {
+  body:is([data-artist-slug="akrobaty"],[data-artist-slug="zhonglery"]) .artist-dialog.stilts-showcase .artist-price-with-info {
     width:100%!important;
     max-width:100%!important;
     min-width:0!important;
@@ -517,14 +517,14 @@ body[data-artist-slug="akrobaty"] .artist-dialog.stilts-showcase .artist-price-n
     justify-content:flex-start!important;
     gap:12px!important;
   }
-  body[data-artist-slug="akrobaty"] .artist-dialog.stilts-showcase .artist-price-with-info .artist-price {
+  body:is([data-artist-slug="akrobaty"],[data-artist-slug="zhonglery"]) .artist-dialog.stilts-showcase .artist-price-with-info .artist-price {
     flex:0 0 auto!important;
     white-space:nowrap!important;
     min-width:0!important;
     font-size:clamp(18px,5.3vw,24px)!important;
     line-height:1.2!important;
   }
-  body[data-artist-slug="akrobaty"] .artist-dialog.stilts-showcase .artist-info-box {
+  body:is([data-artist-slug="akrobaty"],[data-artist-slug="zhonglery"]) .artist-dialog.stilts-showcase .artist-info-box {
     flex:0 0 auto!important;
     margin:0!important;
     align-self:center!important;
