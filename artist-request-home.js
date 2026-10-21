@@ -696,3 +696,26 @@ document.addEventListener('DOMContentLoaded',()=>{
     });
   });
 });
+
+/* Match the small lowercase "в" in the Contacts and All Genres modal brand lines. */
+document.addEventListener('DOMContentLoaded',()=>{
+  const contactLabel=document.querySelector('#wc-contact-overlay .wc-contact-top');
+  if(contactLabel&&contactLabel.textContent.trim()==='НОГИ В РУКИ / КОНТАКТЫ'){
+    contactLabel.replaceChildren(
+      document.createTextNode('НОГИ '),
+      Object.assign(document.createElement('span'),{className:'site-brand-small-v',textContent:'в'}),
+      document.createTextNode(' РУКИ / КОНТАКТЫ')
+    );
+  }
+  const heading=document.querySelector('#all-genres-dialog .all-genres-dialog-header h2');
+  if(heading&&!heading.querySelector('.genres-modal-brand')){
+    const prefix=document.createElement('span');
+    prefix.className='genres-modal-brand';
+    prefix.append(
+      document.createTextNode('НОГИ '),
+      Object.assign(document.createElement('span'),{className:'site-brand-small-v',textContent:'в'}),
+      document.createTextNode(' РУКИ / АРТИСТЫ')
+    );
+    heading.prepend(prefix);
+  }
+});
