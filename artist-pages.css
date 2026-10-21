@@ -645,3 +645,17 @@ body[data-artist-slug] .artist-dialog.stilts-showcase .artist-price-note {
     padding-right:30px;
   }
 }
+
+/* iPhone: date input must fit its grid column without expanding the form. */
+#request-overlay .request-fields {min-width:0;grid-template-columns:repeat(2,minmax(0,1fr))}
+#request-overlay .request-field {min-width:0;max-width:100%}
+#request-overlay .request-field input[type="date"] {
+  display:block;
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  box-sizing:border-box!important;
+}
+@media(max-width:550px) {
+  #request-overlay .request-fields {grid-template-columns:minmax(0,1fr)!important}
+}
