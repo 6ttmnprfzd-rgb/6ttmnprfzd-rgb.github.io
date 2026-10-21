@@ -4,6 +4,162 @@ media:
   output: images
 
 content:
+  - name: price_settings
+    label: Прайс сайта
+    type: file
+    path: price-data.json
+    format: json
+    fields:
+      - name: eyebrow
+        label: Надпись над заголовком (НОГИ в РУКИ / ПРАЙС)
+        type: string
+      - name: title
+        label: Заголовок прайса
+        type: string
+      - name: footnote
+        label: Условия стоимости внизу прайса
+        type: text
+      - name: cta_label
+        label: Текст кнопки заявки
+        type: string
+      - name: raus
+        label: Раус
+        type: object
+        fields:
+          - name: tab_label
+            label: Название вкладки
+            type: string
+          - name: blocks
+            label: Содержимое вкладки (можно добавлять, удалять и менять порядок)
+            type: block
+            blockKey: type
+            list:
+              collapsible:
+                collapsed: true
+                summary: "Строка {index}"
+            blocks:
+              - name: text
+                label: Обычный текст
+                fields:
+                  - name: text
+                    label: Текст
+                    type: text
+              - name: heading
+                label: Подзаголовок
+                fields:
+                  - name: text
+                    label: Текст подзаголовка
+                    type: string
+              - name: item
+                label: Артист и стоимость
+                fields:
+                  - name: name
+                    label: Артист или услуга
+                    type: string
+                  - name: price
+                    label: Стоимость (вводится текстом)
+                    type: string
+              - name: plan
+                label: Пакет и стоимость
+                fields:
+                  - name: name
+                    label: Название пакета
+                    type: string
+                  - name: price
+                    label: Стоимость (вводится текстом)
+                    type: string
+      - name: show
+        label: Шоу
+        type: object
+        fields:
+          - name: tab_label
+            label: Название вкладки
+            type: string
+          - name: blocks
+            label: Содержимое вкладки (можно добавлять, удалять и менять порядок)
+            type: block
+            blockKey: type
+            list:
+              collapsible:
+                collapsed: true
+                summary: "Строка {index}"
+            blocks:
+              - name: text
+                label: Обычный текст
+                fields:
+                  - name: text
+                    label: Текст
+                    type: text
+              - name: heading
+                label: Подзаголовок
+                fields:
+                  - name: text
+                    label: Текст подзаголовка
+                    type: string
+              - name: item
+                label: Артист и стоимость
+                fields:
+                  - name: name
+                    label: Артист или услуга
+                    type: string
+                  - name: price
+                    label: Стоимость (вводится текстом)
+                    type: string
+              - name: plan
+                label: Пакет и стоимость
+                fields:
+                  - name: name
+                    label: Название пакета
+                    type: string
+                  - name: price
+                    label: Стоимость (вводится текстом)
+                    type: string
+      - name: acts
+        label: Номера
+        type: object
+        fields:
+          - name: tab_label
+            label: Название вкладки
+            type: string
+          - name: blocks
+            label: Содержимое вкладки (можно добавлять, удалять и менять порядок)
+            type: block
+            blockKey: type
+            list:
+              collapsible:
+                collapsed: true
+                summary: "Строка {index}"
+            blocks:
+              - name: text
+                label: Обычный текст
+                fields:
+                  - name: text
+                    label: Текст
+                    type: text
+              - name: heading
+                label: Подзаголовок
+                fields:
+                  - name: text
+                    label: Текст подзаголовка
+                    type: string
+              - name: item
+                label: Артист и стоимость
+                fields:
+                  - name: name
+                    label: Артист или услуга
+                    type: string
+                  - name: price
+                    label: Стоимость (вводится текстом)
+                    type: string
+              - name: plan
+                label: Пакет и стоимость
+                fields:
+                  - name: name
+                    label: Название пакета
+                    type: string
+                  - name: price
+                    label: Стоимость (вводится текстом)
+                    type: string
   - name: gallery
     label: Фотографии сайта
     type: file
