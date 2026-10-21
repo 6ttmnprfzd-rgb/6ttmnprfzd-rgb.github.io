@@ -613,3 +613,30 @@ html.club-cursor-active #video-player-overlay button * {
   outline:2px solid #ff6078!important;
   outline-offset:3px!important;
 }
+
+
+/* Media library graphite glass, step 2: video cards and captions. */
+#media-overlay .video-library .video-card {
+  background:rgba(255,255,255,.075)!important;
+  border:1px solid rgba(255,255,255,.12)!important;
+  border-radius:14px!important;
+  color:#fff!important;
+  box-shadow:none!important;
+}
+#media-overlay .video-library .video-card-info {
+  background:transparent!important;
+  color:#fff!important;
+}
+#media-overlay .video-library .video-card-info strong {
+  color:#f7f7f9!important;
+}
+#media-overlay .video-library .video-card-info span,
+#media-overlay .video-library-note {
+  color:#bcbcc5!important;
+}
+#media-overlay .video-library .video-cover {
+  background:#131319!important;
+}
+#media-overlay .media-grid .media-tile {
+  background:#25252a!important;
+}
