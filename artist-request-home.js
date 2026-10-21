@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded',()=>{
   }
   function choose(key){
     if(!Object.prototype.hasOwnProperty.call(artistToPage,key))return;
-    modal.classList.toggle('artist-cms-acrobat',key==='acrobat');
+    modal.classList.toggle('artist-cms-acrobat',key==='acrobat'||key==='juggling');
     selected=artistToPage[key];photos=null;
     // The popup opens in a later click handler; run after that event has finished.
     setTimeout(()=>{if(modal.open&&selected===artistToPage[key])refresh(selected)},0);
@@ -411,7 +411,7 @@ document.addEventListener('DOMContentLoaded',()=>{
 });
 
 
-/* Acrobat pilot copy and price from Pages CMS; leaves all other genres intact. */
+/* CMS copy and prices for the tested Acrobat and Juggler cards. */
 document.addEventListener('DOMContentLoaded',()=>{
   const dialog=document.getElementById('artist-dialog');
   const heading=dialog?.querySelector('#artist-dialog-title');
@@ -424,52 +424,60 @@ document.addEventListener('DOMContentLoaded',()=>{
   const originalNote=priceNote?.textContent||'';
   const originalTooltip=tooltip?.textContent||'';
   const originalNativeInfo=nativeInfo?.textContent||'';
-  const text=value=>typeof value==='string'?value.trim():'';
+  const clean=value=>typeof value==='string'?value.trim():'';
+  const configs=[
+    {key:'acrobat',slug:'akrobaty',title:'Акробаты'},
+    {key:'juggling',slug:'zhonglery',title:'Жонглёры'}
+  ];
   fetch('/artist-content.json',{cache:'no-store'}).then(response=>{
     if(!response.ok)throw Error('Artist text unavailable');
     return response.json();
   }).then(data=>{
-    const cms=data?.akrobaty;
-    if(!cms||typeof cms!=='object')return;
-    const customTitle=text(cms.title);
-    const customDescription=text(cms.description);
-    const customPrice=text(cms.price);
-    const customNote=text(cms.price_note);
-    // Keep the genre name in both the homepage carousel and the cloned full catalog.
-    if(customTitle){
-      const syncNames=()=>{
+    const items=configs.map(config=>{
+      const cms=data?.[config.slug];
+      if(!cms||typeof cms!=='object')return null;
+      return {...config,
+        cmsTitle:clean(cms.title),
+        cmsDescription:clean(cms.description),
+        cmsPrice:clean(cms.price),
+        cmsNote:clean(cms.price_note)
+      };
+    }).filter(Boolean);
+    if(!items.length)return;
+    const syncNames=()=>{
+      items.forEach(item=>{
+        if(!item.cmsTitle)return;
         document.querySelectorAll(
-          '#genres .genres-featured .genre[data-artist="acrobat"], '+
-          '#all-genres-dialog .genre-all-grid .genre[data-artist="acrobat"]'
+          '#genres .genres-featured .genre[data-artist="'+item.key+'"], '+
+          '#all-genres-dialog .genre-all-grid .genre[data-artist="'+item.key+'"]'
         ).forEach(card=>{
           const label=card.querySelector('h3');
-          if(label&&label.textContent!==customTitle)label.textContent=customTitle;
-          card.setAttribute('aria-label','Подробнее: '+customTitle);
+          if(label&&label.textContent!==item.cmsTitle)label.textContent=item.cmsTitle;
+          card.setAttribute('aria-label','Подробнее: '+item.cmsTitle);
         });
-      };
-      const grid=document.querySelector('#all-genres-dialog .genre-all-grid');
-      if(grid)new MutationObserver(syncNames).observe(grid,{childList:true});
-      syncNames();
-    }
+      });
+    };
+    const grid=document.querySelector('#all-genres-dialog .genre-all-grid');
+    if(grid)new MutationObserver(syncNames).observe(grid,{childList:true});
+    syncNames();
+    const restoreNotes=()=>{
+      if(priceNote)priceNote.textContent=originalNote;
+      if(tooltip)tooltip.textContent=originalTooltip;
+      if(nativeInfo)nativeInfo.textContent=originalNativeInfo;
+    };
     const update=()=>{
       const title=heading.textContent.trim();
-      const isAcrobat=title==='Акробаты'||(customTitle&&title===customTitle);
-      if(!isAcrobat){
-        if(priceNote)priceNote.textContent=originalNote;
-        if(tooltip)tooltip.textContent=originalTooltip;
-        if(nativeInfo)nativeInfo.textContent=originalNativeInfo;
-        return;
-      }
-      if(customTitle&&title!==customTitle)heading.textContent=customTitle;
-      if(customDescription)description.textContent=customDescription;
-      if(customPrice)price.textContent=customPrice;
-      if(customNote){
-        if(priceNote)priceNote.textContent=customNote;
-        if(tooltip)tooltip.textContent=customNote;
-        if(nativeInfo)nativeInfo.textContent=customNote;
-      }
+      const active=items.find(item=>title===item.title||(item.cmsTitle&&title===item.cmsTitle));
+      if(!active){restoreNotes();return;}
+      if(active.cmsTitle&&title!==active.cmsTitle)heading.textContent=active.cmsTitle;
+      if(active.cmsDescription)description.textContent=active.cmsDescription;
+      if(active.cmsPrice)price.textContent=active.cmsPrice;
+      const note=active.cmsNote;
+      if(priceNote)priceNote.textContent=note||originalNote;
+      if(tooltip)tooltip.textContent=note||originalTooltip;
+      if(nativeInfo)nativeInfo.textContent=note||originalNativeInfo;
     };
     new MutationObserver(update).observe(heading,{childList:true,characterData:true,subtree:true});
     update();
-  }).catch(error=>console.warn('Acrobat text unavailable; keeping original copy',error));
+  }).catch(error=>console.warn('Artist text unavailable; keeping original copy',error));
 });
