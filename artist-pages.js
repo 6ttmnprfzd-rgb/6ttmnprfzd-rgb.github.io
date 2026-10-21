@@ -162,10 +162,10 @@ document.addEventListener('DOMContentLoaded',()=>{
 });
 
 
-/* Acrobat standalone CMS copy and price; the original HTML remains a fallback. */
+/* Generic standalone genre CMS copy and prices (all 18); original HTML is fallback. */
 document.addEventListener('DOMContentLoaded',()=>{
   const slug=document.body.dataset.artistSlug;
-  if(slug!=='akrobaty'&&slug!=='zhonglery')return;
+  if(!slug)return;
   fetch('/artist-content.json',{cache:'no-store'}).then(response=>{
     if(!response.ok)throw Error('Artist text unavailable');
     return response.json();
@@ -180,8 +180,10 @@ document.addEventListener('DOMContentLoaded',()=>{
     set('#artist-dialog-title',cms.title);
     set('#artist-dialog-description',cms.description);
     set('.artist-dialog .artist-price',cms.price);
+    const displayed=document.querySelector('.artist-dialog .artist-price')?.textContent?.trim()||'';
+    document.body.classList.toggle('artist-cms-long-price',displayed.length>19);
     set('.artist-dialog .artist-price-note',cms.price_note);
     set('#price-explanation',cms.price_note);
     set('#artist-info-dialog .stilts-info-native-inner p',cms.price_note);
-  }).catch(error=>console.warn('Acrobat text unavailable; keeping original copy',error));
+  }).catch(error=>console.warn('Artist text unavailable; keeping original copy',error));
 });
