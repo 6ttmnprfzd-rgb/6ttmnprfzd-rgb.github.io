@@ -339,3 +339,44 @@ document.addEventListener('DOMContentLoaded',()=>{
   button.replaceChildren(symbol,copy,arrow);
   button.setAttribute('aria-label','Смотреть все фото и видео');
 });
+
+/* Auto-fill the four original placeholder covers from Pages CMS. */
+document.addEventListener('DOMContentLoaded',()=>{
+  const slugByCard={
+    diabolo:'diabolo',
+    rollers:'ekvilibr-na-katushkah',
+    chairs:'ekvilibr-na-stulyah',
+    contact:'kontaktnoe-zhonglirovanie'
+  };
+  const safeCover=value=>{
+    if(typeof value!=='string')return null;
+    const path=value.trim().replace(/^\/+/, '');
+    return /^images\/[a-zA-Z0-9_.\/-]+$/.test(path)&&!path.includes('..')?'/'+path:null;
+  };
+  fetch('/artist-media.json',{cache:'no-store'})
+    .then(response=>{
+      if(!response.ok)throw Error('Artist covers unavailable');
+      return response.json();
+    })
+    .then(data=>{
+      for(const [cardKey,slug] of Object.entries(slugByCard)){
+        const first=(Array.isArray(data?.[slug]?.photos)?data[slug].photos:[])
+          .map(item=>safeCover(item?.image)).find(Boolean);
+        if(!first)continue;
+        document.querySelectorAll(
+          '#genres .genres-featured .genre[data-artist="'+cardKey+'"], '+
+          '#all-genres-dialog .genre-all-grid .genre[data-artist="'+cardKey+'"]'
+        ).forEach(card=>{
+          const placeholder=card.querySelector('.genre-img.genre-placeholder');
+          if(!placeholder)return; // Preserve existing designed covers.
+          const img=document.createElement('img');
+          img.src=first;
+          img.alt=card.querySelector('h3')?.textContent?.trim()||'Цирковой артист';
+          img.loading='lazy';
+          placeholder.replaceChildren(img);
+          placeholder.classList.remove('genre-placeholder');
+          card.classList.remove('genre-pending');
+        });
+      }
+    }).catch(()=>{});
+});
