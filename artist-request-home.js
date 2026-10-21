@@ -551,9 +551,18 @@ document.addEventListener('DOMContentLoaded',()=>{
   back.append(arrow,label);
   panel.insertBefore(back,head);
 
+  // Only add a graphite surface once the return link reaches the sticky edge.
+  const updateStickySurface=()=>{
+    const topPadding=parseFloat(getComputedStyle(panel).paddingTop)||0;
+    const isStuck=!back.hidden&&panel.scrollTop>=Math.max(8,topPadding-1);
+    back.classList.toggle('is-stuck',isStuck);
+  };
+  panel.addEventListener('scroll',updateStickySurface,{passive:true});
+
   const update=()=>{
     const slug=overlay.dataset.returnArtistSlug;
     back.hidden=overlay.hidden||!Object.values(slugs).includes(slug);
+    updateStickySurface();
   };
   let wasOpen=!overlay.hidden;
   const observer=new MutationObserver(()=>{
