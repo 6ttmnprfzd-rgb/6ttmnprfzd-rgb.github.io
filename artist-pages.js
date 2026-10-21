@@ -160,3 +160,27 @@ document.addEventListener('DOMContentLoaded',()=>{
   if(!galleryLink)return;
   galleryLink.href='/#media-library';
 });
+
+
+/* Acrobat standalone CMS copy and price; the original HTML remains a fallback. */
+document.addEventListener('DOMContentLoaded',()=>{
+  if(document.body.dataset.artistSlug!=='akrobaty')return;
+  fetch('/artist-content.json',{cache:'no-store'}).then(response=>{
+    if(!response.ok)throw Error('Artist text unavailable');
+    return response.json();
+  }).then(data=>{
+    const cms=data?.akrobaty;
+    if(!cms||typeof cms!=='object')return;
+    const set=(selector,value)=>{
+      if(typeof value!=='string'||!value.trim())return;
+      const node=document.querySelector(selector);
+      if(node)node.textContent=value.trim();
+    };
+    set('#artist-dialog-title',cms.title);
+    set('#artist-dialog-description',cms.description);
+    set('.artist-dialog .artist-price',cms.price);
+    set('.artist-dialog .artist-price-note',cms.price_note);
+    set('#price-explanation',cms.price_note);
+    set('#artist-info-dialog .stilts-info-native-inner p',cms.price_note);
+  }).catch(error=>console.warn('Acrobat text unavailable; keeping original copy',error));
+});
