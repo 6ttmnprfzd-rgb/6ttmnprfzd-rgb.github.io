@@ -750,3 +750,56 @@ document.addEventListener('DOMContentLoaded',()=>{
     select.dataset.polished='true';
   }
 });
+
+/* Selected performers: optional multi-select, appended to the existing notes field
+   through the native formdata event. The bot endpoint and JSON payload stay unchanged. */
+document.addEventListener('DOMContentLoaded',()=>{
+  const form=document.querySelector('#request-overlay #request-form');
+  if(!form||form.querySelector('.request-performers'))return;
+  const select=form.querySelector('select[name="format"]');
+  const notes=form.querySelector('textarea[name="notes"]');
+  if(!select||!notes)return;
+  notes.placeholder='Дополнительные детали мероприятия';
+  const names=[
+    'Ходулисты','Жонглёры','Мимы','Унициклисты','Микромаг','Акробаты',
+    'Колесо Сира','Баланс на ноже','Эквилибр на тростях','Хулахупы',
+    'Гимнастка в Зорб-шаре','Гимнастка в партерном кольце','Диаболо',
+    'Эквилибр на катушках','Эквилибр на стульях','Контактное жонглирование',
+    'Вольностоящая лестница','Шляпник'
+  ];
+  const field=document.createElement('details');
+  field.className='request-performers request-field wide';
+  const summary=document.createElement('summary');
+  summary.append(document.createTextNode('ИНТЕРЕСУЮЩИЕ АРТИСТЫ '));
+  const tally=document.createElement('span');
+  tally.className='request-performers-count';
+  summary.append(tally);
+  const list=document.createElement('div');
+  list.className='request-performers-list';
+  const checks=names.map(name=>{
+    const label=document.createElement('label');
+    label.className='request-performer-option';
+    const input=document.createElement('input');
+    input.type='checkbox';
+    input.value=name;
+    const caption=document.createElement('span');
+    caption.textContent=name;
+    label.append(input,caption);
+    list.append(label);
+    return input;
+  });
+  const update=()=>{
+    const count=checks.filter(input=>input.checked).length;
+    tally.textContent=count?'('+count+' выбрано)':'(необязательно)';
+  };
+  list.addEventListener('change',update);
+  field.append(summary,list);
+  select.closest('.request-field')?.insertAdjacentElement('afterend',field);
+  update();
+  form.addEventListener('formdata',event=>{
+    const selected=checks.filter(input=>input.checked).map(input=>input.value);
+    if(!selected.length)return;
+    const existing=String(event.formData.get('notes')||'').trim();
+    event.formData.set('notes','Интересующие артисты: '+selected.join(', ')+(existing?'\nДополнительные детали: '+existing:''));
+  });
+});
