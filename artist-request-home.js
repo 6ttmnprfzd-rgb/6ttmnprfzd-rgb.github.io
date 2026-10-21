@@ -434,6 +434,22 @@ document.addEventListener('DOMContentLoaded',()=>{
     const customDescription=text(cms.description);
     const customPrice=text(cms.price);
     const customNote=text(cms.price_note);
+    // Keep the genre name in both the homepage carousel and the cloned full catalog.
+    if(customTitle){
+      const syncNames=()=>{
+        document.querySelectorAll(
+          '#genres .genres-featured .genre[data-artist="acrobat"], '+
+          '#all-genres-dialog .genre-all-grid .genre[data-artist="acrobat"]'
+        ).forEach(card=>{
+          const label=card.querySelector('h3');
+          if(label&&label.textContent!==customTitle)label.textContent=customTitle;
+          card.setAttribute('aria-label','Подробнее: '+customTitle);
+        });
+      };
+      const grid=document.querySelector('#all-genres-dialog .genre-all-grid');
+      if(grid)new MutationObserver(syncNames).observe(grid,{childList:true});
+      syncNames();
+    }
     const update=()=>{
       const title=heading.textContent.trim();
       const isAcrobat=title==='Акробаты'||(customTitle&&title===customTitle);
