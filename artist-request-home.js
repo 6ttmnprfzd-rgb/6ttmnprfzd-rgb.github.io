@@ -340,14 +340,25 @@ document.addEventListener('DOMContentLoaded',()=>{
   button.setAttribute('aria-label','Смотреть все фото и видео');
 });
 
-/* Auto-fill the four original placeholder covers from Pages CMS. */
+/* Keep genre catalog covers synchronized with the first photo in Pages CMS.
+   Apply also to the full-catalog clones; site-media.json may load afterwards. */
 document.addEventListener('DOMContentLoaded',()=>{
   const slugByCard={
-    diabolo:'diabolo',
-    rollers:'ekvilibr-na-katushkah',
-    chairs:'ekvilibr-na-stulyah',
-    contact:'kontaktnoe-zhonglirovanie'
+    stilts:'hodulisty',juggling:'zhonglery',mime:'mimy',
+    unicycle:'unitsiklisty',magic:'mikromag',acrobat:'akrobaty',
+    cyrwheel:'koleso-sira',knife:'balans-na-nozhe',
+    canes:'ekvilibr-na-trostyah',hoops:'hulahupy',
+    zorb:'gimnastka-v-zorb-share',
+    aerialring:'gimnastka-v-parternom-koltse',
+    diabolo:'diabolo',rollers:'ekvilibr-na-katushkah',
+    chairs:'ekvilibr-na-stulyah',contact:'kontaktnoe-zhonglirovanie',
+    ladder:'volnostoyashchaya-lestnitsa',hatter:'shlyapnik'
   };
+  const containers=[
+    document.querySelector('#genres .genres-featured'),
+    document.querySelector('#all-genres-dialog .genre-all-grid')
+  ].filter(Boolean);
+  if(!containers.length)return;
   const safeCover=value=>{
     if(typeof value!=='string')return null;
     const path=value.trim().replace(/^\/+/, '');
@@ -359,24 +370,41 @@ document.addEventListener('DOMContentLoaded',()=>{
       return response.json();
     })
     .then(data=>{
-      for(const [cardKey,slug] of Object.entries(slugByCard)){
-        const first=(Array.isArray(data?.[slug]?.photos)?data[slug].photos:[])
+      const covers=new Map();
+      for(const [key,slug] of Object.entries(slugByCard)){
+        const photos=data?.[slug]?.photos;
+        const first=(Array.isArray(photos)?photos:[])
           .map(item=>safeCover(item?.image)).find(Boolean);
-        if(!first)continue;
-        document.querySelectorAll(
-          '#genres .genres-featured .genre[data-artist="'+cardKey+'"], '+
-          '#all-genres-dialog .genre-all-grid .genre[data-artist="'+cardKey+'"]'
-        ).forEach(card=>{
-          const placeholder=card.querySelector('.genre-img.genre-placeholder');
-          if(!placeholder)return; // Preserve existing designed covers.
-          const img=document.createElement('img');
-          img.src=first;
-          img.alt=card.querySelector('h3')?.textContent?.trim()||'Цирковой артист';
-          img.loading='lazy';
-          placeholder.replaceChildren(img);
-          placeholder.classList.remove('genre-placeholder');
+        if(first)covers.set(key,first);
+      }
+      const syncCovers=container=>{
+        container.querySelectorAll('.genre[data-artist]').forEach(card=>{
+          const src=covers.get(card.dataset.artist);
+          if(!src)return;
+          const visual=card.querySelector('.genre-img');
+          if(!visual)return;
+          let img=visual.querySelector('img');
+          if(!img){
+            img=document.createElement('img');
+            img.alt=card.querySelector('h3')?.textContent?.trim()||'Цирковой артист';
+            img.loading='lazy';
+            visual.replaceChildren(img);
+          }
+          if(img.getAttribute('src')!==src)img.setAttribute('src',src);
+          visual.classList.remove('genre-placeholder');
           card.classList.remove('genre-pending');
         });
-      }
-    }).catch(()=>{});
+      };
+      // The homepage's separate site-media loader can finish later and
+      // replace covers. Restore the CMS cover whenever that happens.
+      const observer=new MutationObserver(()=>{
+        containers.forEach(syncCovers);
+      });
+      containers.forEach(container=>{
+        observer.observe(container,{
+          subtree:true,childList:true,attributes:true,attributeFilter:['src']
+        });
+        syncCovers(container);
+      });
+    }).catch(error=>console.warn('Genre covers unavailable',error));
 });
