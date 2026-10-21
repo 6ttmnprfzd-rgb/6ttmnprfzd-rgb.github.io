@@ -878,3 +878,27 @@ html.club-cursor-active #price-overlay select {
   }
   #media-overlay .media-artist-back-arrow {font-size:23px;}
 }
+
+
+/* Mobile media library: return link stays in view while the gallery scrolls.
+   Sticky is relative to .media-panel, the existing scroll container. */
+@media (max-width:650px) {
+  #media-overlay .media-artist-back:not([hidden]) {
+    display:flex!important;
+    position:sticky!important;
+    top:0!important;
+    z-index:30!important;
+    width:max-content!important;
+    max-width:100%!important;
+    box-sizing:border-box!important;
+    padding:10px 13px!important;
+    margin:0 0 19px!important;
+    border:0!important;
+    border-bottom:1px solid rgba(255,255,255,.28)!important;
+    border-radius:10px!important;
+    background:rgba(26,26,32,.76)!important;
+    -webkit-backdrop-filter:blur(12px) saturate(115%)!important;
+    backdrop-filter:blur(12px) saturate(115%)!important;
+    box-shadow:0 5px 16px rgba(0,0,0,.10)!important;
+  }
+}
