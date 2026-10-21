@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Проверка воспроизведения видео — НОГИ в РУКИ</title>
+<style>
+body{font-family:system-ui,-apple-system,Arial,sans-serif;background:#f8f8f8;color:#141414;max-width:700px;margin:auto;padding:22px 16px 60px}
+h1{font-size:26px;line-height:1.15;margin:0 0 12px}
+p{line-height:1.5}
+button{border:0;border-radius:12px;background:#ea1237;color:white;padding:16px 20px;font-size:16px;font-weight:700;width:100%;cursor:pointer}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;background:white;border:1px solid #ddd;border-radius:12px;padding:14px;min-height:70px;font-size:13px;line-height:1.5}
+video{display:block;width:min(100%,420px);max-height:480px;background:#161616;border-radius:12px;margin:18px auto}
+.note{font-size:13px;color:#555}
+</style>
+</head>
+<body>
+<h1>Проверка видео в Safari</h1>
+<p>Эта страница только проверяет ответы сервера и воспроизведение. Она ничего не изменяет на сайте.</p>
+<button type="button" id="run">Проверить загрузку видео</button>
+<pre id="report" aria-live="polite">Нажмите кнопку проверки.</pre>
+<video id="testVideo" controls playsinline webkit-playsinline preload="none" muted></video>
+<p class="note">После проверки сделайте скриншот результатов и пришлите его в чат.</p>
+<script>
+(function(){
+ const display=document.getElementById('report');
+ const button=document.getElementById('run');
+ const video=document.getElementById('testVideo');
+ const main='/videos/video-19.mp4';
+ const extra='/videos/video-01.mp4';
+ let results=[];
+ function log(line){results.push(line);display.textContent=results.join('\n');}
+ function state(){return 'readyState='+video.readyState+'; networkState='+video.networkState+
+    '; error='+(video.error?video.error.code+': '+video.error.message:'нет')+
+    '; duration='+(Number.isFinite(video.duration)?video.duration.toFixed(1):'?');}
+ ['loadstart','loadedmetadata','canplay','waiting','stalled','playing','error','suspend'].forEach(ev=>{
+   video.addEventListener(ev,()=>log('Видео: '+ev+' | '+state()));
+ });
+ async function range(url,label){
+   const target=url+'?video-check='+Date.now();
+   log('\n'+label+': запрос первых 2 байт…');
+   try{
+     const response=await fetch(target,{method:'GET',headers:{'Range':'bytes=0-1'},cache:'no-store'});
+     log('HTTP: '+response.status+' '+response.statusText);
+     for(const key of ['content-type','accept-ranges','content-range','content-length','etag','age','cache-control']){
+       log(key+': '+(response.headers.get(key)||'—'));
+     }
+     if(response.body)await response.body.cancel();
+     else await response.arrayBuffer();
+   }catch(e){log('Сбой запроса: '+e.name+' — '+e.message);}
+ }
+ button.addEventListener('click',async()=>{
+   button.disabled=true;results=[];log('Адрес страницы: '+location.origin);log('Браузер: '+navigator.userAgent);
+   await range(main,'Видео 19 (1,9 МБ)');
+   await range(extra,'Видео 01 (13 МБ)');
+   video.src=main+'?video-play='+Date.now();
+   video.load();
+   log('\nЗапуск встроенного плеера…');
+   try{await video.play();log('Вызов play(): успешно');}
+   catch(e){log('Вызов play(): '+e.name+' — '+e.message);}
+   log('Текущее состояние: '+state());
+   button.disabled=false;
+ });
+})();
+</script>
+</body>
+</html>
