@@ -301,8 +301,20 @@ document.addEventListener('DOMContentLoaded',()=>{
   const opener=document.getElementById('open-media');
   if(!opener)return;
 
-  // A standalone artist page can link to /#media-library.
-  if(window.location.hash==='#media-library')opener.click();
+  // Standalone artist pages link here with the source genre preserved.
+  if(window.location.hash==='#media-library'){
+    const incoming=new URLSearchParams(window.location.search).get('from-artist');
+    if(incoming&&/^[a-z0-9-]+$/.test(incoming)){
+      const overlay=document.getElementById('media-overlay');
+      if(overlay){
+        overlay.dataset.returnArtistSlug=incoming;
+        overlay.dataset.returnSource='standalone';
+      }
+      // Keep the public media URL clean after capturing the origin.
+      window.history.replaceState(window.history.state,'',window.location.pathname+'#media-library');
+    }
+    opener.click();
+  }
 
   document.addEventListener('click',event=>{
     const link=event.target.closest?.('#artist-dialog #stilts-gallery-link');
@@ -312,7 +324,10 @@ document.addEventListener('DOMContentLoaded',()=>{
     const dialog=document.getElementById('artist-dialog');
     const slug=dialog?.dataset.cmsArtistSlug;
     const overlay=document.getElementById('media-overlay');
-    if(overlay&&slug)overlay.dataset.returnArtistSlug=slug;
+    if(overlay&&slug){
+      overlay.dataset.returnArtistSlug=slug;
+      overlay.dataset.returnSource='homepage';
+    }
     if(dialog?.open)dialog.close();
     requestAnimationFrame(()=>opener.click());
   },true);
@@ -502,4 +517,71 @@ document.addEventListener('DOMContentLoaded',()=>{
     new MutationObserver(update).observe(heading,{childList:true,characterData:true,subtree:true});
     update();
   }).catch(error=>console.warn('Artist text unavailable; keeping original copy',error));
+});
+
+
+/* Return from the common media library to the artist that opened it.
+   The link is absent for ordinary gallery visits. No large HTML changes. */
+document.addEventListener('DOMContentLoaded',()=>{
+  const overlay=document.getElementById('media-overlay');
+  const panel=overlay?.querySelector('.media-panel');
+  const head=panel?.querySelector('.media-head');
+  if(!overlay||!panel||!head||panel.querySelector('.media-artist-back'))return;
+  const slugs={
+    stilts:'hodulisty',juggling:'zhonglery',mime:'mimy',
+    unicycle:'unitsiklisty',magic:'mikromag',acrobat:'akrobaty',
+    cyrwheel:'koleso-sira',knife:'balans-na-nozhe',
+    canes:'ekvilibr-na-trostyah',hoops:'hulahupy',
+    zorb:'gimnastka-v-zorb-share',
+    aerialring:'gimnastka-v-parternom-koltse',
+    diabolo:'diabolo',rollers:'ekvilibr-na-katushkah',
+    chairs:'ekvilibr-na-stulyah',contact:'kontaktnoe-zhonglirovanie',
+    ladder:'volnostoyashchaya-lestnitsa',hatter:'shlyapnik'
+  };
+  const back=document.createElement('button');
+  back.className='media-artist-back';
+  back.type='button';
+  back.hidden=true;
+  const arrow=document.createElement('span');
+  arrow.className='media-artist-back-arrow';
+  arrow.setAttribute('aria-hidden','true');
+  arrow.textContent='←';
+  const label=document.createElement('span');
+  label.textContent='Вернуться к артисту';
+  back.append(arrow,label);
+  panel.insertBefore(back,head);
+
+  const update=()=>{
+    const slug=overlay.dataset.returnArtistSlug;
+    back.hidden=overlay.hidden||!Object.values(slugs).includes(slug);
+  };
+  const observer=new MutationObserver(()=>{
+    if(overlay.hidden){
+      delete overlay.dataset.returnArtistSlug;
+      delete overlay.dataset.returnSource;
+    }
+    update();
+  });
+  observer.observe(overlay,{
+    attributes:true,
+    attributeFilter:['hidden','data-return-artist-slug','data-return-source']
+  });
+  update();
+
+  back.addEventListener('click',()=>{
+    const slug=overlay.dataset.returnArtistSlug;
+    const source=overlay.dataset.returnSource;
+    if(!Object.values(slugs).includes(slug))return;
+    overlay.querySelector('.media-close')?.click();
+    if(source==='standalone'){
+      window.location.assign('/'+encodeURIComponent(slug)+'/');
+      return;
+    }
+    const key=Object.keys(slugs).find(item=>slugs[item]===slug);
+    requestAnimationFrame(()=>{
+      const card=document.querySelector('#genres .genres-featured .genre[data-artist="'+key+'"]');
+      if(card)card.click();
+      else window.location.assign('/'+encodeURIComponent(slug)+'/');
+    });
+  });
 });
