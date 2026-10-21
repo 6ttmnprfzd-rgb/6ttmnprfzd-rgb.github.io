@@ -101,7 +101,7 @@ document.addEventListener('DOMContentLoaded',()=>{
   }
   function choose(key){
     if(!Object.prototype.hasOwnProperty.call(artistToPage,key))return;
-    dialog.classList.toggle('artist-cms-acrobat',key==='acrobat');
+    modal.classList.toggle('artist-cms-acrobat',key==='acrobat');
     selected=artistToPage[key];photos=null;
     // The popup opens in a later click handler; run after that event has finished.
     setTimeout(()=>{if(modal.open&&selected===artistToPage[key])refresh(selected)},0);
