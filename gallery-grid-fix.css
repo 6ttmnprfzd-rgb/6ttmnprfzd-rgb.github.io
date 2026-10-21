@@ -829,3 +829,52 @@ html.club-cursor-active #price-overlay select {
     margin-top:25px!important;
   }
 }
+
+
+/* Contextual back link: media library to artist, only visible after artist entry. */
+#media-overlay .media-artist-back[hidden] {
+  display:none!important;
+}
+#media-overlay .media-artist-back {
+  display:inline-flex!important;
+  width:auto!important;
+  max-width:100%;
+  align-items:center;
+  justify-content:flex-start;
+  gap:10px;
+  padding:5px 0 10px!important;
+  margin:0 0 23px!important;
+  border:0!important;
+  border-bottom:1px solid rgba(255,255,255,.23)!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  background:transparent!important;
+  color:#f6f6f8!important;
+  font:700 clamp(13px,1.45vw,15px)/1.35 Arial,Helvetica,sans-serif!important;
+  letter-spacing:.01em!important;
+  text-align:left;
+  cursor:pointer;
+  -webkit-tap-highlight-color:transparent;
+}
+#media-overlay .media-artist-back-arrow {
+  flex:none;
+  color:#ff6078;
+  font:400 25px/1 Arial,Helvetica,sans-serif;
+}
+#media-overlay .media-artist-back:hover {
+  color:#fff!important;
+  border-bottom-color:rgba(255,96,120,.7)!important;
+}
+#media-overlay .media-artist-back:focus-visible {
+  outline:2px solid #ff6078!important;
+  outline-offset:4px!important;
+}
+@media(max-width:650px){
+  #media-overlay .media-artist-back {
+    margin-bottom:19px!important;
+    padding-top:3px!important;
+    padding-bottom:10px!important;
+    font-size:13px!important;
+  }
+  #media-overlay .media-artist-back-arrow {font-size:23px;}
+}
