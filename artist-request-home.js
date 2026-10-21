@@ -310,6 +310,9 @@ document.addEventListener('DOMContentLoaded',()=>{
     event.preventDefault();
     event.stopPropagation();
     const dialog=document.getElementById('artist-dialog');
+    const slug=dialog?.dataset.cmsArtistSlug;
+    const overlay=document.getElementById('media-overlay');
+    if(overlay&&slug)overlay.dataset.returnArtistSlug=slug;
     if(dialog?.open)dialog.close();
     requestAnimationFrame(()=>opener.click());
   },true);
