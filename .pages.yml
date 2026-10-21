@@ -175,6 +175,278 @@ content:
             label: Примечание к стоимости
             type: text
 
+      - name: hodulisty
+        label: Ходулисты
+        type: object
+        fields:
+          - name: title
+            label: Название жанра
+            type: string
+          - name: description
+            label: Описание выступления
+            type: text
+          - name: price
+            label: Стоимость (например, 10 000 ₽ / час)
+            type: string
+          - name: price_note
+            label: Примечание к стоимости
+            type: text
+
+      - name: mimy
+        label: Мимы
+        type: object
+        fields:
+          - name: title
+            label: Название жанра
+            type: string
+          - name: description
+            label: Описание выступления
+            type: text
+          - name: price
+            label: Стоимость (например, 10 000 ₽ / час)
+            type: string
+          - name: price_note
+            label: Примечание к стоимости
+            type: text
+
+      - name: unitsiklisty
+        label: Унициклисты
+        type: object
+        fields:
+          - name: title
+            label: Название жанра
+            type: string
+          - name: description
+            label: Описание выступления
+            type: text
+          - name: price
+            label: Стоимость (например, 10 000 ₽ / час)
+            type: string
+          - name: price_note
+            label: Примечание к стоимости
+            type: text
+
+      - name: mikromag
+        label: Микромаг
+        type: object
+        fields:
+          - name: title
+            label: Название жанра
+            type: string
+          - name: description
+            label: Описание выступления
+            type: text
+          - name: price
+            label: Стоимость (например, 10 000 ₽ / час)
+            type: string
+          - name: price_note
+            label: Примечание к стоимости
+            type: text
+
+      - name: koleso-sira
+        label: Колесо Сира
+        type: object
+        fields:
+          - name: title
+            label: Название жанра
+            type: string
+          - name: description
+            label: Описание выступления
+            type: text
+          - name: price
+            label: Стоимость (например, 10 000 ₽ / час)
+            type: string
+          - name: price_note
+            label: Примечание к стоимости
+            type: text
+
+      - name: balans-na-nozhe
+        label: Баланс на ноже
+        type: object
+        fields:
+          - name: title
+            label: Название жанра
+            type: string
+          - name: description
+            label: Описание выступления
+            type: text
+          - name: price
+            label: Стоимость (например, 10 000 ₽ / час)
+            type: string
+          - name: price_note
+            label: Примечание к стоимости
+            type: text
+
+      - name: ekvilibr-na-trostyah
+        label: Эквилибр на тростях
+        type: object
+        fields:
+          - name: title
+            label: Название жанра
+            type: string
+          - name: description
+            label: Описание выступления
+            type: text
+          - name: price
+            label: Стоимость (например, 10 000 ₽ / час)
+            type: string
+          - name: price_note
+            label: Примечание к стоимости
+            type: text
+
+      - name: hulahupy
+        label: Хулахупы
+        type: object
+        fields:
+          - name: title
+            label: Название жанра
+            type: string
+          - name: description
+            label: Описание выступления
+            type: text
+          - name: price
+            label: Стоимость (например, 10 000 ₽ / час)
+            type: string
+          - name: price_note
+            label: Примечание к стоимости
+            type: text
+
+      - name: gimnastka-v-zorb-share
+        label: Гимнастка в Зорб-шаре
+        type: object
+        fields:
+          - name: title
+            label: Название жанра
+            type: string
+          - name: description
+            label: Описание выступления
+            type: text
+          - name: price
+            label: Стоимость (например, 10 000 ₽ / час)
+            type: string
+          - name: price_note
+            label: Примечание к стоимости
+            type: text
+
+      - name: gimnastka-v-parternom-koltse
+        label: Гимнастка в партерном кольце
+        type: object
+        fields:
+          - name: title
+            label: Название жанра
+            type: string
+          - name: description
+            label: Описание выступления
+            type: text
+          - name: price
+            label: Стоимость (например, 10 000 ₽ / час)
+            type: string
+          - name: price_note
+            label: Примечание к стоимости
+            type: text
+
+      - name: diabolo
+        label: Диаболо
+        type: object
+        fields:
+          - name: title
+            label: Название жанра
+            type: string
+          - name: description
+            label: Описание выступления
+            type: text
+          - name: price
+            label: Стоимость (например, 10 000 ₽ / час)
+            type: string
+          - name: price_note
+            label: Примечание к стоимости
+            type: text
+
+      - name: ekvilibr-na-katushkah
+        label: Эквилибр на катушках
+        type: object
+        fields:
+          - name: title
+            label: Название жанра
+            type: string
+          - name: description
+            label: Описание выступления
+            type: text
+          - name: price
+            label: Стоимость (например, 10 000 ₽ / час)
+            type: string
+          - name: price_note
+            label: Примечание к стоимости
+            type: text
+
+      - name: ekvilibr-na-stulyah
+        label: Эквилибр на стульях
+        type: object
+        fields:
+          - name: title
+            label: Название жанра
+            type: string
+          - name: description
+            label: Описание выступления
+            type: text
+          - name: price
+            label: Стоимость (например, 10 000 ₽ / час)
+            type: string
+          - name: price_note
+            label: Примечание к стоимости
+            type: text
+
+      - name: kontaktnoe-zhonglirovanie
+        label: Контактное жонглирование
+        type: object
+        fields:
+          - name: title
+            label: Название жанра
+            type: string
+          - name: description
+            label: Описание выступления
+            type: text
+          - name: price
+            label: Стоимость (например, 10 000 ₽ / час)
+            type: string
+          - name: price_note
+            label: Примечание к стоимости
+            type: text
+
+      - name: volnostoyashchaya-lestnitsa
+        label: Вольностоящая лестница
+        type: object
+        fields:
+          - name: title
+            label: Название жанра
+            type: string
+          - name: description
+            label: Описание выступления
+            type: text
+          - name: price
+            label: Стоимость (например, 10 000 ₽ / час)
+            type: string
+          - name: price_note
+            label: Примечание к стоимости
+            type: text
+
+      - name: shlyapnik
+        label: Шляпник
+        type: object
+        fields:
+          - name: title
+            label: Название жанра
+            type: string
+          - name: description
+            label: Описание выступления
+            type: text
+          - name: price
+            label: Стоимость (например, 10 000 ₽ / час)
+            type: string
+          - name: price_note
+            label: Примечание к стоимости
+            type: text
+
   - name: artist_media
     label: Фото и видео карточек артистов
     type: file
