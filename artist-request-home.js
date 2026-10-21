@@ -605,3 +605,80 @@ document.addEventListener('DOMContentLoaded',()=>{
     });
   });
 });
+
+/* Pages CMS price catalogue: populate the existing three-tab popup without rewriting index.html.
+   If the JSON cannot be loaded or validated, the original HTML price list remains usable. */
+document.addEventListener('DOMContentLoaded',()=>{
+  const overlay=document.getElementById('price-overlay');
+  if(!overlay)return;
+  const tabNames=['raus','show','acts'];
+  const panels=Object.fromEntries(tabNames.map(key=>[
+    key,overlay.querySelector('[data-price-content="'+key+'"]')
+  ]));
+  const tabs=Object.fromEntries(tabNames.map(key=>[
+    key,overlay.querySelector('[data-price-tab="'+key+'"]')
+  ]));
+  const eyebrow=overlay.querySelector('.eyebrow');
+  const title=overlay.querySelector('#price-title');
+  const footnote=overlay.querySelector('.price-footnote');
+  const action=overlay.querySelector('#price-request');
+  if(!tabNames.every(key=>panels[key]&&tabs[key])||!eyebrow||!title||!footnote||!action)return;
+
+  const validBlock=block=>{
+    if(!block||typeof block!=='object')return false;
+    if(block.type==='text'||block.type==='heading')return typeof block.text==='string';
+    if(block.type==='item'||block.type==='plan')
+      return typeof block.name==='string'&&typeof block.price==='string';
+    return false;
+  };
+  const validData=data=>
+    data&&typeof data==='object'&&
+    ['eyebrow','title','footnote','cta_label'].every(k=>typeof data[k]==='string')&&
+    tabNames.every(k=>data[k]&&typeof data[k].tab_label==='string'&&
+      Array.isArray(data[k].blocks)&&data[k].blocks.length<=150&&
+      data[k].blocks.every(validBlock));
+
+  const buildBlock=block=>{
+    if(block.type==='text'){
+      const p=document.createElement('p');
+      p.textContent=block.text;
+      return p;
+    }
+    if(block.type==='heading'){
+      const heading=document.createElement('div');
+      heading.className='price-subtitle';
+      heading.textContent=block.text;
+      return heading;
+    }
+    const row=document.createElement('div');
+    row.className=block.type==='plan'?'price-plan':'price-item';
+    const label=document.createElement('span');
+    const amount=document.createElement('strong');
+    label.textContent=block.name;
+    amount.textContent=block.price;
+    row.append(label,amount);
+    return row;
+  };
+
+  fetch('/price-data.json?v='+Date.now(),{cache:'no-store'})
+    .then(response=>{if(!response.ok)throw Error('Price JSON unavailable');return response.json()})
+    .then(data=>{
+      if(!validData(data))throw Error('Invalid price CMS data; retaining original price');
+      // Prepare all three sections before changing the visible original.
+      const contents={};
+      tabNames.forEach(k=>{
+        const fragment=document.createDocumentFragment();
+        data[k].blocks.forEach(block=>fragment.append(buildBlock(block)));
+        contents[k]=fragment;
+      });
+      tabNames.forEach(k=>{
+        panels[k].replaceChildren(contents[k]);
+        tabs[k].textContent=data[k].tab_label;
+      });
+      eyebrow.textContent=data.eyebrow;
+      title.textContent=data.title;
+      footnote.textContent=data.footnote;
+      action.textContent=data.cta_label;
+    })
+    .catch(error=>console.warn('Price CMS unavailable; showing original price list',error));
+});
