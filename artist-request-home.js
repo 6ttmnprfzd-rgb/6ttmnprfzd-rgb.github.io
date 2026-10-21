@@ -408,3 +408,51 @@ document.addEventListener('DOMContentLoaded',()=>{
       });
     }).catch(error=>console.warn('Genre covers unavailable',error));
 });
+
+
+/* Acrobat pilot copy and price from Pages CMS; leaves all other genres intact. */
+document.addEventListener('DOMContentLoaded',()=>{
+  const dialog=document.getElementById('artist-dialog');
+  const heading=dialog?.querySelector('#artist-dialog-title');
+  const description=dialog?.querySelector('#artist-dialog-description');
+  const price=dialog?.querySelector('#artist-dialog-price');
+  if(!dialog||!heading||!description||!price)return;
+  const priceNote=dialog.querySelector('.artist-price-note');
+  const tooltip=dialog.querySelector('#artist-price-tooltip');
+  const nativeInfo=document.querySelector('.stilts-info-native-inner p');
+  const originalNote=priceNote?.textContent||'';
+  const originalTooltip=tooltip?.textContent||'';
+  const originalNativeInfo=nativeInfo?.textContent||'';
+  const text=value=>typeof value==='string'?value.trim():'';
+  fetch('/artist-content.json',{cache:'no-store'}).then(response=>{
+    if(!response.ok)throw Error('Artist text unavailable');
+    return response.json();
+  }).then(data=>{
+    const cms=data?.akrobaty;
+    if(!cms||typeof cms!=='object')return;
+    const customTitle=text(cms.title);
+    const customDescription=text(cms.description);
+    const customPrice=text(cms.price);
+    const customNote=text(cms.price_note);
+    const update=()=>{
+      const title=heading.textContent.trim();
+      const isAcrobat=title==='Акробаты'||(customTitle&&title===customTitle);
+      if(!isAcrobat){
+        if(priceNote)priceNote.textContent=originalNote;
+        if(tooltip)tooltip.textContent=originalTooltip;
+        if(nativeInfo)nativeInfo.textContent=originalNativeInfo;
+        return;
+      }
+      if(customTitle&&title!==customTitle)heading.textContent=customTitle;
+      if(customDescription)description.textContent=customDescription;
+      if(customPrice)price.textContent=customPrice;
+      if(customNote){
+        if(priceNote)priceNote.textContent=customNote;
+        if(tooltip)tooltip.textContent=customNote;
+        if(nativeInfo)nativeInfo.textContent=customNote;
+      }
+    };
+    new MutationObserver(update).observe(heading,{childList:true,characterData:true,subtree:true});
+    update();
+  }).catch(error=>console.warn('Acrobat text unavailable; keeping original copy',error));
+});
