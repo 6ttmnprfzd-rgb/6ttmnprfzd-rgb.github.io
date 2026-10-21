@@ -747,11 +747,14 @@ html.club-cursor-active #price-overlay select {
   backdrop-filter:blur(3px)!important;
 }
 #all-genres-dialog .all-genres-dialog-header {
-  background:rgba(20,20,25,.94)!important;
+  /* Header is part of the same graphite-glass panel, not a dark sticky slab. */
+  position:relative!important;
+  top:auto!important;
+  background:transparent!important;
   color:#fff!important;
-  -webkit-backdrop-filter:blur(14px) saturate(115%)!important;
-  backdrop-filter:blur(14px) saturate(115%)!important;
-  border-bottom:1px solid rgba(255,255,255,.16)!important;
+  -webkit-backdrop-filter:none!important;
+  backdrop-filter:none!important;
+  border-bottom:0!important;
   padding:12px 0 22px!important;
   margin-bottom:16px!important;
   align-items:flex-start!important;
