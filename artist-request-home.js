@@ -1,7 +1,7 @@
 /* Format detail dialogs: use the same short brand breadcrumb as the other overlays. */
 document.addEventListener('DOMContentLoaded',()=>{
   const label=document.querySelector('#format-modal .format-modal-panel .eyebrow');
-  if(label) label.textContent='НОГИ В РУКИ / ФОРМАТЫ';
+  if(label) label.innerHTML='<span class="format-brand-lockup">НОГИ <span class="format-brand-small-v">в</span> РУКИ / ФОРМАТЫ</span>';
 });
 
 /* Main-page popup: the existing request form opens over artist cards too. */
