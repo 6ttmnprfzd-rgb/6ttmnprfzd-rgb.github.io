@@ -678,7 +678,7 @@ html.club-cursor-active #price-overlay select {
 @media(max-width:650px){
   #artist-dialog.artist-cms-acrobat .artist-price-with-info {
     grid-column:1/-1!important;
-    grid-row:5!important;
+    grid-row:6!important;
     width:100%!important;
     min-width:0!important;
     max-width:100%!important;
@@ -687,6 +687,19 @@ html.club-cursor-active #price-overlay select {
     align-items:center!important;
     justify-content:flex-start!important;
     gap:12px!important;
+  }
+  /* With video, description occupies row 5; price must be row 6. */
+  #artist-dialog.artist-cms-acrobat:not(.artist-no-video) .artist-cta {
+    grid-column:1/-1!important;
+    grid-row:7!important;
+  }
+  /* Without video, description occupies row 4. */
+  #artist-dialog.artist-cms-acrobat.artist-no-video .artist-price-with-info {
+    grid-row:5!important;
+  }
+  #artist-dialog.artist-cms-acrobat.artist-no-video .artist-cta {
+    grid-column:1/-1!important;
+    grid-row:6!important;
   }
   #artist-dialog.artist-cms-acrobat .artist-price-with-info .artist-price {
     flex:0 0 auto!important;
