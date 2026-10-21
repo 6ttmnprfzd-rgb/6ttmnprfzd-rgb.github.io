@@ -793,6 +793,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     tally.textContent=count?'('+count+' выбрано)':'(необязательно)';
   };
   list.addEventListener('change',update);
+  form.addEventListener('reset',()=>setTimeout(update,0));
   field.append(summary,list);
   select.closest('.request-field')?.insertAdjacentElement('afterend',field);
   update();
