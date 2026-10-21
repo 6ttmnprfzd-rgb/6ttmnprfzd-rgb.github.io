@@ -949,3 +949,24 @@ html.club-cursor-active #price-overlay select {
 #wc-contact-overlay .wc-contact-primary a + a {
   border-color:rgba(255,255,255,.20)!important;
 }
+
+/* Request form: hide the decorative club and use normal form cursors. */
+html:has(#request-overlay:not([hidden])) .club-pointer {
+  display:none!important;
+}
+html.club-cursor-active #request-overlay,
+html.club-cursor-active #request-overlay .request-panel,
+html.club-cursor-active #request-overlay .request-panel * {
+  cursor:default!important;
+}
+html.club-cursor-active #request-overlay button,
+html.club-cursor-active #request-overlay button *,
+html.club-cursor-active #request-overlay a[href],
+html.club-cursor-active #request-overlay a[href] *,
+html.club-cursor-active #request-overlay select {
+  cursor:pointer!important;
+}
+html.club-cursor-active #request-overlay input,
+html.club-cursor-active #request-overlay textarea {
+  cursor:text!important;
+}
