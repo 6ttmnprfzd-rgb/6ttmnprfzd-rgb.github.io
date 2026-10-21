@@ -1,3 +1,9 @@
+/* Format detail dialogs: use the same short brand breadcrumb as the other overlays. */
+document.addEventListener('DOMContentLoaded',()=>{
+  const label=document.querySelector('#format-modal .format-modal-panel .eyebrow');
+  if(label) label.textContent='НОГИ В РУКИ / ФОРМАТЫ';
+});
+
 /* Main-page popup: the existing request form opens over artist cards too. */
 document.addEventListener('DOMContentLoaded',()=>{
   const dialog=document.getElementById('artist-dialog');
