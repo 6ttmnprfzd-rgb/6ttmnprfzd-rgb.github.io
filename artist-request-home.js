@@ -101,8 +101,9 @@ document.addEventListener('DOMContentLoaded',()=>{
   }
   function choose(key){
     if(!Object.prototype.hasOwnProperty.call(artistToPage,key))return;
-    modal.classList.toggle('artist-cms-acrobat',key==='acrobat'||key==='juggling');
-    selected=artistToPage[key];photos=null;
+    modal.classList.add('artist-cms-acrobat');
+    selected=artistToPage[key];
+    modal.dataset.cmsArtistSlug=selected;photos=null;
     // The popup opens in a later click handler; run after that event has finished.
     setTimeout(()=>{if(modal.open&&selected===artistToPage[key])refresh(selected)},0);
   }
@@ -411,7 +412,7 @@ document.addEventListener('DOMContentLoaded',()=>{
 });
 
 
-/* CMS copy and prices for the tested Acrobat and Juggler cards. */
+/* Shared CMS copy and pricing for all 18 genre cards. */
 document.addEventListener('DOMContentLoaded',()=>{
   const dialog=document.getElementById('artist-dialog');
   const heading=dialog?.querySelector('#artist-dialog-title');
@@ -426,8 +427,24 @@ document.addEventListener('DOMContentLoaded',()=>{
   const originalNativeInfo=nativeInfo?.textContent||'';
   const clean=value=>typeof value==='string'?value.trim():'';
   const configs=[
-    {key:'acrobat',slug:'akrobaty',title:'Акробаты'},
-    {key:'juggling',slug:'zhonglery',title:'Жонглёры'}
+    {key:'stilts',slug:'hodulisty',title:"Ходулисты"},
+    {key:'juggling',slug:'zhonglery',title:"Жонглёры"},
+    {key:'mime',slug:'mimy',title:"Мимы"},
+    {key:'unicycle',slug:'unitsiklisty',title:"Унициклисты"},
+    {key:'magic',slug:'mikromag',title:"Микромаг"},
+    {key:'acrobat',slug:'akrobaty',title:"Акробаты"},
+    {key:'cyrwheel',slug:'koleso-sira',title:"Колесо Сира"},
+    {key:'knife',slug:'balans-na-nozhe',title:"Баланс на ноже"},
+    {key:'canes',slug:'ekvilibr-na-trostyah',title:"Эквилибр на тростях"},
+    {key:'hoops',slug:'hulahupy',title:"Хулахупы"},
+    {key:'zorb',slug:'gimnastka-v-zorb-share',title:"Гимнастка в Зорб-шаре"},
+    {key:'aerialring',slug:'gimnastka-v-parternom-koltse',title:"Гимнастка в партерном кольце"},
+    {key:'diabolo',slug:'diabolo',title:"Диаболо"},
+    {key:'rollers',slug:'ekvilibr-na-katushkah',title:"Эквилибр на катушках"},
+    {key:'chairs',slug:'ekvilibr-na-stulyah',title:"Эквилибр на стульях"},
+    {key:'contact',slug:'kontaktnoe-zhonglirovanie',title:"Контактное жонглирование"},
+    {key:'ladder',slug:'volnostoyashchaya-lestnitsa',title:"Вольностоящая лестница"},
+    {key:'hatter',slug:'shlyapnik',title:"Шляпник"}
   ];
   fetch('/artist-content.json',{cache:'no-store'}).then(response=>{
     if(!response.ok)throw Error('Artist text unavailable');
@@ -467,11 +484,13 @@ document.addEventListener('DOMContentLoaded',()=>{
     };
     const update=()=>{
       const title=heading.textContent.trim();
-      const active=items.find(item=>title===item.title||(item.cmsTitle&&title===item.cmsTitle));
+      const slug=dialog.dataset.cmsArtistSlug;
+      const active=items.find(item=>item.slug===slug)||items.find(item=>title===item.title||(item.cmsTitle&&title===item.cmsTitle));
       if(!active){restoreNotes();return;}
       if(active.cmsTitle&&title!==active.cmsTitle)heading.textContent=active.cmsTitle;
       if(active.cmsDescription)description.textContent=active.cmsDescription;
       if(active.cmsPrice)price.textContent=active.cmsPrice;
+      dialog.classList.toggle('artist-cms-long-price',clean(price.textContent).length>19);
       const note=active.cmsNote;
       if(priceNote)priceNote.textContent=note||originalNote;
       if(tooltip)tooltip.textContent=note||originalTooltip;
