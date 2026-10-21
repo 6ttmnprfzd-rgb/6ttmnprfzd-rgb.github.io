@@ -69,8 +69,10 @@
     "video": "videos/copy_9FD8D596-0A01-401B-94E0-71D2B15DE0AD.mov",
     "photos": [
       {
-        "image": "images/cms-photo-008.jpg",
-        "alt": "Акробаты на мероприятии"
+        "image": "images/0909B7E8-AA5A-4BFF-B695-9B4763B482AB.png"
+      },
+      {
+        "image": "images/13BFF7AE-1570-41A4-8464-FE07B5EE2523.png"
       }
     ]
   },
@@ -217,6 +219,11 @@
     ]
   },
   "shlyapnik": {
-    "video": "videos/-3564800886256053923.mp4"
+    "video": "videos/-3564800886256053923.mp4",
+    "photos": [
+      {
+        "image": "images/F0384301-999B-4E9D-B728-03C6FF7AC76E.png"
+      }
+    ]
   }
 }
