@@ -1016,3 +1016,107 @@ html:not(.club-cursor-active) #formats .formats > article.format {
   content:none!important;
   display:none!important;
 }
+
+/* Request dialog: readable graphite glass, matching the other website popups. */
+#request-overlay.request-overlay:not([hidden]) {
+  background:rgba(13,12,15,.43)!important;
+  -webkit-backdrop-filter:blur(3px)!important;
+  backdrop-filter:blur(3px)!important;
+}
+#request-overlay .request-panel {
+  background:rgba(20,20,25,.88)!important;
+  -webkit-backdrop-filter:blur(12px) saturate(115%)!important;
+  backdrop-filter:blur(12px) saturate(115%)!important;
+  border:1px solid rgba(255,255,255,.20)!important;
+  box-shadow:0 28px 85px rgba(0,0,0,.42),inset 0 1px 0 rgba(255,255,255,.10)!important;
+  color:#f7f7f9!important;
+  border-radius:22px!important;
+  overscroll-behavior:contain;
+}
+#request-overlay .request-brand-kicker {
+  padding-right:45px;
+  margin-bottom:20px;
+  font:800 11px/1.35 Arial,Helvetica,sans-serif;
+  letter-spacing:.15em;
+  color:#ff6078;
+}
+#request-overlay .request-brand-small-v {font-size:.72em;letter-spacing:0}
+#request-overlay .request-panel h2 {
+  color:#fff!important;
+  font-weight:900!important;
+  letter-spacing:-.05em;
+  margin-bottom:18px!important;
+}
+#request-overlay .request-panel h2::after {
+  content:"";
+  display:block;
+  width:75px;
+  height:4px;
+  background:#ed082c;
+  border-radius:4px;
+  margin-top:16px;
+}
+#request-overlay .request-panel > p {color:#dedee3!important;line-height:1.55!important}
+#request-overlay .request-field {color:#f7f7f9!important}
+#request-overlay .request-field input,
+#request-overlay .request-field select,
+#request-overlay .request-field textarea {
+  background:rgba(255,255,255,.085)!important;
+  border:1px solid rgba(255,255,255,.26)!important;
+  border-radius:10px!important;
+  color:#fff!important;
+  font:500 16px/1.4 Arial,Helvetica,sans-serif!important;
+  -webkit-text-fill-color:#fff;
+  color-scheme:dark;
+}
+#request-overlay .request-field input::placeholder,
+#request-overlay .request-field textarea::placeholder {
+  color:#c4c4cb!important;
+  opacity:1;
+}
+#request-overlay .request-field input:focus-visible,
+#request-overlay .request-field select:focus-visible,
+#request-overlay .request-field textarea:focus-visible {
+  outline:2px solid #ff6078!important;
+  outline-offset:2px;
+}
+#request-overlay .request-field select option {
+  background:#28282e;
+  color:#fff;
+}
+#request-overlay .request-close {
+  background:rgba(255,255,255,.09)!important;
+  border:1px solid rgba(255,255,255,.24)!important;
+  color:#fff!important;
+  box-shadow:none!important;
+}
+#request-overlay .request-close:hover {background:rgba(255,255,255,.17)!important}
+#request-overlay .request-close:focus-visible {outline:2px solid #ff6078!important}
+#request-overlay .request-send {
+  border-radius:13px!important;
+  box-shadow:none!important;
+  background:#ed082c!important;
+  color:#fff!important;
+}
+#request-overlay .request-send:hover:not(:disabled) {box-shadow:none!important}
+#request-overlay .request-copy {
+  background:transparent!important;
+  box-shadow:none!important;
+  color:#f2f2f5!important;
+  text-underline-offset:3px;
+}
+#request-overlay .request-note {color:#d6d6dd!important}
+@media(max-width:550px) {
+  #request-overlay.request-overlay {padding:13px!important}
+  #request-overlay .request-panel {
+    width:100%;
+    max-height:calc(100dvh - 26px)!important;
+    padding:29px 22px 30px!important;
+    border-radius:19px!important;
+  }
+  #request-overlay .request-panel h2 {
+    font-size:clamp(29px,7.6vw,38px)!important;
+    line-height:1.04!important;
+    padding-right:30px;
+  }
+}
