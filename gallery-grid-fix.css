@@ -640,3 +640,11 @@ html.club-cursor-active #video-player-overlay button * {
 #media-overlay .media-grid .media-tile {
   background:#25252a!important;
 }
+
+/* Format popup: use standard cursor instead of decorative club. */
+html:has(#format-modal:not([hidden])) .club-pointer { display:none!important; }
+html.club-cursor-active #format-modal,
+html.club-cursor-active #format-modal .format-modal-panel,
+html.club-cursor-active #format-modal .format-modal-panel * { cursor:default!important; }
+html.club-cursor-active #format-modal button,
+html.club-cursor-active #format-modal button * { cursor:pointer!important; }
