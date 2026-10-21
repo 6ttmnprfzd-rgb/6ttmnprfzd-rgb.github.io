@@ -682,3 +682,17 @@ document.addEventListener('DOMContentLoaded',()=>{
     })
     .catch(error=>console.warn('Price CMS unavailable; showing original price list',error));
 });
+
+/* Format card opens its existing details button when the card body is clicked.
+   Keep the original button listener responsible for opening the popup. */
+document.addEventListener('DOMContentLoaded',()=>{
+  document.querySelectorAll('#formats .formats > article.format').forEach(card=>{
+    const button=card.querySelector('.format-more[data-format]');
+    if(!button)return;
+    card.addEventListener('click',event=>{
+      if(event.target instanceof Element &&
+         event.target.closest('button,a,input,textarea,select,[contenteditable="true"]'))return;
+      button.click();
+    });
+  });
+});
