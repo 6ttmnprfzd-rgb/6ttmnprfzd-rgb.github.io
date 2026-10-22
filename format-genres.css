@@ -52,13 +52,14 @@
 .format-genre-next{right:10px}
 .format-genres-all-wrap{display:flex;justify-content:center;padding:14px 0 0}
 .format-genres-all{
-  appearance:none;border:0;border-bottom:1px solid #ed082c;
-  border-radius:0;padding:9px 1px;background:none;color:#37333a;
-  font:750 13px/1.2 Arial,Helvetica,sans-serif;
-  text-decoration:none;cursor:pointer;
+  appearance:none;display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  border:0;border-bottom:2px solid #ed082c;
+  border-radius:0;padding:9px 2px 7px;background:none;color:#202024;
+  font:900 15px/1.2 Arial,Helvetica,sans-serif;
+  letter-spacing:.005em;text-decoration:none;cursor:pointer;
 }
 .format-genres-all:hover,.format-genres-all:focus-visible{color:#db062f}
-.format-genres-all svg{width:13px;height:13px;display:inline-block;vertical-align:middle;fill:none;stroke:currentColor;stroke-width:2}
+.format-genres-all svg{width:15px;height:15px;display:block;flex:none;fill:none;stroke:#ed082c;stroke-width:2.5}
 .format-genres-modal{
   box-sizing:border-box;width:min(1040px,calc(100vw - 24px));
   max-width:1040px;max-height:min(88dvh,940px);margin:auto;padding:24px;
