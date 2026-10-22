@@ -551,3 +551,29 @@ section.content[aria-labelledby="about"] .card p{color:rgba(255,255,255,.74)!imp
    clip-path:polygon(0 30%,100% 0,96% 100%,2% 90%);
  }
 }
+
+/* Shared editorial section numbering, same rhythm as homepage 01 / 02. */
+main{counter-reset:format-section}
+main > section.content{counter-increment:format-section}
+main > section.content > p.kicker{
+  display:flex!important;align-items:center!important;gap:14px!important;
+  width:max-content;max-width:100%;
+  font-size:0!important;letter-spacing:0!important;
+  line-height:1!important;
+  margin:0 0 28px!important;
+  color:#ed082c!important;
+}
+main > section.content > p.kicker::before{
+  content:counter(format-section, decimal-leading-zero);
+  display:block;flex:none;color:#ed082c!important;
+  font:850 14px/1 Arial,Helvetica,sans-serif!important;
+  letter-spacing:0!important;
+}
+main > section.content > p.kicker::after{
+  content:"";display:block;flex:none;
+  width:90px;height:1px;background:#aaa9a9;
+}
+@media(max-width:760px){
+  main > section.content > p.kicker{margin-bottom:23px!important}
+  main > section.content > p.kicker::after{width:62px}
+}
