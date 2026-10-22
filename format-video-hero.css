@@ -1,0 +1,61 @@
+/* Shared first-screen video hero for SEO format pages; currently enabled on RAUS only.
+   The video fills the screen, while text aligns to the site's 1120px content width. */
+.format-video-hero{
+  position:relative;left:50%;transform:translateX(-50%);
+  width:100vw;min-height:clamp(560px,83svh,850px);
+  display:flex;align-items:center;isolation:isolate;overflow:hidden;
+  background:#16151a;color:#fff;
+  margin:0 0 26px!important;padding:72px 0!important;border:0!important;
+}
+.format-video-hero-poster,
+.format-video-hero-video{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;
+}
+.format-video-hero-video{
+  opacity:0;transition:opacity .45s ease;
+}
+.format-video-hero.has-video .format-video-hero-video{opacity:1}
+.format-video-hero::after{
+  content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:linear-gradient(90deg,rgba(7,8,14,.77) 0%,rgba(7,8,14,.48) 52%,rgba(7,8,14,.23) 100%),
+             linear-gradient(0deg,rgba(7,8,14,.37),transparent 36%);
+}
+.format-video-hero-content{
+  width:min(1120px,calc(100% - 112px));margin:0 auto;position:relative;z-index:1;
+}
+.format-video-hero .eyebrow{
+  margin-bottom:19px;color:#fff!important;font-weight:900;letter-spacing:.13em;
+}
+.format-video-hero h1{
+  max-width:990px;color:#fff!important;
+  font:950 clamp(42px,6.3vw,87px)/.99 Arial,Helvetica,sans-serif;
+  letter-spacing:-.065em;text-transform:uppercase;margin:0 0 25px;
+  text-wrap:balance;
+}
+.format-video-hero h1 span{display:block;color:#ed082c!important}
+.format-video-hero .lead{
+  max-width:610px;margin:0 0 32px!important;
+  font:500 clamp(16px,1.5vw,20px)/1.56 Arial,Helvetica,sans-serif;
+  color:rgba(255,255,255,.94)!important;
+  text-wrap:pretty;
+}
+.format-video-hero .cta{box-shadow:0 10px 34px rgba(0,0,0,.24)}
+@media(max-width:950px) and (min-width:761px){
+ .format-video-hero-content{width:calc(100% - 64px)}
+}
+@media(max-width:760px){
+ .format-video-hero{
+   min-height:max(550px,calc(100svh - 95px));max-height:850px;
+   padding:65px 0 85px!important;margin-bottom:14px!important;
+ }
+ .format-video-hero-content{width:calc(100% - 34px)}
+ .format-video-hero h1{font-size:clamp(38px,10.5vw,64px);max-width:100%;margin-bottom:20px}
+ .format-video-hero .lead{max-width:450px;font-size:16px;line-height:1.5;margin-bottom:25px!important}
+ .format-video-hero::after{
+   background:linear-gradient(0deg,rgba(7,8,14,.78) 0%,rgba(7,8,14,.52) 63%,rgba(7,8,14,.27) 100%);
+ }
+}
+@media(prefers-reduced-motion:reduce){
+ .format-video-hero-video{display:none!important}
+ .format-video-hero.has-video .format-video-hero-video{opacity:0}
+}
