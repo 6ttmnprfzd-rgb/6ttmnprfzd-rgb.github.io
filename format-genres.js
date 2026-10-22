@@ -20,7 +20,7 @@
     heading.className='format-genres-heading-copy';
     const brand=document.createElement('p');
     brand.className='format-genres-brand-line';
-    brand.innerHTML='<span>НОГИ</span><small class="format-genres-brand-v">v</small><span>РУКИ</span><span class="format-genres-brand-part">/ АРТИСТЫ</span>';
+    brand.innerHTML='<span>НОГИ</span><small class="format-genres-brand-v">в</small><span>РУКИ</span><span class="format-genres-brand-part">/ АРТИСТЫ</span>';
     heading.append(brand,modalTitle);
     modalHeader.insertBefore(heading,modalHeader.firstChild);
   }
@@ -30,7 +30,7 @@
     style.textContent=`
       .format-genres-modal-head .format-genres-heading-copy{display:flex;flex-direction:column;align-items:flex-start;gap:14px;min-width:0}
       .format-genres-modal-head .format-genres-brand-line{display:flex;align-items:baseline;gap:4px;margin:0!important;color:#ff5b79!important;font:850 11px/1.1 Arial,sans-serif;letter-spacing:.11em;text-transform:uppercase}
-      .format-genres-modal-head .format-genres-brand-v{font-size:8px;letter-spacing:0;margin:0 1px;color:#ff5b79}
+      .format-genres-modal-head .format-genres-brand-v{font-size:8px;letter-spacing:0;margin:0 1px;color:#ff5b79;text-transform:none!important}
       .format-genres-modal-head .format-genres-brand-part{margin-left:4px}
       .format-genres-modal-head .format-genres-heading-copy h2{position:relative;margin:0 0 8px!important;font:950 clamp(29px,4.2vw,43px)/1 Arial,sans-serif!important;letter-spacing:-.052em!important;text-transform:uppercase;color:#fff!important}
       .format-genres-modal-head .format-genres-heading-copy h2::after{content:"";display:block;width:67px;height:4px;margin-top:13px;background:#f20a3a;border-radius:3px;transform:skewX(-18deg)}
