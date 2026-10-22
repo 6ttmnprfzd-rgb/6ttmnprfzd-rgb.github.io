@@ -74,11 +74,15 @@
     card.classList.toggle("artist-no-video",!src);
     const source=video.querySelector("source");
     if(src){
-      if(source.getAttribute("src")!==src){
-        source.setAttribute("src",src);
-        source.type=/\.mov$/i.test(src)?"video/quicktime":"video/mp4";
-        video.load();
-      }
+      const nextType=/\.mp4$/i.test(src)?"video/mp4":"";
+      const previousType=source.getAttribute("type")||"";
+      const changed=source.getAttribute("src")!==src || previousType!==nextType;
+      if(source.getAttribute("src")!==src)source.setAttribute("src",src);
+      // Do not advertise MOV as unsupported QuickTime in desktop browsers.
+      // Let browsers inspect existing MOV files; MP4 is explicitly declared.
+      if(nextType)source.setAttribute("type",nextType);
+      else source.removeAttribute("type");
+      if(changed)video.load();
       tryPlay();
     }else{video.pause();video.removeAttribute("src");source.removeAttribute("src");video.load();}
     card.classList.toggle("artist-no-media",!photos.length&&!src);
