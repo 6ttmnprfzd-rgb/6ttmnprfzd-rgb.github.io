@@ -1,0 +1,92 @@
+[
+  {
+    "slug": "hodulisty",
+    "title": "Ходулисты",
+    "image": "images/cms-photo-003.jpg"
+  },
+  {
+    "slug": "zhonglery",
+    "title": "Жонглёры",
+    "image": "images/cms-photo-004.jpg"
+  },
+  {
+    "slug": "mimy",
+    "title": "Мимы",
+    "image": "images/cms-photo-005.jpg"
+  },
+  {
+    "slug": "unitsiklisty",
+    "title": "Унициклисты",
+    "image": "images/cms-photo-006.jpg"
+  },
+  {
+    "slug": "mikromag",
+    "title": "Микромаг",
+    "image": "images/cms-photo-007.jpg"
+  },
+  {
+    "slug": "akrobaty",
+    "title": "Акробаты",
+    "image": "images/cms-photo-008.jpg"
+  },
+  {
+    "slug": "koleso-sira",
+    "title": "Колесо Сира",
+    "image": "images/cms-photo-009.jpg"
+  },
+  {
+    "slug": "balans-na-nozhe",
+    "title": "Баланс на ноже",
+    "image": "images/cms-photo-010.jpg"
+  },
+  {
+    "slug": "ekvilibr-na-trostyah",
+    "title": "Эквилибр на тростях",
+    "image": "images/cms-photo-011.jpg"
+  },
+  {
+    "slug": "hulahupy",
+    "title": "Хулахупы",
+    "image": "images/cms-photo-012.jpg"
+  },
+  {
+    "slug": "gimnastka-v-zorb-share",
+    "title": "Гимнастка в Зорб-шаре",
+    "image": "images/cms-photo-013.jpg"
+  },
+  {
+    "slug": "gimnastka-v-parternom-koltse",
+    "title": "Гимнастка в партерном кольце",
+    "image": "images/cms-photo-014.jpg"
+  },
+  {
+    "slug": "diabolo",
+    "title": "Диаболо",
+    "image": "images/IMG_3401.jpeg"
+  },
+  {
+    "slug": "ekvilibr-na-katushkah",
+    "title": "Эквилибр на катушках",
+    "image": "images/IMG_3395.jpeg"
+  },
+  {
+    "slug": "ekvilibr-na-stulyah",
+    "title": "Эквилибр на стульях",
+    "image": "images/IMG_3400.jpeg"
+  },
+  {
+    "slug": "kontaktnoe-zhonglirovanie",
+    "title": "Контактное жонглирование",
+    "image": "images/IMG_3381.jpeg"
+  },
+  {
+    "slug": "volnostoyashchaya-lestnitsa",
+    "title": "Вольностоящая лестница",
+    "image": "images/39fba1b6-626f-4a84-b1a9-29688dca72d7.jpeg"
+  },
+  {
+    "slug": "shlyapnik",
+    "title": "Шляпник",
+    "image": "images/F0384301-999B-4E9D-B728-03C6FF7AC76E.png"
+  }
+]
