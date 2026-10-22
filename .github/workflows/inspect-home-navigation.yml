@@ -1,0 +1,34 @@
+name: Inspect live homepage navigation styling
+on:
+  push:
+    paths:
+      - .github/workflows/inspect-home-navigation.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Extract homepage header and related CSS
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          s=Path('index.html').read_text(encoding='utf-8')
+          print("MAIN_HTML_CHARS",len(s),flush=True)
+          terms=[r'<header',r'</header>',r'floating',r'nav-toggle',r'nav-menu',r'menu-toggle',r'logo',r'site-header',r'header-inner']
+          for term in terms:
+            matches=list(re.finditer(term,s,re.I))
+            print('TERM',term,'COUNT',len(matches))
+            for match in matches[:4]:
+              p=match.start()
+              print("NEAR",term,repr(s[max(0,p-150):p+700]))
+          for m in list(re.finditer(r'<header\b[^>]*>',s,re.I))[:3]:
+            p=m.start();e=s.find('</header>',p)
+            if e<0:continue
+            print("HEADER_MARKUP_BEGIN")
+            print(s[p:min(e+9,p+13000)])
+            print("HEADER_MARKUP_END")
+          PY
