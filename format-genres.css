@@ -134,3 +134,27 @@
 @media(prefers-reduced-transparency:reduce){
   .format-genres-modal{background:#1e1d25!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
 }
+
+/* Mobile only: match the compact right-aligned "ВСЕ ЖАНРЫ" link on the homepage. */
+@media(max-width:650px){
+ .format-genres-all-wrap{
+   justify-content:flex-end;
+   padding:24px 3px 28px;
+ }
+ .format-genres-all{
+   border:0!important;border-bottom:0!important;
+   padding:8px 0!important;
+   gap:10px!important;
+   background:transparent!important;
+   color:#111114!important;
+   font:900 13px/1.2 Arial,Helvetica,sans-serif!important;
+   letter-spacing:.055em!important;
+   text-transform:uppercase!important;
+   box-shadow:none!important;
+ }
+ .format-genres-all svg{
+   width:16px;height:16px;transform:rotate(90deg);
+   stroke:#111114!important;stroke-width:2.4;
+ }
+ .format-genres-all:hover,.format-genres-all:focus-visible{color:#ed082c!important}
+}
