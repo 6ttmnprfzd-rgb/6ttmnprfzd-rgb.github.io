@@ -167,3 +167,10 @@ section.end-cta.format-end-cta .inner{
    padding-bottom:clamp(235px,61vw,325px)!important;
  }
 }
+
+/* Reveal the complete winter performer's headgear in the New Year finale. */
+@media(min-width:761px){
+  section.end-cta.format-end-cta[data-photo-field="newyear_end_photo"] .end-cta-photo{
+    object-position:50% 9%!important;
+  }
+}
