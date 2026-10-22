@@ -102,7 +102,9 @@
         t.addEventListener('click',()=>activate(key));
         tabs.appendChild(t);
       }
-      priceReady=true;activate('raus');
+      priceReady=true;
+      const page=location.pathname;
+      activate(page.startsWith('/show/')?'show':page.startsWith('/nomera/')?'acts':'raus');
     }catch(_){root.replaceChildren(element('p','format-pop-loading','Не удалось загрузить прайс. Попробуйте открыть его на главной странице.'))}
   }
   const contacts=popups.contacts.body;
