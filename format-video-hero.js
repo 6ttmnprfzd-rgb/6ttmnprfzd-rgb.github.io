@@ -7,7 +7,7 @@
  if(!video)return;
  const key=hero.dataset.videoField;
  const validPath=path=>typeof path==='string' &&
-   /^(?:(?:images|videos)\/)?[A-Za-z0-9_.-]+\.mp4$/i.test(path.trim()) &&
+   /^(?:(?:images|videos)\/)?[A-Za-z0-9_.-]+\.(?:mp4|mov)$/i.test(path.trim()) &&
    !path.includes('..');
  video.muted=true;
  video.playsInline=true;
