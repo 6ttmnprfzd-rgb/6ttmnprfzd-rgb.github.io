@@ -1440,3 +1440,105 @@ html:has(#atmosphere-lightbox:not([hidden])) .club-pointer {display:none!importa
 html.club-cursor-active #atmosphere-lightbox,
 html.club-cursor-active #atmosphere-lightbox * {cursor:default!important}
 html.club-cursor-active #atmosphere-lightbox button {cursor:pointer!important}
+
+/* Atmosphere mobile polish: restore the original floating three-card composition. */
+@media (max-width:850px) {
+  #gallery.atmosphere-cascade .gallery-film {
+    position:relative!important;
+    display:block!important;
+    width:100%!important;
+    height:clamp(300px,80vw,400px)!important;
+    margin:12px 0 0!important;
+    padding:0!important;
+    overflow:visible!important;
+    perspective:1100px!important;
+    touch-action:pan-y!important;
+    scroll-snap-type:none!important;
+  }
+  #gallery.atmosphere-cascade .gallery-film .shot {
+    display:block!important;
+    position:absolute!important;
+    top:6%!important;
+    left:50%!important;
+    width:85%!important;
+    height:85%!important;
+    margin:0!important;
+    opacity:0!important;
+    visibility:hidden!important;
+    filter:none!important;
+    transform:translateX(calc(-50% + var(--offset)*34%)) scale(.7)!important;
+    pointer-events:none!important;
+    border-radius:13px!important;
+    box-shadow:0 16px 48px rgba(16,10,10,.15)!important;
+    transition:transform .55s cubic-bezier(.2,.8,.2,1),opacity .45s,filter .45s,visibility .45s!important;
+  }
+  #gallery.atmosphere-cascade .gallery-film .shot[data-distance="1"] {
+    opacity:.72!important;
+    visibility:visible!important;
+    filter:brightness(.85)!important;
+    transform:translateX(calc(-50% + var(--offset)*65%)) scale(.78)!important;
+    pointer-events:auto!important;
+  }
+  #gallery.atmosphere-cascade .gallery-film .shot.is-active {
+    opacity:1!important;
+    visibility:visible!important;
+    filter:none!important;
+    transform:translateX(-50%) scale(1)!important;
+    pointer-events:auto!important;
+    box-shadow:0 25px 55px rgba(16,10,10,.23)!important;
+  }
+}
+/* On phones the media button matches the plain "ВСЕ ЖАНРЫ" mobile button. */
+@media (max-width:650px) {
+  #gallery.atmosphere-cascade .media-entry {
+    justify-content:flex-end!important;
+    margin:5px 0 0!important;
+    padding:0 3px!important;
+  }
+  #gallery.atmosphere-cascade .media-open {
+    display:inline-flex!important;
+    width:auto!important;
+    min-height:40px!important;
+    justify-content:flex-end!important;
+    gap:8px!important;
+    padding:9px 3px!important;
+    border:0!important;
+    border-bottom:0!important;
+    border-radius:0!important;
+    background:transparent!important;
+    box-shadow:none!important;
+    color:#171717!important;
+    font-size:0!important;
+    letter-spacing:0!important;
+    text-transform:none!important;
+  }
+  #gallery.atmosphere-cascade .media-open::before {
+    content:"ВСЕ ФОТО И ВИДЕО";
+    color:inherit;
+    font:900 11px/1.2 Arial,Helvetica,sans-serif!important;
+    letter-spacing:.07em!important;
+    white-space:nowrap;
+  }
+  #gallery.atmosphere-cascade .media-open .atmosphere-media-arrow {
+    position:relative;
+    display:block;
+    flex:0 0 17px;
+    width:17px;height:17px;
+    color:transparent!important;
+    font-size:0!important;
+  }
+  #gallery.atmosphere-cascade .media-open .atmosphere-media-arrow::after {
+    content:"";
+    position:absolute;top:3px;left:5px;
+    width:7px;height:7px;
+    border-right:2px solid #171717;
+    border-bottom:2px solid #171717;
+    transform:rotate(45deg);
+  }
+}
+@media (max-width:420px) {
+  #gallery.atmosphere-cascade .gallery-film {height:290px!important}
+}
+@media(prefers-reduced-motion:reduce) {
+  #gallery.atmosphere-cascade .gallery-film .shot {transition:none!important}
+}
