@@ -980,3 +980,16 @@ document.addEventListener('DOMContentLoaded',()=>{
     });
   });
 });
+
+/* Landing-page CTAs open the existing application form directly. */
+document.addEventListener('DOMContentLoaded',()=>{
+  if(window.location.hash!=='#open-request')return;
+  const opener=document.querySelector('[data-request-open]');
+  if(!opener)return;
+  requestAnimationFrame(()=>{
+    opener.click();
+    if(window.location.hash==='#open-request'){
+      window.history.replaceState(window.history.state,'',window.location.pathname+window.location.search);
+    }
+  });
+});
