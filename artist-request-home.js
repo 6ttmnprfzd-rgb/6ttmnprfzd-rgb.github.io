@@ -1077,3 +1077,22 @@ document.addEventListener('DOMContentLoaded',()=>{
    if(event.key==='Escape')for(const item of menus)item.open=false;
  });
 });
+
+/* Homepage footer: reuse the standalone pages' logo, geography, and contact layout. */
+document.addEventListener('DOMContentLoaded',()=>{
+  const footer=document.querySelector('footer.footer');
+  const container=footer?.querySelector(':scope > .container');
+  if(!footer||!container||footer.classList.contains('home-format-footer'))return;
+  footer.classList.add('home-format-footer');
+  container.innerHTML=`<a class="seo-footer-logo" href="#home" aria-label="НОГИ в РУКИ - на главную">
+<img src="/brand-brush-original.png" alt="НОГИ в РУКИ" width="156" height="52" loading="lazy" decoding="async">
+</a><span class="seo-footer-geography"><strong>Москва, Московская область</strong><small>Выезды в другие города по согласованию</small></span>
+<a class="seo-footer-contact" href="#contacts" aria-label="Контакты"><span>Контакты</span>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a>`;
+  // The existing contact popup binds to the original header link.
+  // Delegate to that link so the footer opens the same popup.
+  container.querySelector('.seo-footer-contact')?.addEventListener('click',event=>{
+    const current= document.querySelector('header.top nav.links [data-contacts-open]');
+    if(current){event.preventDefault();current.click();}
+  });
+});
