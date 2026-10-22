@@ -10,14 +10,14 @@
 <link rel="canonical" href="https://welcirc.pro/hodulisty/">
 <link rel="stylesheet" href="https://welcirc.pro/artist-pages.css">
 <link rel="stylesheet" href="https://raw.githack.com/6ttmnprfzd-rgb/6ttmnprfzd-rgb.github.io/seo-discovery-2026-10-22/artist-seo.css">
-<script src="https://welcirc.pro/artist-pages.js" defer></script>
+
 </head>
 <body data-artist-slug="hodulisty" data-video="videos/hodulisty-card.mov">
 <main class="preview-stage">
 <article class="artist-dialog stilts-showcase" aria-labelledby="artist-dialog-title">
 <div class="artist-dialog-inner">
 <div class="artist-dialog-head"><h1 id="artist-dialog-title">Ходулисты</h1><a href="https://welcirc.pro/#genres" class="artist-close" aria-label="Вернуться к артистам">×</a></div>
-<div class="artist-video-wrap" id="artist-video-wrap"><video controls autoplay muted loop playsinline webkit-playsinline preload="metadata" poster="/images/cms-photo-003.jpg" aria-label="Видео: Ходулисты"><source src="https://welcirc.pro/videos/hodulisty-card.mov" type="video/quicktime">Ваш браузер не поддерживает воспроизведение видео.</video></div>
+<div class="artist-video-wrap" id="artist-video-wrap"><video controls autoplay muted loop playsinline webkit-playsinline preload="metadata" poster="https://welcirc.pro/images/cms-photo-003.jpg" aria-label="Видео: Ходулисты"><source src="https://welcirc.pro/videos/hodulisty-card.mov" type="video/quicktime">Ваш браузер не поддерживает воспроизведение видео.</video></div>
 <div class="artist-photo-wrap">
 <button class="artist-photo-nav artist-photo-prev" type="button" aria-label="Предыдущее фото">‹</button>
 <img id="artist-dialog-photo" src="https://welcirc.pro/images/cms-photo-003.jpg" alt="Ходулисты на мероприятии" loading="eager">
@@ -30,8 +30,8 @@
 <a class="artist-cta" href="https://welcirc.pro/#contacts">Обсудить мероприятие <span aria-hidden="true">↗</span></a>
 <p class="artist-price-note">Стоимость указана за 1 час работы в Москве, в дневное время и вне праздничных дат. Ночные заказы, праздничные даты и выезды за пределы Москвы рассчитываются индивидуально.</p>
 <section class="artist-seo-details" aria-labelledby="artist-seo-title">
-<h2 id="artist-seo-title">Ходулисты на встрече гостей</h2>
-<p>Ходулисты особенно заметны в зоне встречи гостей: они помогают создать атмосферу ещё до начала программы и становятся частью фотографий с мероприятия. Подберём формат взаимодействия с учётом площадки и сценария события.</p>
+<h2 id="artist-seo-title">Ходулисты для встречи гостей и корпоративов</h2>
+<p>Артисты на ходулях встречают гостей ещё до начала основной программы: общаются, фотографируются и создают атмосферу события. Подходят для корпоративов, новогодних мероприятий, фестивалей и презентаций в Москве и Московской области.</p>
 <nav class="artist-seo-related" aria-label="Похожие цирковые жанры">
 <span class="artist-seo-related-label">Другие артисты</span>
 <ul>
@@ -48,5 +48,30 @@
 </main>
 <dialog class="stilts-info-native" id="artist-info-dialog" aria-labelledby="artist-info-title"><div class="stilts-info-native-inner"><button type="button" class="stilts-info-native-close" aria-label="Закрыть условия стоимости">×</button><strong id="artist-info-title">Условия стоимости</strong><p>Стоимость указана за 1 час работы в Москве, в дневное время и вне праздничных дат. Ночные заказы, праздничные даты и выезды за пределы Москвы рассчитываются индивидуально.</p></div></dialog>
 <script type="application/json" id="initial-artist-photos">[{"image":"images/cms-photo-003.jpg","alt":"Ходулисты на мероприятии"},{"image":"images/stilts-card-02.jpg","alt":"Ходулисты — фотография 2"},{"image":"images/stilts-card-03.jpg","alt":"Ходулисты — фотография 3"},{"image":"images/stilts-card-04.jpg","alt":"Ходулисты — фотография 4"}]</script>
+
+<script>
+(()=>{
+const items=[{"src":"https://welcirc.pro/images/0cf9d777-785d-49d2-be4b-8e774407856e.jpeg","alt":"Ходулисты — фото 1"},{"src":"https://welcirc.pro/images/cms-photo-003.jpg","alt":"Ходулисты на мероприятии"},{"src":"https://welcirc.pro/images/stilts-card-02.jpg","alt":"Ходулисты — фотография 2"},{"src":"https://welcirc.pro/images/stilts-card-03.jpg","alt":"Ходулисты — фотография 3"},{"src":"https://welcirc.pro/images/stilts-card-04.jpg","alt":"Ходулисты — фотография 4"}];
+const img=document.getElementById('artist-dialog-photo');
+const counter=document.getElementById('artist-photo-count');
+const end=document.getElementById('stilts-gallery-end');
+const video=document.querySelector('#artist-video-wrap video');
+let index=0;
+function update(){const isEnd=index===items.length;end.hidden=!isEnd;img.hidden=isEnd;if(!isEnd){img.src=items[index].src;img.alt=items[index].alt;}counter.textContent=isEnd?'Галерея':(index+1)+' / '+items.length;}
+function shift(direction){index=(index+direction+items.length+1)%(items.length+1);update();}
+document.querySelector('.artist-photo-prev')?.addEventListener('click',()=>shift(-1));
+document.querySelector('.artist-photo-next')?.addEventListener('click',()=>shift(1));
+let startX=null;const wrap=document.querySelector('.artist-photo-wrap');
+wrap?.addEventListener('touchstart',event=>startX=event.changedTouches[0].clientX,{passive:true});
+wrap?.addEventListener('touchend',event=>{if(startX===null)return;const d=event.changedTouches[0].clientX-startX;if(Math.abs(d)>45)shift(d<0?1:-1);startX=null;},{passive:true});
+const info=document.getElementById('artist-info-dialog');
+const btn=document.querySelector('.artist-info-trigger');
+btn?.addEventListener('click',()=>info?.showModal());
+info?.querySelector('.stilts-info-native-close')?.addEventListener('click',()=>info.close());
+info?.addEventListener('click',event=>{if(event.target===info)info.close()});
+video?.addEventListener('loadedmetadata',()=>{});
+update();
+})();
+</script>
 </body>
 </html>
