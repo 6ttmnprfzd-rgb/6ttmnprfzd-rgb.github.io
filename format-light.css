@@ -253,14 +253,21 @@ section.content .artist span{color:#fff!important;text-shadow:0 1px 7px #0008}
 }
 
 
-/* Mobile uses the same rounded, floating translucent navigation as the main site. */
+/* On mobile the header starts flat; it becomes a floating pill only after scrolling. */
 @media(max-width:760px){
-  .site-head.top,
+  .site-head.top{
+    position:sticky!important;top:0!important;z-index:100!important;
+    width:calc(100% + 34px)!important;
+    margin:0 -17px 14px!important;
+    border:0!important;border-bottom:1px solid rgba(15,15,19,.07)!important;
+    border-radius:0!important;
+    background:rgba(255,255,255,.96)!important;box-shadow:none!important;
+    transform:none!important;
+    -webkit-backdrop-filter:none!important;backdrop-filter:none!important;
+  }
   .site-head.top.is-floating{
-    position:sticky!important;
     top:10px!important;
-    z-index:100!important;
-    width:100%!important;
+    width:calc(100% - 12px)!important;
     margin:10px auto 22px!important;
     border:1px solid rgba(38,34,42,.11)!important;
     border-radius:20px!important;
@@ -273,7 +280,6 @@ section.content .artist span{color:#fff!important;text-shadow:0 1px 7px #0008}
   .site-head.top .container.nav,
   .site-head.top.is-floating .container.nav{
     height:70px!important;
-    border-radius:20px;
   }
 }
 @media(prefers-reduced-transparency:reduce){
