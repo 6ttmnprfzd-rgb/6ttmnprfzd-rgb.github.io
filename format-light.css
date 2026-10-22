@@ -742,3 +742,63 @@ main > section.content > h2{
    transform:scaleX(1) rotate(-2deg);
  }
 }
+
+/* Desktop navigation: match homepage brush-style hover underline. */
+@media(min-width:951px){
+  /* Regular navigation links retain their existing interaction, but not the flat line. */
+  .site-head.top .links > a:not(.btn)::after{
+    content:""!important;
+    display:block!important;
+    position:absolute!important;
+    left:0!important;
+    bottom:4px!important;
+    width:100%!important;
+    height:4px!important;
+    background:#ed082c!important;
+    border-radius:0!important;
+    clip-path:polygon(0 25%,100% 0,98% 100%,2% 100%)!important;
+    transform:scaleX(0) rotate(-2deg)!important;
+    transform-origin:left center!important;
+    transition:transform .2s ease!important;
+  }
+  .site-head.top .links > a:not(.btn):is(:hover,:focus-visible)::after{
+    transform:scaleX(1) rotate(-2deg)!important;
+  }
+  /* The Formats chevron is ::after, so draw its underline with ::before. */
+  .site-head.top .links .formats-nav-dropdown > summary{
+    position:relative!important;
+  }
+  .site-head.top .links .formats-nav-dropdown > summary::before{
+    content:"";
+    position:absolute;left:0;bottom:4px;
+    width:calc(100% - 15px);height:4px;
+    background:#ed082c;
+    clip-path:polygon(0 25%,100% 0,98% 100%,2% 100%);
+    transform:scaleX(0) rotate(-2deg);
+    transform-origin:left center;
+    transition:transform .2s ease;
+    pointer-events:none;
+  }
+  .site-head.top .links .formats-nav-dropdown > summary:is(:hover,:focus-visible)::before,
+  .site-head.top .links .formats-nav-dropdown[open] > summary::before{
+    transform:scaleX(1) rotate(-2deg);
+  }
+  /* Dropdown options: preserve their clickable area and add a short brush stroke. */
+  .site-head.top .links .formats-nav-dropdown-panel a{
+    position:relative!important;
+    padding-bottom:14px!important;
+  }
+  .site-head.top .links .formats-nav-dropdown-panel a::before{
+    content:"";position:absolute;
+    left:12px;bottom:6px;width:calc(100% - 24px);height:3px;
+    background:#ed082c;
+    clip-path:polygon(0 25%,100% 0,98% 100%,2% 100%);
+    transform:scaleX(0) rotate(-2deg);
+    transform-origin:left center;
+    transition:transform .2s ease;
+    pointer-events:none;
+  }
+  .site-head.top .links .formats-nav-dropdown-panel a:is(:hover,:focus-visible)::before{
+    transform:scaleX(1) rotate(-2deg);
+  }
+}
