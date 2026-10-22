@@ -43,8 +43,24 @@ jobs:
               raise RuntimeError('Unexpected homepage image: '+source)
             title=html.unescape(re.sub('<[^>]+>','',h.group(1))).strip()
             rows.append({'slug':slugmap[mid],'title':title,'image':source})
+          # The homepage HTML contains 12 static cards; 6 more are supplied
+          # dynamically. Complete that same catalogue from the shared CMS.
+          media=json.loads(Path('artist-media.json').read_text('utf-8'))
+          for slug in slugmap.values():
+            if any(row['slug']==slug for row in rows):continue
+            record=media.get(slug,{})
+            source=next((p.get('image') for p in record.get('photos',[])
+                         if isinstance(p,dict) and re.fullmatch(r'images/[A-Za-z0-9_.-]+',p.get('image',''))),None)
+            if not source:raise RuntimeError('No image for '+slug)
+            labels={'ekvilibr-na-katushkah':'Эквилибр на катушках',
+                    'ekvilibr-na-stulyah':'Эквилибр на стульях',
+                    'kontaktnoe-zhonglirovanie':'Контактное жонглирование',
+                    'volnostoyashchaya-lestnitsa':'Вольностоящая лестница',
+                    'shlyapnik':'Шляпник','diabolo':'Диаболо'}
+            title=labels.get(slug,slug.replace('-',' ').capitalize())
+            rows.append({'slug':slug,'title':title,'image':source})
           if len(rows)!=18 or len(set(row['slug'] for row in rows))!=18:
-            raise RuntimeError(f'Expected 18 unique homepage genres; got {len(rows)}')
+            raise RuntimeError(f'Expected 18 unique genres; got {len(rows)}')
           dst=Path('format-home-genres.json')
           dst.write_text(json.dumps(rows,ensure_ascii=False,indent=2)+'\n','utf-8')
           print('SAVED',len(rows),'CURRENT MAIN GENRES')
