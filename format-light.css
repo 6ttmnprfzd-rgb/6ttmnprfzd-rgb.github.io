@@ -833,3 +833,8 @@ section.content .gallery-next a svg{
  section.content .gallery-next{justify-content:center!important;margin:27px 0 20px!important}
  section.content .gallery-next a{text-transform:uppercase!important;letter-spacing:.045em!important}
 }
+
+/* Muted rose accents only for the short descriptions under New Year costumes. */
+section.content[aria-labelledby="new-year-costumes"] .costume-card figcaption span{
+  color:#b45f75!important;
+}
