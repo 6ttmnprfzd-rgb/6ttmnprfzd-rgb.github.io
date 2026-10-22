@@ -879,3 +879,9 @@ main > section.content > h2::after{
   background:#ed082c;border-radius:2px;transform:skewX(-22deg);
 }
 @media(max-width:650px){main > section.content > h2::after{width:73px;margin-top:16px}}
+
+/* Red hover for New Year costumes' gallery link. */
+section.content[aria-labelledby="new-year-costumes"] .gallery-next a:hover,
+section.content[aria-labelledby="new-year-costumes"] .gallery-next a:focus-visible{
+  color:#ed082c!important;
+}
