@@ -187,3 +187,59 @@ section.content .artists .artist span{
   section.content .artists .artist{flex-basis:clamp(136px,42vw,170px)}
   section.content .artists .artist span{font-size:14px;padding:12px 10px 14px}
 }
+
+/* Floating brand header based on the main website navigation. */
+.site-head{
+ position:sticky;top:14px;z-index:50;
+ display:flex;align-items:center;justify-content:space-between;gap:14px;
+ padding:11px 19px;min-height:76px;
+ border:1px solid rgba(255,255,255,.80);
+ border-radius:20px;
+ background:rgba(255,255,255,.96);
+ color:#17171b;
+ box-shadow:0 12px 38px rgba(0,0,0,.27);
+ -webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);
+}
+.site-head .brand{margin:0;flex-shrink:0;line-height:0}
+.site-head .seo-header-logo{width:91px;max-height:58px;height:58px;object-fit:contain;object-position:center}
+.site-head>.head-links{gap:clamp(8px,1.65vw,22px);flex:1;justify-content:flex-end}
+.site-head>.head-links a{
+ font-family:Arial,Helvetica,sans-serif;color:#222126;
+ font-size:clamp(10px,1vw,12px);font-weight:900;letter-spacing:.03em;
+ text-transform:uppercase;white-space:nowrap;
+}
+.site-head>.head-links a:hover{color:#d70730;text-decoration:none}
+.site-head .seo-head-cta{
+ display:inline-flex;align-items:center;justify-content:center;gap:8px;
+ flex-shrink:0;min-height:42px;border-radius:12px;padding:10px 15px;
+ background:#ed082c;color:white;font-family:Arial,Helvetica,sans-serif;
+ font-weight:900;font-size:11px;letter-spacing:.015em;text-decoration:none;text-transform:uppercase;
+}
+.site-head .seo-head-cta:hover{background:#c90528}
+.seo-footer-logo img{content:url('/nogiv-ruki-brand.svg');width:96px;max-height:70px;height:68px;object-fit:contain}
+.seo-footer{margin-top:20px}
+.seo-footer-geography strong{font-size:14px}
+@media(max-width:960px){
+ .site-head>.head-links{gap:11px}
+ .site-head>.head-links a{font-size:10px}
+ .site-head .seo-head-cta{padding:10px;font-size:10px}
+}
+@media(max-width:760px){
+ .site-head{top:0;min-height:71px;gap:10px;border-radius:0 0 17px 17px;padding:9px 12px;margin:0 -17px;justify-content:space-between}
+ .site-head .seo-header-logo{width:85px;height:56px;max-height:56px}
+ .site-head .seo-head-cta{margin-left:auto;min-height:40px;padding:9px 11px;border-radius:11px;font-size:10px;letter-spacing:0}
+ .site-head .seo-head-cta span{font-size:16px;line-height:1}
+ .seo-mobile-menu{z-index:60}
+ .seo-mobile-menu summary{width:41px;height:41px;border-color:#d5d2d5;color:#141414;border-radius:11px}
+ .seo-mobile-links{background:#fff;min-width:min(300px,calc(100vw - 36px));max-width:calc(100vw - 20px);border:1px solid #eee5e7;border-radius:20px;box-shadow:0 18px 48px #0005;padding:13px;gap:0;counter-reset:genre-nav}
+ .seo-mobile-links a{font-size:16px;font-weight:900;text-transform:uppercase;color:#1d1b20;padding:14px 11px;display:flex;align-items:center;gap:20px;border-bottom:1px solid #ece7e9;counter-increment:genre-nav}
+ .seo-mobile-links a:last-child{border-bottom:0}
+ .seo-mobile-links a::before{content:counter(genre-nav,decimal-leading-zero);color:#ee123b;font-size:12px;min-width:22px;font-weight:800}
+ .seo-mobile-links a:hover,.seo-mobile-links a:focus-visible{background:#faf4f5}
+ .seo-footer-logo img{width:73px;height:65px;max-height:65px}
+}
+@media(max-width:370px){
+ .site-head .seo-header-logo{width:72px}
+ .site-head .seo-head-cta{padding:9px 8px;font-size:9px}
+ .seo-mobile-menu summary{width:38px}
+}
