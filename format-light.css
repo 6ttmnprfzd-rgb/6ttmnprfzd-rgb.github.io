@@ -674,3 +674,19 @@ section.content .price-box.price-box--structured{
    font-size:13px!important;
  }
 }
+
+/* Section headings mirror the homepage's uppercase editorial typography.
+   Keep the original HTML wording for search engines and accessibility. */
+main > section.content > h2{
+  font-family:Arial,Helvetica,sans-serif!important;
+  font-size:clamp(33px,4vw,55px)!important;
+  font-weight:1000!important;
+  line-height:.98!important;
+  letter-spacing:-.055em!important;
+  text-transform:uppercase!important;
+  text-wrap:balance;
+  max-width:100%;
+}
+@media(max-width:650px){
+  main > section.content > h2{font-size:clamp(30px,8vw,43px)!important;line-height:1.02!important}
+}
