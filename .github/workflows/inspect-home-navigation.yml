@@ -11,20 +11,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Extract final homepage CSS header rules
+      - name: Inspect real brush logo source
         run: |
           python3 - <<'PY'
           from pathlib import Path
           import re
           s=Path('index.html').read_text(encoding='utf-8')
-          selectors=[r"header\.top",r"\.top",r"\.nav",r"\.brand-brush",r"\.logo",r"\.brand-sub",r"\.links",r"\.btn",r"\.mobile-menu",r"\.container"]
-          for token in selectors:
-            results=[]
-            for m in re.finditer(r'([^{}]+)\{([^{}]*)\}',s):
-              sel=m.group(1).strip().splitlines()[-1].strip()
-              if re.search(token,sel) and len(sel)<220 and len(m.group(2))<650:
-                results.append((sel,m.group(2).strip(),m.start()))
-            print('CSS',token,'COUNT',len(results))
-            for rule,body,position in results[-12:]:
-              print('RULE',position,rule,'{',body,'}')
+          for term in ['brand-brush','--brand','logo-mark','brush-logo','logoSvg','brushLogo']:
+            matches=list(re.finditer(re.escape(term),s,re.I))
+            print('TERM',term,'COUNT',len(matches))
+            for m in matches[:10]:
+              p=m.start()
+              t=s[max(0,p-420):p+700]
+              t=re.sub(r'data:image/[^)'"]{90,}', '[INLINE_IMG]',t)
+              print('NEAR',p,t.replace('\n',' ')[:1000])
           PY
