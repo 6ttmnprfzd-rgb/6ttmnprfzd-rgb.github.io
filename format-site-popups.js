@@ -42,7 +42,7 @@
   };
   const popups={
     price:popup('price','СТОИМОСТЬ АРТИСТОВ','НОГИ В РУКИ / ПРАЙС'),
-    contacts:popup('contacts','КОНТАКТЫ','НОГИ В РУКИ / КОНТАКТЫ'),
+    contacts:null,
     gallery:popup('gallery','НАША ГАЛЕРЕЯ','НОГИ В РУКИ / ФОТО И ВИДЕО')
   };
   const media=element('dialog','format-pop-media');
@@ -107,18 +107,40 @@
       activate(page.startsWith('/show/')?'show':page.startsWith('/nomera/')?'acts':'raus');
     }catch(_){root.replaceChildren(element('p','format-pop-loading','Не удалось загрузить прайс. Попробуйте открыть его на главной странице.'))}
   }
-  const contacts=popups.contacts.body;
-  const main=element('h3','format-pop-contact-head','НА СВЯЗИ');
-  main.appendChild(element('em','','.'));
-  const intro=element('p','','Обсудим ваше мероприятие, состав артистов и формат работы.');
-  const contactList=element('div','format-pop-contacts');
-  const phoneLabel=element('p','format-pop-contact-caption','Телефон');
-  const phone=element('a','','8 (901) 906-06-56');phone.href='tel:+79019060656';
-  const mailLabel=element('p','format-pop-contact-caption','Почта');
-  const email=element('a','','info@welcirc.ru');email.href='mailto:info@welcirc.ru';
-  contactList.append(phoneLabel,phone,mailLabel,email);
-  const contactCta=element('a','format-pop-cta','ОСТАВИТЬ ЗАЯВКУ ↗');contactCta.href='/#open-request';
-  contacts.append(main,intro,contactList,contactCta);
+  // The Contacts panel reuses the exact CSS and markup from the homepage.
+  const contactTemplate = "<style>\n/* Contacts modal — contemporary dark editorial design */\n.wc-contact-overlay[hidden]{display:none!important}\n.wc-contact-overlay{position:fixed;inset:0;z-index:1800;background:rgba(9,9,12,.72);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;padding:18px;cursor:default!important}\n.wc-contact-panel{position:relative;width:min(100%,630px);max-height:calc(100dvh - 36px);overflow-y:auto;overscroll-behavior:contain;background:#131316;color:#fff;border:1px solid #333338;border-radius:22px;padding:42px 38px 36px;box-shadow:0 30px 110px #0008;cursor:default!important}\n.wc-contact-top{font-size:11px;font-weight:900;letter-spacing:.15em;color:#ff3551;margin-bottom:22px;padding-right:52px}\n.wc-contact-title{font-size:clamp(42px,7vw,74px);font-weight:950;line-height:.95;letter-spacing:-.065em;margin:0 0 18px;color:#fff}\n.wc-contact-intro{font-size:15px;line-height:1.5;color:#aaaab0;margin:0 0 26px}\n.wc-contact-primary{border-top:1px solid #38383d;border-bottom:1px solid #38383d}\n.wc-contact-primary a{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:19px 0;color:#fff!important;text-decoration:none!important;font-size:clamp(18px,4vw,26px);font-weight:850;letter-spacing:-.035em;cursor:pointer!important}\n.wc-contact-primary a+a{border-top:1px solid #38383d}\n.wc-contact-primary small{display:block;color:#99999f;font-size:10px;font-weight:800;letter-spacing:.12em;margin-bottom:5px}\n.wc-arrow{width:21px;height:21px;flex:none;transition:transform .2s}\n.wc-contact-primary a:hover .wc-arrow,.wc-contact-social a:hover .wc-arrow{transform:translate(2px,-2px);color:#ff3551}\n.wc-contact-social-title{font-size:11px;font-weight:850;letter-spacing:.16em;color:#aaaab0;margin:26px 0 12px}\n.wc-contact-social{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}\n.wc-contact-social a{display:flex;flex-direction:column;justify-content:space-between;gap:20px;min-height:102px;background:#252529;border:1px solid #333338;border-radius:12px;padding:15px;color:#fff!important;text-decoration:none!important;font-size:15px;font-weight:800;transition:background .2s,border-color .2s,transform .2s;cursor:pointer!important}\n.wc-contact-social a:hover{background:#303036;border-color:#ff3551;transform:translateY(-2px)}\n.wc-contact-social .wc-social-top{display:flex;align-items:center;justify-content:space-between}\n.wc-brand-icon{width:23px;height:23px;flex:none}\n.wc-contact-social .wc-arrow{width:17px;height:17px;color:#a9a9af}\n.wc-contact-close{position:absolute;top:21px;right:21px;width:42px;height:42px;display:grid;place-items:center;border:1px solid #48484d;border-radius:50%;background:#242428;color:#fff;font-size:26px;line-height:1;cursor:pointer!important}\n.wc-contact-close:hover{background:#38383d}\n.wc-contact-overlay a:hover,.wc-contact-overlay button:hover{cursor:pointer!important}\n@media(max-width:560px){.wc-contact-overlay{padding:0;align-items:flex-end}.wc-contact-panel{border-radius:22px 22px 0 0;padding:32px 22px 29px;max-height:94dvh;width:100%}.wc-contact-title{font-size:clamp(42px,11vw,58px)}.wc-contact-primary a{font-size:clamp(18px,5.2vw,23px)}.wc-contact-close{top:18px;right:18px}.wc-contact-social a{min-height:91px;padding:13px;font-size:14px}}\n</style>\n<div class=\"wc-contact-overlay\" id=\"wc-contact-overlay\" hidden>\n  <div class=\"wc-contact-panel\" role=\"dialog\" aria-modal=\"true\" aria-labelledby=\"wc-contact-title\" tabindex=\"-1\">\n    <button type=\"button\" class=\"wc-contact-close\" aria-label=\"Закрыть контакты\">×</button>\n    <div class=\"wc-contact-top\">НОГИ В РУКИ / КОНТАКТЫ</div>\n    <h2 class=\"wc-contact-title\" id=\"wc-contact-title\">НА СВЯЗИ<span style=\"color:#ff3551\">.</span></h2>\n    <p class=\"wc-contact-intro\">Для мероприятий, сотрудничества и новых идей.</p>\n    <div class=\"wc-contact-primary\">\n      <a href=\"tel:+79019060656\"><span><small>ПОЗВОНИТЬ</small>8 (901) 906-06-56</span><svg class=\"wc-arrow\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 19 19 5M8 5h11v11\"/></svg></a>\n      <a href=\"mailto:info@welcirc.ru\"><span><small>НАПИСАТЬ НА ПОЧТУ</small>info@welcirc.ru</span><svg class=\"wc-arrow\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 19 19 5M8 5h11v11\"/></svg></a>\n    </div>\n    <div class=\"wc-contact-social-title\">МЫ В СОЦСЕТЯХ</div>\n    <div class=\"wc-contact-social\">\n      <a href=\"https://t.me/welcirc\" target=\"_blank\" rel=\"noopener noreferrer\"><span class=\"wc-social-top\"><svg class=\"wc-brand-icon\" viewBox=\"0 0 24 24\" fill=\"currentColor\" stroke=\"none\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"m21.5 3.8-3.2 15.7c-.2 1.1-.8 1.4-1.7.9l-4.8-3.6-2.3 2.2c-.3.3-.5.5-1 .5l.4-5 9.1-8.2c.4-.4-.1-.6-.6-.3L6.1 13 1.3 11.5c-1-.3-1-1 .2-1.5L20 2.9c.9-.3 1.7.2 1.5.9Z\"/></svg><svg class=\"wc-arrow\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 19 19 5M8 5h11v11\"/></svg></span><span>Telegram</span></a>\n      <a href=\"https://www.instagram.com/welcirc/\" target=\"_blank\" rel=\"noopener noreferrer\"><span class=\"wc-social-top\"><svg class=\"wc-brand-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"3\" y=\"3\" width=\"18\" height=\"18\" rx=\"5\"/><circle cx=\"12\" cy=\"12\" r=\"4\"/><circle cx=\"17.5\" cy=\"6.5\" r=\"1\"/></svg><svg class=\"wc-arrow\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 19 19 5M8 5h11v11\"/></svg></span><span>Instagram</span></a>\n      <a href=\"https://vk.ru/welcirc\" target=\"_blank\" rel=\"noopener noreferrer\"><span class=\"wc-social-top\"><svg class=\"wc-brand-icon\" viewBox=\"0 0 24 24\" fill=\"currentColor\" stroke=\"none\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M3 7c.3 5 3.5 9.5 7.3 10h1.5v-4c1.6.2 2.7 1.7 3.5 4H19c-.7-2.7-2.2-4.3-3.5-5 1.4-.8 2.8-2.6 3.7-5h-3.4c-.8 1.9-2 3.5-4 4V7H8.6v6.5C7.1 12.4 6.3 10.1 6 7H3Z\"/></svg><svg class=\"wc-arrow\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 19 19 5M8 5h11v11\"/></svg></span><span>ВКонтакте</span></a>\n      <a href=\"https://www.youtube.com/@welcirc\" target=\"_blank\" rel=\"noopener noreferrer\"><span class=\"wc-social-top\"><svg class=\"wc-brand-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><rect x=\"2\" y=\"5\" width=\"20\" height=\"14\" rx=\"4\"/><path d=\"m10 9 5 3-5 3z\"/></svg><svg class=\"wc-arrow\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 19 19 5M8 5h11v11\"/></svg></span><span>YouTube</span></a>\n    </div>\n  </div>\n</div>";
+  document.body.insertAdjacentHTML('beforeend',contactTemplate);
+  const contactOverlay=document.getElementById('wc-contact-overlay');
+  const contactPanel=contactOverlay.querySelector('.wc-contact-panel');
+  const contactClose=contactOverlay.querySelector('.wc-contact-close');
+  let contactPrevious=null;
+  let contactOldOverflow='';
+  const openContacts=()=>{
+    if(!contactOverlay.hidden)return;
+    contactPrevious=document.activeElement;
+    contactOldOverflow=document.documentElement.style.overflow;
+    contactOverlay.hidden=false;
+    document.documentElement.style.overflow='hidden';
+    contactClose.focus();
+  };
+  const closeContacts=()=>{
+    if(contactOverlay.hidden)return;
+    contactOverlay.hidden=true;
+    document.documentElement.style.overflow=contactOldOverflow;
+    if(contactPrevious&&contactPrevious.isConnected)contactPrevious.focus();
+  };
+  contactClose.addEventListener('click',closeContacts);
+  contactOverlay.addEventListener('click',e=>{if(e.target===contactOverlay)closeContacts()});
+  document.addEventListener('keydown',e=>{
+    if(contactOverlay.hidden)return;
+    if(e.key==='Escape')closeContacts();
+    if(e.key==='Tab'){
+      const items=[...contactPanel.querySelectorAll('button,a[href]')];
+      const first=items[0],last=items[items.length-1];
+      if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}
+      else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}
+    }
+  });
   let galleryReady=false;
   async function drawGallery(){
     if(galleryReady)return;
@@ -166,6 +188,7 @@
   }
   const open=(key)=>{
     if(!supported.includes(key))return false;
+    if(key==='contacts'){openContacts();return true;}
     const d=popups[key].d;
     if(!d.open){d.showModal();}
     if(key==='price')drawPrice();
