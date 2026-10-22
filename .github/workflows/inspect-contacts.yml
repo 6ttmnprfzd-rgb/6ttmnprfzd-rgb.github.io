@@ -1,0 +1,23 @@
+name: Inspect homepage public contact details
+on:
+  push:
+    paths:
+      - .github/workflows/inspect-contacts.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          s=Path('index.html').read_text(encoding='utf8')
+          for term in ['mailto:','info@','tel:', 'wc-contact-overlay','wc-contact-phone','wc-contact-mail','t.me/']:
+            print('TERM',term)
+            for m in list(re.finditer(re.escape(term),s,re.I))[-4:]:
+              print(repr(s[max(0,m.start()-180):m.start()+350])[:550])
+          PY
