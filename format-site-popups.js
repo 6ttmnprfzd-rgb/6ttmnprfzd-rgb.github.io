@@ -43,7 +43,7 @@
   const popups={
     price:null,
     contacts:null,
-    gallery:popup('gallery','НАША ГАЛЕРЕЯ','НОГИ В РУКИ / ФОТО И ВИДЕО')
+    gallery:null
   };
   const media=element('dialog','format-pop-media');
   media.setAttribute('aria-label','Просмотр фото и видео');
@@ -176,59 +176,89 @@
       else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}
     }
   });
-  let galleryReady=false;
+  // Exact homepage gallery heading, grid, graphite skin; CMS data on standalone pages.
+  const galleryTemplate="<style>\n.media-overlay[hidden],.lightbox[hidden],.media-content[hidden]{display:none!important}.media-overlay{position:fixed;inset:0;background:#111b;z-index:1300;padding:clamp(10px,3vw,28px);display:flex;justify-content:center;align-items:center;backdrop-filter:blur(7px)}.media-panel{width:min(1150px,100%);max-height:94dvh;overflow:auto;overscroll-behavior:contain;background:#faf9f6;border-radius:20px;padding:clamp(20px,3vw,38px);outline:0}.media-head{display:flex;align-items:start;justify-content:space-between;gap:15px}.media-kicker{color:#ed082c;font-weight:800;font-size:11px;letter-spacing:.1em}.media-head h2{font-size:clamp(25px,4vw,46px);line-height:1.05;letter-spacing:-.045em;margin:12px 0 23px}.media-close,.lightbox-close{border:0;background:#f5e6e6;border-radius:50%;font-size:28px;width:43px;height:43px;cursor:pointer;flex-shrink:0}.media-tabs{display:flex;gap:8px;margin-bottom:24px}.media-tab{padding:13px 22px;border:1px solid #e6dedb;border-radius:40px;background:transparent;font-size:12px;font-weight:900;cursor:pointer}.media-tab[aria-selected=true]{background:#111;color:#fff;border-color:#111}.media-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}.media-tile{padding:0;border:0;background:#eee;border-radius:12px;overflow:hidden;cursor:zoom-in;aspect-ratio:4/3}.media-tile img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s}.media-tile:hover img{transform:scale(1.04)}.media-empty{text-align:center;padding:65px 20px;background:#f2eeeb;border-radius:14px}.media-play{font-size:65px;color:#ed082c}.media-empty h3{font-size:clamp(20px,3vw,29px);margin:10px 0}.media-empty p{color:#777;max-width:440px;margin:0 auto;line-height:1.5}.lightbox{position:fixed;inset:0;background:#08080af2;z-index:1400;display:flex;align-items:center;justify-content:center;padding:70px 55px}.lightbox img{max-width:100%;max-height:100%;object-fit:contain;border-radius:4px}.lightbox-close{position:absolute;right:20px;top:20px}.lightbox-prev,.lightbox-next{position:absolute;top:50%;transform:translateY(-50%);border:0;background:#ffffffd9;color:#111;border-radius:50%;width:42px;height:42px;font-size:25px;cursor:pointer}.lightbox-prev{left:10px}.lightbox-next{right:10px}.lightbox-count{position:absolute;bottom:20px;color:white;font-size:13px}.modal-open{overflow:hidden}\n@media(max-width:650px){#price{padding:30px 0 45px!important}.price-feature{grid-template-columns:1fr;padding:24px 22px;gap:13px}.pf-meta,.pf-title,.pf-sub,.pf-action{grid-column:1;grid-row:auto}.pf-title{font-size:43px}.pf-sub{font-size:14px}.pf-action{text-align:center;margin-top:8px;padding:16px}.media-overlay{padding:0;align-items:flex-end}.media-panel{border-radius:19px 19px 0 0;max-height:96dvh;padding:23px 16px 30px}.media-head h2{font-size:27px}.media-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.media-tile{aspect-ratio:3/4}.media-tab{flex:1;padding:13px 8px}.lightbox{padding:65px 10px}.lightbox-prev,.lightbox-next{top:auto;bottom:15px;transform:none}.lightbox-count{bottom:28px}}\n\n.video-library{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,230px),1fr));gap:16px;padding:12px 0}.video-card{overflow:hidden;border-radius:14px;background:#f4f0ed}.video-cover{position:relative;display:block;width:100%;aspect-ratio:9/16;max-height:360px;border:0;padding:0;overflow:hidden;background:#151515;cursor:pointer}.video-cover img{width:100%;height:100%;object-fit:cover;display:block}.video-cover-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);display:grid;place-items:center;width:64px;height:64px;border-radius:50%;background:#ed082c;color:white;font-size:25px;padding-left:4px;box-shadow:0 8px 30px #0006}.video-cover-duration{position:absolute;right:12px;bottom:12px;background:#000b;color:white;border-radius:5px;padding:5px 8px;font-size:12px}.video-card-info{display:flex;flex-direction:column;gap:5px;padding:14px}.video-card-info strong{font-size:14px}.video-card-info span,.video-library-note{font-size:13px;color:#666}.video-player-overlay[hidden]{display:none!important}.video-player-overlay{position:fixed;inset:0;z-index:99999;background:#0b0b0bf0;display:flex;align-items:center;justify-content:center;padding:65px 15px 20px}.video-player-dialog{position:relative;width:min(100%,460px);max-height:calc(100dvh - 85px);display:flex;justify-content:center}.video-player-dialog video{display:block;max-width:100%;max-height:calc(100dvh - 85px);border-radius:12px;background:black}.video-player-close{position:fixed;right:20px;top:20px;z-index:1;width:42px;height:42px;border:0;border-radius:50%;font-size:27px;background:white;color:black;cursor:pointer}@media(max-width:650px){.video-library{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.video-cover{max-height:300px}.video-cover-play{width:52px;height:52px;font-size:20px}.video-card-info{padding:10px}.video-card-info strong{font-size:12px}.video-card-info span{font-size:11px}}\n\n/* Gallery: four columns on desktop, two on mobile.\n   Apply to the entire photo gallery, including CMS-loaded items. */\n#media-overlay [data-media-content=\"photos\"] .media-grid,\n#media-overlay .media-grid[data-media-content=\"photos\"],\n#media-overlay [data-media-content=\"photos\"].media-grid {\n  display: grid !important;\n  grid-template-columns: repeat(4, minmax(0, 1fr)) !important;\n  grid-auto-flow: row !important;\n  gap: 12px !important;\n  align-items: stretch !important;\n}\n#media-overlay [data-media-content=\"photos\"] .media-grid > *,\n#media-overlay .media-grid[data-media-content=\"photos\"] > *,\n#media-overlay [data-media-content=\"photos\"].media-grid > * {\n  grid-column: auto !important;\n  grid-row: auto !important;\n  width: 100% !important;\n  min-width: 0 !important;\n  max-width: none !important;\n  height: auto !important;\n  aspect-ratio: 4 / 3 !important;\n  overflow: hidden !important;\n  margin: 0 !important;\n}\n#media-overlay [data-media-content=\"photos\"] .media-grid > * img,\n#media-overlay .media-grid[data-media-content=\"photos\"] > * img,\n#media-overlay [data-media-content=\"photos\"].media-grid > * img {\n  display: block !important;\n  width: 100% !important;\n  height: 100% !important;\n  object-fit: cover !important;\n}\n@media (max-width: 650px) {\n  #media-overlay [data-media-content=\"photos\"] .media-grid,\n  #media-overlay .media-grid[data-media-content=\"photos\"],\n  #media-overlay [data-media-content=\"photos\"].media-grid {\n    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;\n    gap: 8px !important;\n  }\n  #media-overlay [data-media-content=\"photos\"] .media-grid > *,\n  #media-overlay .media-grid[data-media-content=\"photos\"] > *,\n  #media-overlay [data-media-content=\"photos\"].media-grid > * {\n    aspect-ratio: 3 / 4 !important;\n  }\n}\n\n\n/* Media library graphite glass, step 1: panel and navigation. */\n/* The background site should remain subtly visible, not become a black slab. */\n#media-overlay:not([hidden]) {\n  background:rgba(13,12,15,.43)!important;\n  -webkit-backdrop-filter:blur(3px)!important;\n  backdrop-filter:blur(3px)!important;\n}\n#media-overlay .media-panel {\n  box-sizing:border-box;\n  background:rgba(20,20,25,.82)!important;\n  color:#fff!important;\n  border:1px solid rgba(255,255,255,.2)!important;\n  box-shadow:0 28px 85px rgba(0,0,0,.42),inset 0 1px 0 rgba(255,255,255,.10)!important;\n  -webkit-backdrop-filter:blur(12px) saturate(115%)!important;\n  backdrop-filter:blur(12px) saturate(115%)!important;\n}\n#media-overlay .media-head h2 {color:#fff!important}\n#media-overlay .media-kicker {color:#ff6078!important}\n#media-overlay .media-close {\n  background:rgba(255,255,255,.09)!important;\n  color:#fff!important;\n  border:1px solid rgba(255,255,255,.25)!important;\n  box-shadow:none!important;\n}\n#media-overlay .media-close:hover {background:rgba(255,255,255,.17)!important}\n#media-overlay .media-tabs .media-tab {\n  color:#e7e7ea!important;\n  background:rgba(255,255,255,.04)!important;\n  border:1px solid rgba(255,255,255,.21)!important;\n}\n#media-overlay .media-tabs .media-tab[aria-selected=\"true\"] {\n  color:#fff!important;\n  background:rgba(255,255,255,.17)!important;\n  border-color:rgba(255,255,255,.57)!important;\n}\n#media-overlay .media-tab:focus-visible,\n#media-overlay .media-close:focus-visible {\n  outline:2px solid #ff6078!important;\n  outline-offset:3px!important;\n}\n\n\n/* Media library graphite glass, step 2: video cards and captions. */\n#media-overlay .video-library .video-card {\n  background:rgba(255,255,255,.075)!important;\n  border:1px solid rgba(255,255,255,.12)!important;\n  border-radius:14px!important;\n  color:#fff!important;\n  box-shadow:none!important;\n}\n#media-overlay .video-library .video-card-info {\n  background:transparent!important;\n  color:#fff!important;\n}\n#media-overlay .video-library .video-card-info strong {\n  color:#f7f7f9!important;\n}\n#media-overlay .video-library .video-card-info span,\n#media-overlay .video-library-note {\n  color:#bcbcc5!important;\n}\n#media-overlay .video-library .video-cover {\n  background:#131319!important;\n}\n#media-overlay .media-grid .media-tile {\n  background:#25252a!important;\n}\n\n\n</style>\n<div class=\"media-overlay\" hidden id=\"media-overlay\"><div class=\"media-panel\" role=\"dialog\" aria-modal=\"true\" aria-labelledby=\"media-title\" tabindex=\"-1\"><header class=\"media-head\"><div><div class=\"media-kicker\">НОГИ в РУКИ / МЕДИАТЕКА</div><h2 id=\"media-title\">АТМОСФЕРА НАШИХ МЕРОПРИЯТИЙ</h2></div><button class=\"media-close\" type=\"button\" aria-label=\"Закрыть галерею\">×</button></header><div class=\"media-tabs\" role=\"tablist\"><button class=\"media-tab\" data-media-tab=\"photos\" aria-selected=\"true\" type=\"button\">ФОТОГРАФИИ</button><button class=\"media-tab\" data-media-tab=\"videos\" aria-selected=\"false\" type=\"button\">ВИДЕО</button></div><div class=\"media-content\" data-media-content=\"photos\"><div class=\"media-grid\"></div></div><div class=\"media-content\" data-media-content=\"videos\" hidden><div class=\"video-library\"></div></div></div></div>";
+  document.body.insertAdjacentHTML('beforeend',galleryTemplate);
+  const galleryOverlay=document.getElementById('media-overlay');
+  const galleryPanel=galleryOverlay.querySelector('.media-panel');
+  const photoGrid=galleryOverlay.querySelector('[data-media-content="photos"] .media-grid');
+  const videoGrid=galleryOverlay.querySelector('[data-media-content="videos"] .video-library');
+  const galleryTabs=[...galleryOverlay.querySelectorAll('[data-media-tab]')];
+  let galleryPrevious=null,galleryOldOverflow='',galleryReady=false;
+  const selectGalleryTab=(key)=>{
+    galleryTabs.forEach(t=>t.setAttribute('aria-selected',String(t.dataset.mediaTab===key)));
+    galleryOverlay.querySelectorAll('[data-media-content]').forEach(el=>{el.hidden=el.dataset.mediaContent!==key});
+  };
+  const closeGallery=()=>{
+    galleryOverlay.hidden=true;
+    document.documentElement.style.overflow=galleryOldOverflow;
+    if(galleryPrevious&&galleryPrevious.isConnected)galleryPrevious.focus();
+  };
+  galleryTabs.forEach(t=>t.addEventListener('click',()=>selectGalleryTab(t.dataset.mediaTab)));
+  galleryOverlay.querySelector('.media-close').addEventListener('click',closeGallery);
+  galleryOverlay.addEventListener('click',e=>{if(e.target===galleryOverlay)closeGallery()});
+  document.addEventListener('keydown',e=>{
+    if(galleryOverlay.hidden)return;
+    if(e.key==='Escape')closeGallery();
+    if(e.key==='Tab'){
+      const controls=[...galleryPanel.querySelectorAll('button:not([disabled])')].filter(el=>el.getClientRects().length);
+      if(controls.length){
+        const first=controls[0],last=controls[controls.length-1];
+        if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus()}
+        else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus()}
+      }
+    }
+  });
   async function drawGallery(){
     if(galleryReady)return;
-    const root=popups.gallery.body;root.replaceChildren(element('p','format-pop-loading','Загружаем фото и видео...'));
     try{
       const [g,v]=await Promise.all([request('gallery-data'),request('videos-data')]);
       const photos=Array.isArray(g.photos)?g.photos.filter(x=>safePath(x?.image,'images')):[];
       const videos=Array.isArray(v.videos)?v.videos.filter(x=>safePath(x?.video,'videos')):[];
-      const tabs=element('div','format-pop-tabs');tabs.setAttribute('role','tablist');
-      const grid=element('div','format-pop-gallery-grid');
-      const photoTab=element('button','','ФОТО'),videoTab=element('button','','ВИДЕО');
-      photoTab.type='button';videoTab.type='button';
-      photoTab.dataset.galleryTab='photo';videoTab.dataset.galleryTab='video';
-      for(const b of [photoTab,videoTab]){b.setAttribute('role','tab');tabs.appendChild(b)}
-      function activate(type){
-        photoTab.setAttribute('aria-selected',String(type==='photo'));
-        videoTab.setAttribute('aria-selected',String(type==='video'));
-        grid.replaceChildren();
-        if(type==='photo'){
-          for(const entry of photos){
-            const b=element('button','format-pop-gallery-tile');
-            b.type='button';b.setAttribute('aria-label','Открыть фото: '+(entry.alt||'Мероприятие'));
-            const img=element('img');img.loading='lazy';img.decoding='async';img.src=safePath(entry.image,'images');
-            img.alt=entry.alt||'Цирковые артисты на мероприятии';
-            b.appendChild(img);b.addEventListener('click',()=>viewImage(img.src,img.alt));grid.appendChild(b);
-          }
-        }else{
-          for(const entry of videos){
-            const b=element('button','format-pop-gallery-tile');
-            b.type='button';b.setAttribute('aria-label','Смотреть видео: '+(entry.title||'Выступление'));
-            const img=element('img');img.loading='lazy';img.decoding='async';img.alt=entry.title||'Выступление';
-            const cover=safePath(entry.cover,'images')||safePath(entry.cover,'videos');
-            if(cover)img.src=cover;
-            b.append(img,element('span','format-pop-play','▶'));
-            b.addEventListener('click',()=>viewVideo(safePath(entry.video,'videos')));
-            grid.appendChild(b);
-          }
-        }
-      }
-      photoTab.addEventListener('click',()=>activate('photo'));
-      videoTab.addEventListener('click',()=>activate('video'));
-      root.replaceChildren(tabs,grid);
-      galleryReady=true;activate('photo');
-    }catch(_){root.replaceChildren(element('p','format-pop-loading','Не удалось загрузить галерею. Можно открыть её на главной странице.'))}
+      photoGrid.replaceChildren();
+      videoGrid.replaceChildren();
+      photos.forEach(entry=>{
+        const b=element('button','media-tile');
+        b.type='button';b.setAttribute('aria-label','Открыть фотографию: '+(entry.alt||'Мероприятие'));
+        const img=element('img');img.loading='lazy';img.decoding='async';img.src=safePath(entry.image,'images');
+        img.alt=entry.alt||'Цирковые артисты на мероприятии';
+        b.appendChild(img);b.addEventListener('click',()=>viewImage(img.src,img.alt));photoGrid.appendChild(b);
+      });
+      videos.forEach(entry=>{
+        const card=element('div','video-card');
+        const b=element('button','video-cover');
+        b.type='button';b.setAttribute('aria-label','Смотреть видео: '+(entry.title||'Выступление'));
+        const cover=element('img');
+        cover.loading='lazy';cover.decoding='async';cover.alt=entry.title||'Выступление';
+        const src=safePath(entry.cover,'images')||safePath(entry.cover,'videos');
+        if(src)cover.src=src;
+        b.append(cover,element('span','video-cover-play','▶'));
+        b.addEventListener('click',()=>viewVideo(safePath(entry.video,'videos')));
+        const desc=element('div','video-card-info');
+        desc.appendChild(element('strong','',entry.title||'Выступление'));
+        card.append(b,desc);videoGrid.appendChild(card);
+      });
+      galleryReady=true;
+    }catch(error){console.warn('Could not load media library from CMS',error)}
   }
+  const openGallery=()=>{
+    galleryPrevious=document.activeElement;
+    galleryOldOverflow=document.documentElement.style.overflow;
+    galleryOverlay.hidden=false;
+    document.documentElement.style.overflow='hidden';
+    selectGalleryTab('photos');
+    galleryPanel.focus();
+    drawGallery();
+  };
   const open=(key)=>{
     if(!supported.includes(key))return false;
     if(key==='contacts'){openContacts();return true;}
     if(key==='price'){openPrice();return true;}
+    if(key==='gallery'){openGallery();return true;}
     const d=popups[key].d;
     if(!d.open){d.showModal();}
     if(key==='price')drawPrice();
-    if(key==='gallery')drawGallery();
+
     return true;
   };
   document.querySelectorAll('a[href="/#price"],a[href="/#contacts"],a[href="/#gallery"]').forEach(a=>{
