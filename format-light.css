@@ -850,3 +850,20 @@ main > section.content > h2{
 @media(max-width:650px){
   main > section.content > h2{max-width:100%!important}
 }
+
+/* Compact footer under the now full-width photographic finale. */
+section.end-cta.format-end-cta{margin-bottom:0!important}
+footer.seo-footer{
+  margin-top:0!important;
+  padding:12px 0 16px!important;
+  min-height:0!important;
+}
+footer.seo-footer .seo-footer-logo img{
+  width:96px!important;height:52px!important;max-height:52px!important;
+}
+@media(max-width:760px){
+ footer.seo-footer{padding:9px 0 12px!important}
+ footer.seo-footer .seo-footer-logo img{
+   width:82px!important;height:46px!important;max-height:46px!important;
+ }
+}
