@@ -1017,3 +1017,47 @@ document.addEventListener('DOMContentLoaded',()=>{
   });
   panel.append(nav);
 });
+
+/* Homepage: Formats header dropdown to the three independent service pages. */
+document.addEventListener('DOMContentLoaded',()=>{
+ const header=document.querySelector('header.top');
+ if(!header)return;
+ const entries=[['РАУС','/raus/'],['ШОУ','/show/'],['НОМЕРА','/nomera/']];
+ const menus=[];
+ for(const nav of header.querySelectorAll('nav.links, nav.mobile-menu-panel')){
+   const old=nav.querySelector('a[href="#formats"]');
+   if(!old)continue;
+   const details=document.createElement('details');
+   details.className='formats-nav-dropdown';
+   const summary=document.createElement('summary');
+   summary.textContent='Форматы';
+   summary.setAttribute('aria-label','Форматы — раскрыть список');
+   const panel=document.createElement('div');
+   panel.className='formats-nav-dropdown-panel';
+   panel.setAttribute('role','group');
+   panel.setAttribute('aria-label','Страницы форматов');
+   for(const [label,url] of entries){
+     const link=document.createElement('a');
+     link.textContent=label;link.href=url;
+     if(nav.classList.contains('mobile-menu-panel')){
+       link.addEventListener('click',()=>{
+         const mobile=header.querySelector('.mobile-menu');
+         if(mobile)mobile.open=false;
+       });
+     }
+     panel.appendChild(link);
+   }
+   details.append(summary,panel);
+   old.replaceWith(details);
+   menus.push(details);
+ }
+ if(!menus.length)return;
+ document.addEventListener('pointerdown',event=>{
+   for(const item of menus){
+     if(item.open&&!item.contains(event.target))item.open=false;
+   }
+ },{passive:true});
+ document.addEventListener('keydown',event=>{
+   if(event.key==='Escape')for(const item of menus)item.open=false;
+ });
+});
