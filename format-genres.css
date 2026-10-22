@@ -98,3 +98,37 @@
  .format-genres-modal-grid .format-genre-meta{font-size:7px;left:9px;right:5px;bottom:18px}
 }
 @media(prefers-reduced-motion:reduce){.format-genres-track{scroll-behavior:auto}.format-genre{transition:none}.format-genre img{transition:none}}
+
+
+/* Shared graphite-glass look of the site's interactive artist windows. */
+.format-genres-modal{
+  color-scheme:dark;
+  color:#f7f6f8!important;
+  background:linear-gradient(135deg,rgba(43,41,50,.97) 0%,rgba(19,18,26,.985) 62%,rgba(29,26,34,.97) 100%)!important;
+  border:1px solid rgba(255,255,255,.19)!important;
+  box-shadow:0 28px 85px rgba(0,0,0,.62),inset 0 1px 0 rgba(255,255,255,.08)!important;
+  -webkit-backdrop-filter:blur(26px) saturate(110%);
+  backdrop-filter:blur(26px) saturate(110%);
+}
+.format-genres-modal::backdrop{
+  background:rgba(9,8,13,.77)!important;
+  -webkit-backdrop-filter:blur(8px)!important;
+  backdrop-filter:blur(8px)!important;
+}
+.format-genres-modal-head{
+  color:#fff!important;
+  background:#1e1d24!important;
+  background:linear-gradient(125deg,rgba(40,38,47,.99),rgba(24,23,30,.99))!important;
+  border-bottom:1px solid rgba(255,255,255,.19)!important;
+}
+.format-genres-modal-head h2{color:#fff!important}
+.format-genres-close{
+  color:#fff!important;
+  background:rgba(255,255,255,.085)!important;
+  border-color:rgba(255,255,255,.28)!important;
+}
+.format-genres-close:hover{background:rgba(255,255,255,.19)!important}
+.format-genres-modal-grid .format-genre{box-shadow:0 8px 24px #0006!important}
+@media(prefers-reduced-transparency:reduce){
+  .format-genres-modal{background:#1e1d25!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+}
