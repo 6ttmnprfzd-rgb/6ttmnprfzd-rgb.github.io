@@ -1434,3 +1434,9 @@ html.club-cursor-active #request-overlay .request-performer-option input[type="c
   #atmosphere-lightbox .atmosphere-lightbox-count {bottom:33px}
 }
 @media(prefers-reduced-motion:reduce){#gallery.atmosphere-cascade .gallery-film .shot{transition:none!important}}
+
+/* Atmosphere lightbox: always use ordinary pointers, never the decorative club. */
+html:has(#atmosphere-lightbox:not([hidden])) .club-pointer {display:none!important}
+html.club-cursor-active #atmosphere-lightbox,
+html.club-cursor-active #atmosphere-lightbox * {cursor:default!important}
+html.club-cursor-active #atmosphere-lightbox button {cursor:pointer!important}
