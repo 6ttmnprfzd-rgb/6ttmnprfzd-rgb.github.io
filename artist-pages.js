@@ -220,15 +220,21 @@ document.addEventListener('DOMContentLoaded',()=>{
   }
 });
 
-/* Selected performers: optional multi-select, appended to the existing notes field
-   through the native formdata event. The bot endpoint and JSON payload stay unchanged. */
+/* Optional performer quantities: reuse existing "count" and "notes" bot fields. */
 document.addEventListener('DOMContentLoaded',()=>{
   const form=document.querySelector('#request-overlay #request-form');
   if(!form||form.querySelector('.request-performers'))return;
-  const select=form.querySelector('select[name="format"]');
+  const format=form.querySelector('select[name="format"]');
   const notes=form.querySelector('textarea[name="notes"]');
-  if(!select||!notes)return;
+  const count=form.querySelector('input[name="count"]');
+  if(!format||!notes||!count)return;
   notes.placeholder='Дополнительные детали мероприятия';
+
+  // Keep the old backend field, but calculate it from selected performers.
+  count.type='hidden';
+  const oldCountRow=count.closest('.request-field');
+  if(oldCountRow)oldCountRow.style.display='none';
+
   const names=[
     'Ходулисты','Жонглёры','Мимы','Унициклисты','Микромаг','Акробаты',
     'Колесо Сира','Баланс на ноже','Эквилибр на тростях','Хулахупы',
@@ -239,37 +245,77 @@ document.addEventListener('DOMContentLoaded',()=>{
   const field=document.createElement('details');
   field.className='request-performers request-field wide';
   const summary=document.createElement('summary');
-  summary.append(document.createTextNode('ИНТЕРЕСУЮЩИЕ АРТИСТЫ '));
+  summary.append('ИНТЕРЕСУЮЩИЕ АРТИСТЫ ');
   const tally=document.createElement('span');
   tally.className='request-performers-count';
   summary.append(tally);
   const list=document.createElement('div');
   list.className='request-performers-list';
-  const checks=names.map(name=>{
+  const entries=names.map(name=>{
+    const row=document.createElement('div');
+    row.className='request-performer-row';
     const label=document.createElement('label');
     label.className='request-performer-option';
-    const input=document.createElement('input');
-    input.type='checkbox';
-    input.value=name;
+    const checkbox=document.createElement('input');
+    checkbox.type='checkbox';
+    checkbox.value=name;
     const caption=document.createElement('span');
     caption.textContent=name;
-    label.append(input,caption);
-    list.append(label);
-    return input;
+    label.append(checkbox,caption);
+    const quantity=document.createElement('input');
+    quantity.type='number';
+    quantity.className='request-performer-quantity';
+    quantity.value='1';
+    quantity.min='1';
+    quantity.max='99';
+    quantity.step='1';
+    quantity.inputMode='numeric';
+    quantity.required=true;
+    quantity.disabled=true;
+    quantity.hidden=true;
+    quantity.setAttribute('aria-label','Количество артистов: '+name);
+    row.append(label,quantity);
+    list.append(row);
+    return {name,checkbox,quantity};
   });
+  const chosen=()=>entries.filter(entry=>entry.checkbox.checked);
+  const numberFor=entry=>{
+    const value=Number(entry.quantity.value);
+    return Number.isFinite(value)?Math.max(1,Math.min(99,Math.floor(value))):1;
+  };
   const update=()=>{
-    const count=checks.filter(input=>input.checked).length;
-    tally.textContent=count?'('+count+' выбрано)':'(необязательно)';
+    entries.forEach(entry=>{
+      const enabled=entry.checkbox.checked;
+      entry.quantity.disabled=!enabled;
+      entry.quantity.hidden=!enabled;
+    });
+    const selected=chosen();
+    const total=selected.reduce((sum,entry)=>sum+numberFor(entry),0);
+    count.value=selected.length?String(total):'';
+    tally.textContent=selected.length?
+      '('+selected.length+' жанр., '+total+' арт.)':'(необязательно)';
   };
   list.addEventListener('change',update);
-  form.addEventListener('reset',()=>setTimeout(update,0));
+  list.addEventListener('input',update);
+  form.addEventListener('reset',()=>setTimeout(()=>{
+    entries.forEach(entry=>{entry.quantity.value='1';});
+    update();
+  },0));
   field.append(summary,list);
-  select.closest('.request-field')?.insertAdjacentElement('afterend',field);
-  update();
+  format.closest('.request-field')?.insertAdjacentElement('afterend',field);
+
+  // Use the original count -> payload.artists and notes -> payload.comment fields.
   form.addEventListener('formdata',event=>{
-    const selected=checks.filter(input=>input.checked).map(input=>input.value);
-    if(!selected.length)return;
-    const existing=String(event.formData.get('notes')||'').trim();
-    event.formData.set('notes','Интересующие артисты: '+selected.join(', ')+(existing?'\nДополнительные детали: '+existing:''));
+    const selected=chosen();
+    const total=selected.reduce((sum,entry)=>sum+numberFor(entry),0);
+    event.formData.set('count',selected.length?String(total):'');
+    const extra=notes.value.trim();
+    if(selected.length){
+      const performers=selected.map(entry=>entry.name+' — '+numberFor(entry)).join('; ');
+      event.formData.set('notes','Интересующие артисты: '+performers+
+        (extra?'\nДополнительные детали: '+extra:''));
+    }else{
+      event.formData.set('notes',extra);
+    }
   });
 });
