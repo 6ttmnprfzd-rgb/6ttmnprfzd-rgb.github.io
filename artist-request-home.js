@@ -993,3 +993,27 @@ document.addEventListener('DOMContentLoaded',()=>{
     }
   });
 });
+
+/* Three independent service pages, accessible directly from the existing Formats popup.
+   This augments the homepage without replacing its established format cards or dialogs. */
+document.addEventListener('DOMContentLoaded',()=>{
+  const panel=document.querySelector('#format-modal .format-modal-panel');
+  if(!panel||panel.querySelector('.format-page-links'))return;
+  const nav=document.createElement('nav');
+  nav.className='format-page-links';
+  nav.setAttribute('aria-label','Подробные страницы форматов');
+  const label=document.createElement('strong');
+  label.textContent='Подробнее о наших форматах';
+  nav.append(label);
+  [
+    ['Раус','/raus/'],
+    ['Шоу','/show/'],
+    ['Номера','/nomera/']
+  ].forEach(([name,href])=>{
+    const link=document.createElement('a');
+    link.href=href;
+    link.textContent=name;
+    nav.append(link);
+  });
+  panel.append(nav);
+});
