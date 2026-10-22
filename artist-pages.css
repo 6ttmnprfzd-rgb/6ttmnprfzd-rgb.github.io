@@ -731,3 +731,56 @@ html.club-cursor-active #request-overlay .request-performer-option input[type="c
   }
   #request-overlay .request-performer-option {font-size:14px}
 }
+/* Quantity per requested performer; hide the number input until selected. */
+#request-overlay .request-performer-row {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  min-width:0;
+}
+#request-overlay .request-performer-row .request-performer-option {
+  flex:1 1 auto;
+  min-width:0;
+}
+#request-overlay .request-performer-quantity:not([hidden]) {
+  display:block!important;
+  flex:0 0 66px!important;
+  width:66px!important;
+  min-width:0!important;
+  max-width:66px!important;
+  padding:7px 6px!important;
+  text-align:center;
+  font-size:14px!important;
+  font-weight:750!important;
+  line-height:1.25!important;
+}
+#request-overlay .request-performer-quantity[hidden] {display:none!important}
+#request-overlay .request-performers-count {white-space:normal}
+
+/* Mobile Safari: neutralize intrinsic date width while keeping native date picker. */
+@media(max-width:550px) {
+  #request-overlay .request-field:has(> input[type="date"]) {
+    width:100%!important;
+    min-width:0!important;
+    max-width:100%!important;
+    overflow:hidden;
+  }
+  #request-overlay .request-field > input[type="date"] {
+    -webkit-appearance:none!important;
+    appearance:none!important;
+    display:block!important;
+    flex:0 1 auto!important;
+    inline-size:100%!important;
+    min-inline-size:0!important;
+    max-inline-size:100%!important;
+    box-sizing:border-box!important;
+    overflow:hidden!important;
+    font-size:16px!important;
+  }
+  #request-overlay .request-field > input[type="date"]::-webkit-date-and-time-value {
+    min-width:0!important;
+    max-width:100%!important;
+    text-align:center;
+  }
+}
