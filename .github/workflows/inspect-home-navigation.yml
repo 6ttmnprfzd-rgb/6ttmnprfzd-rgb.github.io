@@ -11,24 +11,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Extract homepage header and related CSS
+      - name: Extract final homepage CSS header rules
         run: |
           python3 - <<'PY'
           from pathlib import Path
           import re
           s=Path('index.html').read_text(encoding='utf-8')
-          print("MAIN_HTML_CHARS",len(s),flush=True)
-          terms=[r'<header',r'</header>',r'floating',r'nav-toggle',r'nav-menu',r'menu-toggle',r'logo',r'site-header',r'header-inner']
-          for term in terms:
-            matches=list(re.finditer(term,s,re.I))
-            print('TERM',term,'COUNT',len(matches))
-            for match in matches[:4]:
-              p=match.start()
-              print("NEAR",term,repr(s[max(0,p-150):p+700]))
-          for m in list(re.finditer(r'<header\b[^>]*>',s,re.I))[:3]:
-            p=m.start();e=s.find('</header>',p)
-            if e<0:continue
-            print("HEADER_MARKUP_BEGIN")
-            print(s[p:min(e+9,p+13000)])
-            print("HEADER_MARKUP_END")
+          selectors=[r"header\.top",r"\.top",r"\.nav",r"\.brand-brush",r"\.logo",r"\.brand-sub",r"\.links",r"\.btn",r"\.mobile-menu",r"\.container"]
+          for token in selectors:
+            results=[]
+            for m in re.finditer(r'([^{}]+)\{([^{}]*)\}',s):
+              sel=m.group(1).strip().splitlines()[-1].strip()
+              if re.search(token,sel) and len(sel)<220 and len(m.group(2))<650:
+                results.append((sel,m.group(2).strip(),m.start()))
+            print('CSS',token,'COUNT',len(results))
+            for rule,body,position in results[-12:]:
+              print('RULE',position,rule,'{',body,'}')
           PY
