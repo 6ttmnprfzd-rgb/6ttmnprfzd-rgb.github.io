@@ -1542,3 +1542,6 @@ html.club-cursor-active #atmosphere-lightbox button {cursor:pointer!important}
 @media(prefers-reduced-motion:reduce) {
   #gallery.atmosphere-cascade .gallery-film .shot {transition:none!important}
 }
+
+/* Atmosphere: the photography carries the message; keep the heading clean. */
+#gallery .section-heading > p {display:none!important}
