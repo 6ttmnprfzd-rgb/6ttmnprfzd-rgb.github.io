@@ -42,3 +42,13 @@ footer{border-top:1px solid #ffffff28;display:flex;flex-wrap:wrap;align-items:ce
 footer a{text-decoration:none;color:#ddd9e1}
 @media(max-width:760px){.wrap{width:calc(100% - 34px)}.site-head{padding:18px 0}.brand{font-size:20px}.head-links{font-size:11px;gap:12px}.hero{grid-template-columns:1fr;gap:26px;padding:28px 0 42px}.hero-media img{height:clamp(240px,70vw,400px);border-radius:16px}h1{font-size:clamp(36px,10vw,56px)}.lead{font-size:16px}.cards{grid-template-columns:1fr}.artists{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.artist{min-height:155px}.artist span{font-size:14px;padding:12px}.price-box{align-items:start;flex-direction:column;gap:14px}.end-cta .inner{padding:24px}section.content{padding:40px 0}.hero-media figcaption{font-size:10px}}
 @media(max-width:380px){.head-links a:nth-child(2){display:none}.artists{grid-template-columns:1fr 1fr}.artist{min-height:138px}}
+/* Navigation and monochrome drawn arrows, not iOS emoji glyphs. */
+.seo-arrow{display:inline-block;width:15px;height:15px;vertical-align:-.17em;flex:none;color:inherit;stroke:currentColor}
+.cta .seo-arrow{width:17px;height:17px}
+.artist .seo-arrow{width:13px;height:13px}
+@media(max-width:760px){
+ .site-head{flex-direction:column;align-items:stretch;gap:16px}
+ .head-links{width:100%;display:flex;flex-wrap:nowrap;overflow-x:auto;white-space:nowrap;gap:17px;padding:0 0 8px;-webkit-overflow-scrolling:touch}
+ .head-links a{flex:none}
+}
+@media(max-width:380px){.head-links a:nth-child(2){display:inline}}
