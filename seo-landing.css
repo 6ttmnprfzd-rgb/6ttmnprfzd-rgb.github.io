@@ -154,3 +154,36 @@ section.content .price-box{
 @media(prefers-reduced-transparency:reduce){
  .hero,section.content,.end-cta .inner{backdrop-filter:none;-webkit-backdrop-filter:none;background:#202028}
 }
+
+/* Format pages: genres presented as portrait cards in one horizontal strip. */
+section.content .artists{
+  display:flex;
+  flex-wrap:nowrap;
+  gap:14px;
+  overflow-x:auto;
+  overflow-y:hidden;
+  padding:4px 2px 14px;
+  scroll-snap-type:x proximity;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:thin;
+  scrollbar-color:#716c78 transparent;
+}
+section.content .artists .artist{
+  flex:0 0 clamp(156px,17vw,194px);
+  aspect-ratio:2/3;
+  height:auto;
+  min-height:0;
+  scroll-snap-align:start;
+  border-radius:16px;
+}
+section.content .artists .artist img{object-fit:cover;object-position:center}
+section.content .artists .artist span{
+  font-size:clamp(13px,1.2vw,16px);
+  line-height:1.28;
+  padding:14px 11px 16px;
+}
+@media(max-width:760px){
+  section.content .artists{gap:11px;margin-right:-17px;padding-right:17px}
+  section.content .artists .artist{flex-basis:clamp(136px,42vw,170px)}
+  section.content .artists .artist span{font-size:14px;padding:12px 10px 14px}
+}
