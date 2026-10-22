@@ -118,3 +118,23 @@ section.end-cta.format-end-cta .cta {
     background:linear-gradient(90deg,rgba(14,13,19,.93),rgba(14,13,19,.65));
   }
 }
+
+/* Full-bleed finale: extend the existing CMS photo to both viewport edges.
+   The text stays aligned with the content column. */
+section.end-cta.format-end-cta{
+  width:100vw!important;
+  max-width:none!important;
+  margin-left:calc(50% - 50vw)!important;
+  margin-right:calc(50% - 50vw)!important;
+  border-radius:0!important;
+}
+section.end-cta.format-end-cta .inner{
+  padding-left:max(24px,calc((100vw - 1120px)/2))!important;
+  padding-right:max(24px,calc((100vw - 1120px)/2))!important;
+}
+@media(max-width:760px){
+  section.end-cta.format-end-cta .inner{
+    padding-left:22px!important;
+    padding-right:22px!important;
+  }
+}
