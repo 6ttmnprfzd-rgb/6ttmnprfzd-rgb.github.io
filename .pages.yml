@@ -232,7 +232,16 @@ content:
         label: Заставка главного видео
         type: image
       - name: raus_hero_video
-        label: Видео на странице РАУС (MP4)
+        label: Видео на странице РАУС (MP4/MOV)
+        type: file
+      - name: show_hero_video
+        label: Видео на странице ШОУ (MP4/MOV)
+        type: file
+      - name: nomera_hero_video
+        label: Видео на странице НОМЕРА (MP4/MOV)
+        type: file
+      - name: newyear_hero_video
+        label: Видео на странице НОВЫЙ ГОД (MP4/MOV)
         type: file
       - name: format_raus
         label: Формат РАУС
