@@ -1,0 +1,44 @@
+name: Check format page UI
+on:
+  push:
+    paths:
+      - 'format-genres.js'
+      - 'format-site-popups.js'
+      - 'format-site-popups.css'
+      - 'format-light.css'
+      - 'raus/index.html'
+      - 'show/index.html'
+      - 'nomera/index.html'
+      - 'novogodniy-korporativ/index.html'
+      - '.github/workflows/check-format-ui.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          node --check format-site-popups.js
+          node --check format-genres.js
+          node --check format-header.js
+      - run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          from html.parser import HTMLParser
+          class Check(HTMLParser):
+            def error(self, message): raise RuntimeError(message)
+          for name in ['raus','show','nomera','novogodniy-korporativ']:
+            p=Path(name)/'index.html'
+            s=p.read_text('utf-8')
+            assert s.count('src="/format-site-popups.js"')==1,p
+            assert s.count('href="/format-site-popups.css"')==1,p
+            assert s.count('src="/format-genres.js"')==1,p
+            assert s.count('class="format-genre" href=')==18,p
+            assert 'aria-labelledby="price"' in s,p
+            assert '<meta name="description"' in s and 'rel="canonical"' in s,p
+            Check().feed(s)
+            print('OK',name,'18 genres, price/gallery/contact modules, SEO retained')
+          assert all(Path(x).is_file() for x in ['price-data.json','gallery-data.json','videos-data.json','format-site-popups.js','format-site-popups.css'])
+          PY
