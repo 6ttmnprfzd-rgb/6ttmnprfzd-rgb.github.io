@@ -57,7 +57,7 @@
     if(dialog.open&&typeof dialog.close==='function')dialog.close();
     else dialog.removeAttribute('open');
   };
-  document.querySelectorAll('.related a[href="/#genres"]').forEach(link=>{
+  document.querySelectorAll('a[href="/#genres"]').forEach(link=>{
     link.addEventListener('click',e=>{e.preventDefault();open.click()});
   });
   close.addEventListener('click',shut);
