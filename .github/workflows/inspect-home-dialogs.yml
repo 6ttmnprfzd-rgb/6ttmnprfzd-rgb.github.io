@@ -17,6 +17,10 @@ jobs:
           from pathlib import Path
           import re
           s=Path('index.html').read_text('utf8')
+          for name in ['wc-contact-overlay','price-overlay','gallery-full','gallery-overlay','gallery-modal','gallery-video-player','gallery-video-overlay','photo-lightbox','gallery-fullscreen']:
+            m=re.search(r'id="'+re.escape(name)+'"',s)
+            if m:print('OVERLAY_SNIP',name,re.sub(r'\\s+',' ',s[max(0,m.start()-200):m.start()+2900])[:3100])
+          print('CONTACT EMAILS',list(dict.fromkeys(re.findall(r'[\\w.+-]+@[\\w.-]+',s)))[:30])
           print('DIALOG TAGS')
           for m in re.finditer(r'<dialog\b[^>]*>',s): print(m.group()[:400])
           print('POSSIBLE MODAL IDS')
