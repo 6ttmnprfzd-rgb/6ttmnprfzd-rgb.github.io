@@ -1,0 +1,59 @@
+name: Make artist videos playable in desktop browsers
+on:
+  push:
+    paths:
+      - .github/workflows/convert-artist-mov.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  convert:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Convert first two genre MOVs to H264 MP4
+        shell: bash
+        run: |
+          command -v ffmpeg >/dev/null || { sudo apt-get update && sudo apt-get install -y ffmpeg; }
+          python3 - <<'PY'
+          import json, subprocess
+          from pathlib import Path
+          datafile=Path('artist-media.json')
+          data=json.loads(datafile.read_text(encoding='utf-8'))
+          for slug in ('hodulisty','zhonglery'):
+              old=data.get(slug,{}).get('video','')
+              assert old.endswith('.mov'),f'Unexpected source video for {slug}: {old}'
+              src=Path(old)
+              assert src.is_file(),f'Missing source {src}'
+              dest=src.with_name(src.stem+'-browser.mp4')
+              if not dest.is_file():
+                  command=['ffmpeg','-nostdin','-hide_banner','-loglevel','error','-y',
+                           '-i',str(src),'-map','0:v:0','-map','0:a:0?',
+                           '-c:v','libx264','-preset','veryfast','-crf','26',
+                           '-pix_fmt','yuv420p','-c:a','aac','-b:a','128k',
+                           '-movflags','+faststart','-threads','2',str(dest)]
+                  subprocess.run(command,check=True,timeout=900)
+              assert dest.stat().st_size>10000
+              assert dest.stat().st_size<75000000
+              data[slug]['video']=dest.as_posix()
+              page=Path(slug)/'index.html'
+              html=page.read_text(encoding='utf-8')
+              assert old in html,f'Expected {old} on {page}'
+              html=html.replace(old,dest.as_posix()).replace('type="video/quicktime"','type="video/mp4"')
+              page.write_text(html,encoding='utf-8')
+              print(slug,':',src,'=>',dest,'size',dest.stat().st_size)
+          datafile.write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          PY
+      - name: Commit compatible videos
+        shell: bash
+        run: |
+          if [[ -n "$(git status --porcelain)" ]]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add artist-media.json hodulisty/index.html zhonglery/index.html videos/*-browser.mp4
+            git commit -m "Desktop playback: H264 MP4 for hодулисты and жонглёры"
+            git push origin HEAD:main
+          fi
