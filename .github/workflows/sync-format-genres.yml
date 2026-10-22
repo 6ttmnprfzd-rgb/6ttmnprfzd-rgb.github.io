@@ -3,6 +3,7 @@ on:
   push:
     paths:
       - index.html
+      - artist-media.json
       - .github/workflows/sync-format-genres.yml
   workflow_dispatch:
 permissions:
