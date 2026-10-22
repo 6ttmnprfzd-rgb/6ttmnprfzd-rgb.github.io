@@ -243,6 +243,18 @@ content:
       - name: newyear_hero_video
         label: Видео на странице НОВЫЙ ГОД (MP4/MOV)
         type: file
+      - name: raus_end_photo
+        label: Финальное фото РАУС
+        type: image
+      - name: show_end_photo
+        label: Финальное фото ШОУ
+        type: image
+      - name: nomera_end_photo
+        label: Финальное фото НОМЕРА
+        type: image
+      - name: newyear_end_photo
+        label: Финальное фото НОВЫЙ ГОД
+        type: image
       - name: format_raus
         label: Формат РАУС
         type: image
