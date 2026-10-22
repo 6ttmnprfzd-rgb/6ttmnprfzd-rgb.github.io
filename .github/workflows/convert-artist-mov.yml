@@ -1,4 +1,4 @@
-name: Make artist videos playable in desktop browsers
+name: Create compatible desktop videos for artist pages
 on:
   push:
     paths:
@@ -6,6 +6,9 @@ on:
   workflow_dispatch:
 permissions:
   contents: write
+concurrency:
+  group: convert-artist-video
+  cancel-in-progress: false
 jobs:
   convert:
     runs-on: ubuntu-latest
@@ -14,46 +17,79 @@ jobs:
       - uses: actions/checkout@v4
         with:
           persist-credentials: true
-      - name: Convert first two genre MOVs to H264 MP4
+      - name: Install a small FFmpeg build
         shell: bash
         run: |
-          command -v ffmpeg >/dev/null || { sudo apt-get update && sudo apt-get install -y ffmpeg; }
-          python3 - <<'PY'
-          import json, subprocess
+          python3 -m venv /tmp/artist-video-tools
+          /tmp/artist-video-tools/bin/pip install --quiet imageio-ffmpeg
+      - name: Convert MOV media and update artist pages
+        shell: bash
+        run: |
+          /tmp/artist-video-tools/bin/python - <<'PY'
+          import json,re,subprocess
           from pathlib import Path
-          datafile=Path('artist-media.json')
-          data=json.loads(datafile.read_text(encoding='utf-8'))
-          for slug in ('hodulisty','zhonglery'):
-              old=data.get(slug,{}).get('video','')
-              assert old.endswith('.mov'),f'Unexpected source video for {slug}: {old}'
-              src=Path(old)
-              assert src.is_file(),f'Missing source {src}'
-              dest=src.with_name(src.stem+'-browser.mp4')
-              if not dest.is_file():
-                  command=['ffmpeg','-nostdin','-hide_banner','-loglevel','error','-y',
-                           '-i',str(src),'-map','0:v:0','-map','0:a:0?',
-                           '-c:v','libx264','-preset','veryfast','-crf','26',
-                           '-pix_fmt','yuv420p','-c:a','aac','-b:a','128k',
-                           '-movflags','+faststart','-threads','2',str(dest)]
-                  subprocess.run(command,check=True,timeout=900)
-              assert dest.stat().st_size>10000
-              assert dest.stat().st_size<75000000
-              data[slug]['video']=dest.as_posix()
-              page=Path(slug)/'index.html'
-              html=page.read_text(encoding='utf-8')
-              assert old in html,f'Expected {old} on {page}'
-              html=html.replace(old,dest.as_posix()).replace('type="video/quicktime"','type="video/mp4"')
-              page.write_text(html,encoding='utf-8')
-              print(slug,':',src,'=>',dest,'size',dest.stat().st_size)
-          datafile.write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+          import imageio_ffmpeg
+          exe=imageio_ffmpeg.get_ffmpeg_exe()
+          path=Path("artist-media.json")
+          data=json.loads(path.read_text(encoding="utf-8"))
+          converted,failed=[],[]
+          priority=("hodulisty","zhonglery","akrobaty","mimy")
+          keys=list(priority)+[key for key in data if key not in priority]
+          for slug in keys:
+            entry=data.get(slug,{})
+            old=entry.get("video","")
+            if not isinstance(old,str) or not old.lower().endswith(".mov"):continue
+            source=Path(old)
+            if not source.is_file():
+              failed.append((slug,"missing original "+old))
+              continue
+            dest=source.with_name(source.stem+"-browser.mp4")
+            try:
+              if not dest.is_file() or dest.stat().st_size<10000:
+                cmd=[exe,"-nostdin","-hide_banner","-loglevel","error","-y",
+                  "-i",str(source),"-map","0:v:0","-map","0:a:0?",
+                  "-vf","scale=720:-2","-c:v","libx264","-preset","veryfast",
+                  "-crf","26","-pix_fmt","yuv420p","-c:a","aac","-b:a","112k",
+                  "-movflags","+faststart","-threads","2",str(dest)]
+                subprocess.run(cmd,check=True,timeout=500)
+              assert 10000<dest.stat().st_size<75000000, "output invalid"
+              page=Path(slug)/"index.html"
+              if not page.is_file():raise ValueError("missing "+str(page))
+              html=page.read_text(encoding="utf-8")
+              new=dest.as_posix()
+              html=html.replace(old,new)
+              pattern=r"<video\b[^>]*>[\s\S]*?</video>"
+              match=re.search(pattern,html,re.I)
+              if match is None: raise ValueError("missing video element")
+              block=match.group(0)
+              if re.search(r"<source\b[^>]*>",block,re.I):
+                block=re.sub(r"<source\b[^>]*>", '<source src="/'+new+'" type="video/mp4">',block,count=1,flags=re.I)
+              else:
+                block=block.replace("</video>",'<source src="/'+new+'" type="video/mp4"></video>')
+              html=html[:match.start()]+block+html[match.end():]
+              entry["video"]=new
+              page.write_text(html,encoding="utf-8")
+              converted.append(slug)
+              print("OK",slug,new,dest.stat().st_size,flush=True)
+            except Exception as e:
+              failed.append((slug,str(e)))
+              print("FAILED",slug,str(e),flush=True)
+              if dest.exists() and not dest.stat().st_size:dest.unlink()
+          if converted:
+            path.write_text(json.dumps(data,ensure_ascii=False,indent=2)+"\n",encoding="utf-8")
+          print("CONVERTED:",",".join(converted),flush=True)
+          print("FAILED:",failed,flush=True)
           PY
-      - name: Commit compatible videos
+      - name: Publish compatible files to GitHub
         shell: bash
         run: |
-          if [[ -n "$(git status --porcelain)" ]]; then
+          if [[ -n "$(git status --porcelain artist-media.json */index.html videos/)" ]]; then
             git config user.name "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add artist-media.json hodulisty/index.html zhonglery/index.html videos/*-browser.mp4
-            git commit -m "Desktop playback: H264 MP4 for hодулисты and жонглёры"
+            git add artist-media.json */index.html videos/*-browser.mp4
+            git commit -m "Видео артистов: совместимые MP4 для компьютеров"
+            git pull --rebase origin main
             git push origin HEAD:main
+          else
+            echo "No converted files to publish"
           fi
