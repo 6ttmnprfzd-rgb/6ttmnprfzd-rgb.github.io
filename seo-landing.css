@@ -56,3 +56,20 @@ a.cta svg.seo-arrow{width:17px!important;height:17px!important;min-height:17px;m
  .head-links a{flex:none}
 }
 @media(max-width:380px){.head-links a:nth-child(2){display:inline}}
+
+/* Compact mobile menu: one-line wordmark, dropdown behind three-line toggle. */
+.site-head .brand{white-space:nowrap;flex-shrink:0}
+.seo-mobile-menu{display:none}
+@media(max-width:760px){
+ .site-head{flex-direction:row;align-items:center;justify-content:space-between;gap:12px}
+ .site-head .brand{font-size:clamp(18px,5.7vw,22px);line-height:1.05;white-space:nowrap}
+ .site-head>.head-links{display:none}
+ .seo-mobile-menu{display:block;flex-shrink:0;position:relative;z-index:12}
+ .seo-mobile-menu summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:center;width:44px;height:44px;border:1px solid #ffffff50;border-radius:12px;color:#fff}
+ .seo-mobile-menu summary::-webkit-details-marker{display:none}
+ .seo-hamburger{display:grid;gap:5px}
+ .seo-hamburger i{display:block;width:19px;height:2px;background:currentColor;border-radius:4px}
+ .seo-mobile-links{position:absolute;top:calc(100% + 10px);right:0;min-width:205px;background:#202027f5;backdrop-filter:blur(18px);border:1px solid #ffffff3b;box-shadow:0 16px 40px #0009;border-radius:15px;padding:8px;display:grid;gap:1px}
+ .seo-mobile-links a{color:#f5f3f5;font-size:14px;text-decoration:none;padding:11px 13px;border-radius:8px;display:block;white-space:nowrap}
+ .seo-mobile-links a:focus-visible,.seo-mobile-links a:hover{background:#ffffff1a}
+}
