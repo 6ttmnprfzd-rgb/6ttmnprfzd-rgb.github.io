@@ -164,3 +164,26 @@
  }
  .format-genres-all:hover,.format-genres-all:focus-visible{color:#ed082c!important}
 }
+
+/* Homepage-style detached underline and up-right arrow for All Genres. */
+.format-genres-all-wrap{padding-bottom:23px}
+.format-genres-all{
+  position:relative!important;
+  border-bottom:0!important;
+  padding:10px 2px 12px!important;
+  gap:10px!important;
+}
+.format-genres-all::after{
+  content:"";display:block;position:absolute;left:0;right:0;
+  height:2px;bottom:0;background:#ed082c;
+  transform:skewX(-12deg);
+}
+.format-genres-all svg{
+  transform:rotate(-45deg)!important;
+  stroke:#ed082c!important;
+}
+@media(max-width:650px){
+  .format-genres-all-wrap{padding-bottom:26px}
+  .format-genres-all{padding-bottom:12px!important}
+  .format-genres-all svg{transform:rotate(-45deg)!important;stroke:#111114!important}
+}
