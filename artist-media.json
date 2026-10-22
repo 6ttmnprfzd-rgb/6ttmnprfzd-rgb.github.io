@@ -1,6 +1,6 @@
 {
   "hodulisty": {
-    "video": "videos/hodulisty-card.mov",
+    "video": "videos/hodulisty-card-browser.mp4",
     "photos": [
       {
         "image": "images/0cf9d777-785d-49d2-be4b-8e774407856e.jpeg"
@@ -24,7 +24,7 @@
     ]
   },
   "zhonglery": {
-    "video": "videos/5ac3f49f-f448-4bf1-add7-5ab6c6a52ed4.mov",
+    "video": "videos/5ac3f49f-f448-4bf1-add7-5ab6c6a52ed4-browser.mp4",
     "photos": [
       {
         "image": "images/cms-photo-004.jpg",
@@ -39,7 +39,7 @@
     ]
   },
   "mimy": {
-    "video": "videos/copy_719A5889-42A7-495A-991D-17B662A48116.mov",
+    "video": "videos/copy_719A5889-42A7-495A-991D-17B662A48116-browser.mp4",
     "photos": [
       {
         "image": "images/cms-photo-005.jpg",
@@ -48,7 +48,7 @@
     ]
   },
   "unitsiklisty": {
-    "video": "videos/-9107598504827633725.mov",
+    "video": "videos/-9107598504827633725-browser.mp4",
     "photos": [
       {
         "image": "images/cms-photo-006.jpg",
@@ -57,7 +57,7 @@
     ]
   },
   "mikromag": {
-    "video": "videos/copy_925FA7A1-AB13-4486-83F2-51E62A60AD58.mov",
+    "video": "videos/copy_925FA7A1-AB13-4486-83F2-51E62A60AD58-browser.mp4",
     "photos": [
       {
         "image": "images/cms-photo-007.jpg",
@@ -69,7 +69,7 @@
     ]
   },
   "akrobaty": {
-    "video": "videos/copy_9FD8D596-0A01-401B-94E0-71D2B15DE0AD.mov",
+    "video": "videos/copy_9FD8D596-0A01-401B-94E0-71D2B15DE0AD-browser.mp4",
     "photos": [
       {
         "image": "images/0909B7E8-AA5A-4BFF-B695-9B4763B482AB.png"
@@ -80,7 +80,7 @@
     ]
   },
   "koleso-sira": {
-    "video": "videos/-7069860093755677855.mov",
+    "video": "videos/-7069860093755677855-browser.mp4",
     "photos": [
       {
         "image": "images/cms-photo-009.jpg",
@@ -128,7 +128,7 @@
     ]
   },
   "hulahupy": {
-    "video": "videos/copy_39F060C3-8104-453D-BC23-2C3D50638045.mov",
+    "video": "videos/copy_39F060C3-8104-453D-BC23-2C3D50638045-browser.mp4",
     "photos": [
       {
         "image": "images/cms-photo-012.jpg",
@@ -137,7 +137,7 @@
     ]
   },
   "gimnastka-v-zorb-share": {
-    "video": "videos/411713016821160568.mov",
+    "video": "videos/411713016821160568-browser.mp4",
     "photos": [
       {
         "image": "images/cms-photo-013.jpg",
@@ -162,7 +162,7 @@
     ]
   },
   "diabolo": {
-    "video": "videos/9100551323254244463.mov",
+    "video": "videos/9100551323254244463-browser.mp4",
     "photos": [
       {
         "image": "images/IMG_3401.jpeg"
@@ -170,7 +170,7 @@
     ]
   },
   "ekvilibr-na-katushkah": {
-    "video": "videos/-8934617001882082733.mov",
+    "video": "videos/-8934617001882082733-browser.mp4",
     "photos": [
       {
         "image": "images/IMG_3395.jpeg"
@@ -205,7 +205,7 @@
     ]
   },
   "volnostoyashchaya-lestnitsa": {
-    "video": "videos/1d1e5641-ed2b-4c4b-bf7f-a3efd4bd12c1.mov",
+    "video": "videos/1d1e5641-ed2b-4c4b-bf7f-a3efd4bd12c1-browser.mp4",
     "photos": [
       {
         "image": "images/39fba1b6-626f-4a84-b1a9-29688dca72d7.jpeg"
