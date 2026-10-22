@@ -1,0 +1,62 @@
+name: Sync format genre cards with the homepage
+on:
+  push:
+    paths:
+      - index.html
+      - .github/workflows/sync-format-genres.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Extract 18 real homepage genre cards
+        run: |
+          python3 - <<'PY'
+          import json,re,html
+          from pathlib import Path
+          s=Path('index.html').read_text('utf-8')
+          match=re.search(r'<section\b[^>]*\bid="genres"[\s\S]*?</section>',s)
+          if not match:raise RuntimeError('Homepage #genres section not found')
+          section=match.group()
+          slugmap={
+            'stilts':'hodulisty','juggling':'zhonglery','mime':'mimy',
+            'unicycle':'unitsiklisty','magic':'mikromag','acrobat':'akrobaty',
+            'cyrwheel':'koleso-sira','knife':'balans-na-nozhe',
+            'canes':'ekvilibr-na-trostyah','hoops':'hulahupy',
+            'zorb':'gimnastka-v-zorb-share','aerialring':'gimnastka-v-parternom-koltse',
+            'diabolo':'diabolo','rollers':'ekvilibr-na-katushkah',
+            'chairs':'ekvilibr-na-stulyah','contact':'kontaktnoe-zhonglirovanie',
+            'ladder':'volnostoyashchaya-lestnitsa','hatter':'shlyapnik'}
+          rows=[]
+          for a in re.findall(r'<article\b[^>]*>[\s\S]*?</article>',section):
+            idmatch=re.search(r'\bdata-artist="([^"]+)"',a)
+            if not idmatch:continue
+            mid=idmatch.group(1)
+            img=re.search(r'<img\b[^>]*\bsrc="([^"]+)"',a)
+            h=re.search(r'<h3\b[^>]*>([\s\S]*?)</h3>',a)
+            if mid not in slugmap or not img or not h:continue
+            source=html.unescape(img.group(1)).lstrip('/')
+            if not re.fullmatch(r'images/[A-Za-z0-9_.-]+',source):
+              raise RuntimeError('Unexpected homepage image: '+source)
+            title=html.unescape(re.sub('<[^>]+>','',h.group(1))).strip()
+            rows.append({'slug':slugmap[mid],'title':title,'image':source})
+          if len(rows)!=18 or len(set(row['slug'] for row in rows))!=18:
+            raise RuntimeError(f'Expected 18 unique homepage genres; got {len(rows)}')
+          dst=Path('format-home-genres.json')
+          dst.write_text(json.dumps(rows,ensure_ascii=False,indent=2)+'\n','utf-8')
+          print('SAVED',len(rows),'CURRENT MAIN GENRES')
+          for row in rows:print(row['slug'],row['title'],row['image'])
+          PY
+      - name: Commit homepage genre image data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add format-home-genres.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Каталог: синхронизировать 18 карточек с главной"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
