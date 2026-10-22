@@ -23,6 +23,6 @@ jobs:
             for m in matches[:10]:
               p=m.start()
               t=s[max(0,p-420):p+700]
-              t=re.sub(r'data:image/[^)'"]{90,}', '[INLINE_IMG]',t)
+              t=re.sub(r'data:image/[^)]{90,}', '[INLINE_IMG]',t)
               print('NEAR',p,t.replace('\n',' ')[:1000])
           PY
