@@ -784,3 +784,34 @@ html.club-cursor-active #request-overlay .request-performer-option input[type="c
     text-align:center;
   }
 }
+
+/* Standalone artist navigation: readable back action above the heading. */
+body[data-artist-slug] .artist-dialog.stilts-showcase .artist-dialog-head{
+  display:flex!important;flex-wrap:wrap!important;align-items:center!important;
+  gap:8px 12px!important;padding-top:30px!important;
+}
+body[data-artist-slug] .artist-dialog.stilts-showcase .artist-dialog-head .artist-back-link{
+  order:1!important;display:inline-flex;align-items:center;justify-content:center;
+  min-height:37px;padding:8px 14px;margin:0;
+  border:1px solid rgba(255,255,255,.28);border-radius:30px;
+  color:#f7f4f7!important;font:600 13px/1.1 Arial,Helvetica,sans-serif!important;
+  text-decoration:none!important;background:rgba(255,255,255,.06);
+  transition:background .15s,border-color .15s;
+}
+body[data-artist-slug] .artist-dialog.stilts-showcase .artist-dialog-head .artist-back-link:hover{
+  background:rgba(255,255,255,.17);border-color:rgba(255,255,255,.48);
+}
+body[data-artist-slug] .artist-dialog.stilts-showcase .artist-dialog-head .artist-close{
+  order:2!important;margin-left:auto!important;
+}
+body[data-artist-slug] .artist-dialog.stilts-showcase .artist-dialog-head h1{
+  order:3!important;flex:0 0 100%!important;min-width:0!important;
+}
+@media(max-width:650px){
+ body[data-artist-slug] .artist-dialog.stilts-showcase .artist-dialog-head{
+  padding-top:31px!important;
+ }
+ body[data-artist-slug] .artist-dialog.stilts-showcase .artist-dialog-head .artist-back-link{
+  min-height:34px;font-size:12px!important;
+ }
+}
