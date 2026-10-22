@@ -834,9 +834,14 @@ section.content .gallery-next a svg{
  section.content .gallery-next a{text-transform:uppercase!important;letter-spacing:.045em!important}
 }
 
-/* Muted rose accents only for the short descriptions under New Year costumes. */
+/* Subtle rose description panels under the New Year costume illustrations. */
 section.content[aria-labelledby="new-year-costumes"] .costume-card figcaption span{
-  color:#b45f75!important;
+  display:block;
+  padding:12px 13px;
+  border-radius:10px;
+  background:#fce8ea!important;
+  color:#322429!important;
+  font-weight:500;
 }
 
 /* Balanced two-line composition for long section headings, like homepage. */
