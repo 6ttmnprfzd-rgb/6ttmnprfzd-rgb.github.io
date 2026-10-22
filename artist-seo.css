@@ -1,0 +1,33 @@
+/* Supplementary content is only shown on standalone genre pages. */
+body[data-artist-slug] .artist-dialog.stilts-showcase .artist-seo-details{
+ grid-column:1/-1!important;grid-row:9!important;align-self:stretch;min-width:0;
+ padding:17px 0 0;margin:12px 0 0;border-top:1px solid rgba(255,255,255,.16);color:#d2d2d8;
+}
+body[data-artist-slug] .artist-seo-details h2{
+ margin:0 0 7px!important;font:700 15px/1.35 Arial,Helvetica,sans-serif!important;
+ letter-spacing:0!important;text-transform:none!important;color:#f6f6f8!important;
+}
+body[data-artist-slug] .artist-seo-details p{
+ margin:0 0 15px!important;font:400 13px/1.65 Arial,Helvetica,sans-serif!important;color:#c6c6ce!important;
+}
+body[data-artist-slug] .artist-seo-related-label{
+ display:block;margin:0 0 7px;font:700 11px/1.4 Arial,Helvetica,sans-serif;
+ letter-spacing:.07em;text-transform:uppercase;color:#a3a3af;
+}
+body[data-artist-slug] .artist-seo-related ul{
+ list-style:none;display:flex;flex-wrap:wrap;gap:8px 17px;padding:0;margin:0;
+}
+body[data-artist-slug] .artist-seo-related li{margin:0;padding:0;min-width:0}
+body[data-artist-slug] .artist-seo-related a{
+ display:inline-block;font:500 12px/1.5 Arial,Helvetica,sans-serif;color:#f0f0f3!important;
+ text-decoration:underline;text-decoration-color:#676773;text-underline-offset:3px;
+ transition:color .15s ease,text-decoration-color .15s ease;
+}
+body[data-artist-slug] .artist-seo-related a:hover{color:#fff!important;text-decoration-color:#ed082c}
+body[data-artist-slug] .artist-seo-related a:focus-visible{outline:2px solid #ff5375;outline-offset:4px}
+@media(max-width:650px){
+ body[data-artist-slug] .artist-dialog.stilts-showcase .artist-seo-details{
+  grid-column:1/-1!important;grid-row:9!important;padding-top:15px;margin-top:7px;
+ }
+ body[data-artist-slug] .artist-seo-related ul{gap:9px 14px}
+}
