@@ -1713,3 +1713,22 @@ footer.footer.home-format-footer .seo-footer-contact svg{
  footer.footer.home-format-footer .seo-footer-logo img{width:90px}
  footer.footer.home-format-footer .seo-footer-geography small{font-size:9px}
 }
+
+/* Keep the Photos / Videos switcher accessible while the gallery is scrolled. */
+#media-overlay .media-panel .media-tabs{
+  position:sticky!important;
+  top:0!important;
+  z-index:24!important;
+  padding:12px 4px!important;
+  margin:0 0 16px!important;
+  border-bottom:1px solid rgba(255,255,255,.14)!important;
+  background:rgba(25,25,31,.93)!important;
+  -webkit-backdrop-filter:blur(18px)!important;
+  backdrop-filter:blur(18px)!important;
+}
+@media(max-width:650px){
+  #media-overlay .media-panel .media-tabs{
+    top:0!important;
+    padding:10px 2px!important;
+  }
+}
