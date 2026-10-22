@@ -68,6 +68,17 @@
     '}',
     '@media(prefers-reduced-motion:reduce){.artist-genre-nav-item{transition:none!important}}'
   ].join('\n');
+  /* Artist crosslinks in homepage modal: light editorial links, not extra cards. */
+  css.textContent += [
+    '.artist-related{grid-column:1/-1!important;grid-row:auto!important;min-width:0;width:100%;margin-top:18px;padding:20px 0 5px;border-top:1px solid rgba(255,255,255,.21);font-family:Arial,Helvetica,sans-serif}',
+    '.artist-related-title{font:800 12px/1.35 Arial,Helvetica,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:#e8e8ee;margin:0 0 12px}',
+    '.artist-related-list{display:flex;flex-wrap:wrap;column-gap:22px;row-gap:15px;align-items:center}',
+    '.artist-related-link{display:inline-block!important;min-height:30px;padding:2px 0!important;border:0!important;border-bottom:1px solid rgba(255,255,255,.55)!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;color:#f4f4f7!important;font:500 14px/1.5 Arial,Helvetica,sans-serif!important;text-align:left!important;text-decoration:none!important;cursor:pointer!important;transform:none!important}',
+    '.artist-related-link:hover{color:#ff6680!important;border-bottom-color:#ff6680!important}',
+    '.artist-related-link:focus-visible{outline:2px solid #ff6680!important;outline-offset:3px!important}',
+    '.artist-related-all{display:inline-block!important;margin-top:19px!important;font-size:13px!important;color:#fff!important}',
+    '@media(max-width:650px){.artist-related{padding-top:20px;margin-top:19px}.artist-related-list{column-gap:20px;row-gap:12px}.artist-related-link{font-size:13px!important}.artist-related-all{margin-top:18px!important}}'
+  ].join('\n');
   document.head.appendChild(css);
 
   function el(tag,cls,label){
@@ -155,6 +166,37 @@
     };
     const render=mount(dialog,'homepage',shift);
     if(!render)return;
+    // Artist crosslinks in homepage modal: reuse existing previous/next switching.
+    const bottom=dialog.querySelector('.artist-dialog-inner');
+    if(!bottom)return;
+    const related=el('nav','artist-related');
+    related.setAttribute('aria-label','Другие артисты команды');
+    const relatedTitle=el('h3','artist-related-title','ДРУГИЕ АРТИСТЫ');
+    const relatedList=el('div','artist-related-list');
+    const all=el('button','artist-related-link artist-related-all','Все жанры команды');
+    all.type='button';
+    all.addEventListener('click',()=>{
+      const toggle=document.querySelector('#genres .genre-all-toggle');
+      if(!toggle)return;
+      if(dialog.open){
+        dialog.addEventListener('close',()=>requestAnimationFrame(()=>toggle.click()),{once:true});
+        dialog.close();
+      }else toggle.click();
+    });
+    related.append(relatedTitle,relatedList,all);
+    bottom.appendChild(related);
+    function showRelated(index){
+      relatedList.replaceChildren();
+      for(let step=1;step<=4;step++){
+        const targetIndex=(index+step)%genres.length;
+        const item=genres[targetIndex];
+        const button=el('button','artist-related-link',item[2]);
+        button.type='button';
+        button.setAttribute('aria-label','Открыть карточку: '+item[2]);
+        button.addEventListener('click',()=>shift((targetIndex-index+genres.length)%genres.length));
+        relatedList.appendChild(button);
+      }
+    }
     function select(event){
       if(event.type==='keydown'&&event.key!=='Enter'&&event.key!==' ')return;
       const card=event.target.closest?.('#genres .genres-featured .genre[data-artist]');
@@ -163,6 +205,7 @@
       if(index<0)return;
       activeKey=card.dataset.artist;
       render(index);
+      showRelated(index);
     }
     document.addEventListener('click',select,true);
     document.addEventListener('keydown',select,true);
