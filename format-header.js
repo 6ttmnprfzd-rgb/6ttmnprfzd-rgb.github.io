@@ -65,3 +65,52 @@
  window.addEventListener('blur',()=>pointer.classList.remove('visible'));
  document.documentElement.classList.add('club-cursor-active');
 })();
+
+/* SEO format header: expandable service pages under Форматы. */
+(()=>{
+ 'use strict';
+ const header=document.querySelector('.site-head.top');
+ if(!header)return;
+ const pages=[
+  ['РАУС','/raus/'],['ШОУ','/show/'],['НОМЕРА','/nomera/']
+ ];
+ const disclosures=[];
+ for(const nav of header.querySelectorAll('nav.links, nav.mobile-menu-panel')){
+   const link=nav.querySelector('a[href="/#formats"]');
+   if(!link)continue;
+   const menu=document.createElement('details');
+   menu.className='formats-nav-dropdown';
+   const summary=document.createElement('summary');
+   summary.textContent='Форматы';
+   summary.setAttribute('aria-label','Форматы — раскрыть список');
+   const panel=document.createElement('div');
+   panel.className='formats-nav-dropdown-panel';
+   panel.setAttribute('role','group');
+   panel.setAttribute('aria-label','Отдельные страницы форматов');
+   for(const [title,url] of pages){
+      const a=document.createElement('a');
+      a.href=url;a.textContent=title;
+      if(nav.classList.contains('mobile-menu-panel')){
+       a.addEventListener('click',()=>{
+         const mobile=header.querySelector('.mobile-menu');
+         if(mobile)mobile.open=false;
+       });
+      }
+      panel.appendChild(a);
+   }
+   menu.append(summary,panel);
+   link.replaceWith(menu);
+   disclosures.push(menu);
+ }
+ if(!disclosures.length)return;
+ document.addEventListener('pointerdown',e=>{
+  for(const menu of disclosures){
+    if(menu.open&&!menu.contains(e.target))menu.open=false;
+  }
+ },{passive:true});
+ document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){
+    for(const menu of disclosures)menu.open=false;
+  }
+ });
+})();
