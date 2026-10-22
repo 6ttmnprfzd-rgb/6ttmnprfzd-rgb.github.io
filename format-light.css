@@ -14,7 +14,8 @@ body,body *{-webkit-tap-highlight-color:transparent}
 a:focus-visible,button:focus-visible,summary:focus-visible{
   outline:2px solid #ec1237;outline-offset:3px;
 }
-.wrap{width:min(1240px,calc(100% - 56px));}
+.wrap{width:min(1120px,calc(100% - 112px));}
+@media(max-width:950px) and (min-width:761px){.wrap{width:calc(100% - 64px)}}
 .crumb{color:#77757b!important;font-size:12px}
 .crumb a{color:#29272c}
 .hero{
