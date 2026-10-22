@@ -1096,3 +1096,16 @@ document.addEventListener('DOMContentLoaded',()=>{
     if(current){event.preventDefault();current.click();}
   });
 });
+
+/* Mobile homepage menu: link to the dedicated New Year landing page. */
+document.addEventListener('DOMContentLoaded',()=>{
+  const nav=document.querySelector('header.top .mobile-menu-panel');
+  if(!nav||nav.querySelector('a[href="/novogodniy-korporativ/"]'))return;
+  const link=document.createElement('a');
+  link.href='/novogodniy-korporativ/';
+  link.textContent='Новый год';
+  const after=nav.querySelector('a[href="#gallery"]');
+  if(after)after.insertAdjacentElement('afterend',link);
+  else nav.appendChild(link);
+  link.addEventListener('click',()=>{const menu=nav.closest('details');if(menu)menu.open=false});
+});
