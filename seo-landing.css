@@ -85,3 +85,24 @@ a.cta svg.seo-arrow{width:17px!important;height:17px!important;min-height:17px;m
 .costume-card figcaption span{font-size:12px;line-height:1.45;color:#c4bfca}
 .gallery-next{margin-top:24px}.gallery-next a{display:inline-flex;align-items:center;gap:8px;color:#f4f1f4;font-weight:700;text-decoration:underline;text-underline-offset:5px}
 @media(max-width:760px){.costume-grid{grid-template-columns:1fr;gap:14px}.costume-frame{aspect-ratio:4/3}.costume-card figcaption{padding:14px 16px}}
+
+/* Footer aligned to the main site's logo. All three sections share one horizontal row. */
+.seo-footer{display:flex;align-items:center;justify-content:space-between;flex-wrap:nowrap;gap:18px;min-width:0}
+.seo-footer-logo{flex-shrink:0;display:block}
+.seo-footer-logo img{display:block;width:145px;height:auto;max-height:55px;object-fit:contain;object-position:left center}
+.seo-footer-geography{flex:1;min-width:0;text-align:center;display:flex;flex-direction:column;gap:1px;line-height:1.35}
+.seo-footer-geography strong{font-size:13px;color:#f4f2f6;font-weight:600}
+.seo-footer-geography small{font-size:11px;line-height:1.45;color:#bcb7c2}
+.seo-footer-contact{display:flex;align-items:center;gap:6px;color:#f0ecf3;text-decoration:none;white-space:nowrap;flex-shrink:0}
+.seo-footer-contact:hover{text-decoration:underline}
+@media(max-width:760px){
+ .seo-footer{gap:9px;justify-content:space-between;padding:20px 0 25px}
+ .seo-footer-logo img{width:105px;max-height:42px}
+ .seo-footer-geography{text-align:right;align-items:flex-end}
+ .seo-footer-geography strong{font-size:11px}
+ .seo-footer-geography small{font-size:10px;line-height:1.25;max-width:160px}
+ .seo-footer-contact{min-width:22px;justify-content:flex-end}
+ .seo-footer-contact span{display:none}
+ .seo-footer-contact .seo-arrow{width:18px;height:18px}
+}
+@media(max-width:370px){.seo-footer-logo img{width:90px}.seo-footer-geography small{font-size:9px}}
