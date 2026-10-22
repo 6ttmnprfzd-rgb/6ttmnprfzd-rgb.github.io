@@ -113,7 +113,7 @@
   const phoneLabel=element('p','format-pop-contact-caption','Телефон');
   const phone=element('a','','8 (901) 906-06-56');phone.href='tel:+79019060656';
   const mailLabel=element('p','format-pop-contact-caption','Почта');
-  const email=element('a','','info@welcirc.pro');email.href='mailto:info@welcirc.pro';
+  const email=element('a','','info@welcirc.ru');email.href='mailto:info@welcirc.ru';
   contactList.append(phoneLabel,phone,mailLabel,email);
   const contactCta=element('a','format-pop-cta','ОСТАВИТЬ ЗАЯВКУ ↗');contactCta.href='/#open-request';
   contacts.append(main,intro,contactList,contactCta);
