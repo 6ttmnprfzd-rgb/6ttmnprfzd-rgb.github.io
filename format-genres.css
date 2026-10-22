@@ -2,7 +2,7 @@
    scoped only to SEO format pages, leaving the homepage untouched. */
 .format-genre-section{min-width:0}
 .format-genre-section h2{font-weight:950!important;letter-spacing:-.055em!important;margin-bottom:30px!important}
-.format-genres-carousel{position:relative;min-width:0;isolation:isolate}
+.format-genres-carousel{position:relative;min-width:0;isolation:isolate;max-width:1080px;width:calc(100% - 60px);margin-inline:auto}
 .format-genres-track{
   display:flex;gap:14px;overflow-x:auto;overflow-y:hidden;min-width:0;
   scroll-behavior:smooth;scroll-snap-type:x mandatory;scroll-padding-inline:1px;
@@ -11,8 +11,8 @@
 }
 .format-genres-track::-webkit-scrollbar{display:none}
 .format-genre{
-  position:relative;display:block;flex:0 0 calc((100% - 56px)/4.45);
-  min-width:0;aspect-ratio:0.61;overflow:hidden;border-radius:17px;
+  position:relative;display:block;flex:0 0 calc((100% - 56px)/4.55);
+  min-width:0;aspect-ratio:0.74;overflow:hidden;border-radius:17px;
   scroll-snap-align:start;isolation:isolate;
   text-decoration:none!important;color:#fff!important;
   background:#211b24;
@@ -82,6 +82,7 @@
  .format-genres-modal-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
 }
 @media(max-width:650px){
+ .format-genres-carousel{width:100%;max-width:none}
  .format-genre-section h2{font-size:clamp(31px,8vw,41px)!important;margin-bottom:20px!important}
  .format-genres-track{gap:15px;padding:5px 1px 15px;scroll-padding-inline:1px}
  .format-genres-track>.format-genre{flex:0 0 74%;margin-right:0;min-height:0;aspect-ratio:.70;border-radius:20px;border:0}
