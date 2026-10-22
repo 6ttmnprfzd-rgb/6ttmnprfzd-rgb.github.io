@@ -935,8 +935,7 @@ document.addEventListener('DOMContentLoaded',()=>{
       cards[next]?.focus();
     }
   },true);
-  // Mobile uses native horizontal scrolling. Prevent the old swipe-carousel listener from also rotating.
-  film.addEventListener('touchend',event=>event.stopImmediatePropagation(),true);
+  // Keep the original mobile floating carousel's swipe navigation enabled.
   closeButton.addEventListener('click',close);
   lightbox.querySelector('.atmosphere-lightbox-prev').addEventListener('click',()=>move(-1));
   lightbox.querySelector('.atmosphere-lightbox-next').addEventListener('click',()=>move(1));
