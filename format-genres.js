@@ -12,6 +12,25 @@
   if(!track||!dialog||!prev||!next||!open)return;
   const grid=dialog.querySelector('.format-genres-modal-grid');
   const close=dialog.querySelector('.format-genres-close');
+  // Adjust long title words to fit without splitting their letters.
+  const measuring=document.createElement('canvas').getContext('2d');
+  function fitTitles(container){
+    if(!measuring)return;
+    for(const title of container.querySelectorAll('.format-genre-title')){
+      title.style.removeProperty('font-size');
+      const style=getComputedStyle(title);
+      const base=parseFloat(style.fontSize);
+      const available=title.clientWidth-4;
+      if(!base||available<=0)continue;
+      const words=(title.textContent||'').trim().split(/\s+/);
+      measuring.font=style.fontWeight+' '+base+'px '+style.fontFamily;
+      const longest=Math.max(0,...words.map(word=>measuring.measureText(word).width));
+      if(longest>available){
+        const fitted=Math.max(11,Math.floor(base*available/longest));
+        title.style.fontSize=fitted+'px';
+      }
+    }
+  }
   const slugFromCard=a=>{
     try{
       const path=new URL(a.href,location.href);
@@ -33,6 +52,7 @@
   next.addEventListener('click',()=>track.scrollBy({left:step(),behavior:'smooth'}));
   track.addEventListener('scroll',updateArrows,{passive:true});
   window.addEventListener('resize',updateArrows,{passive:true});
+  window.addEventListener('resize',()=>{fitTitles(track);if(dialog.open)fitTitles(grid)},{passive:true});
   track.addEventListener('keydown',e=>{
     if(e.key==='ArrowRight'||e.key==='ArrowLeft'){
       e.preventDefault();
@@ -46,6 +66,7 @@
       copy.removeAttribute('tabindex');
       grid.appendChild(copy);
     }
+    requestAnimationFrame(()=>fitTitles(grid));
   }
   open.addEventListener('click',()=>{
     renderModal();
@@ -82,9 +103,11 @@
         track.appendChild(card);
       }
       track.scrollLeft=0;
+      fitTitles(track);
       updateArrows();
     })
     .catch(e=>console.warn('Using original genre-card content:',e));
+  fitTitles(track);
   updateArrows();
-  window.addEventListener('load',updateArrows,{once:true});
+  window.addEventListener('load',()=>{fitTitles(track);updateArrows()},{once:true});
 })();
