@@ -867,3 +867,10 @@ footer.seo-footer .seo-footer-logo img{
    width:82px!important;height:46px!important;max-height:46px!important;
  }
 }
+
+/* Editorial red brush accent under format-page section headings, as on homepage. */
+main > section.content > h2::after{
+  content:"";display:block;width:74px;height:5px;margin-top:18px;
+  background:#ed082c;border-radius:2px;transform:skewX(-22deg);
+}
+@media(max-width:650px){main > section.content > h2::after{width:73px;margin-top:16px}}
