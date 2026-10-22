@@ -319,3 +319,32 @@ document.addEventListener('DOMContentLoaded',()=>{
     }
   });
 });
+
+/* Standalone artist pages: context-aware return link. */
+document.addEventListener('DOMContentLoaded',()=>{
+  const head=document.querySelector('body[data-artist-slug] .artist-dialog.stilts-showcase .artist-dialog-head');
+  if(!head||head.querySelector('.artist-back-link'))return;
+  let destination='/#genres';
+  try{
+    if(document.referrer){
+      const previous=new URL(document.referrer);
+      if(previous.origin===location.origin && previous.pathname!==location.pathname){
+        destination=previous.pathname+previous.search+previous.hash;
+      }
+    }
+  }catch(_){}
+  const back=document.createElement('a');
+  back.className='artist-back-link';
+  back.href=destination;
+  back.textContent='← Назад';
+  back.setAttribute('aria-label','Вернуться на предыдущую страницу сайта');
+  if(destination!=='/#genres'){
+    back.addEventListener('click',event=>{
+      if(history.length>1){
+        event.preventDefault();
+        history.back();
+      }
+    });
+  }
+  head.prepend(back);
+});
