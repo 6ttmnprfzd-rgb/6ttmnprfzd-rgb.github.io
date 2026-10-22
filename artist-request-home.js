@@ -850,3 +850,117 @@ document.addEventListener('DOMContentLoaded',()=>{
     }
   });
 });
+
+/* Atmosphere spotlight 2026: clickable photo cascade, CMS-safe and independent of the media library. */
+document.addEventListener('DOMContentLoaded',()=>{
+  const section=document.getElementById('gallery');
+  const film=section?.querySelector('.gallery-film');
+  const mediaButton=section?.querySelector('#open-media');
+  if(!film||!mediaButton||document.getElementById('atmosphere-lightbox'))return;
+  const arrow=document.createElement('span');
+  arrow.className='atmosphere-media-arrow';
+  arrow.setAttribute('aria-hidden','true');
+  arrow.textContent='↗';
+  mediaButton.replaceChildren(document.createTextNode('Смотреть все фото и видео'),arrow);
+
+  const lightbox=document.createElement('div');
+  lightbox.id='atmosphere-lightbox';
+  lightbox.hidden=true;
+  lightbox.setAttribute('role','dialog');
+  lightbox.setAttribute('aria-modal','true');
+  lightbox.setAttribute('aria-label','Просмотр фотографий мероприятий');
+  lightbox.innerHTML='<button type="button" class="atmosphere-lightbox-close" aria-label="Закрыть фотографию">×</button><button type="button" class="atmosphere-lightbox-prev" aria-label="Предыдущая фотография">←</button><img class="atmosphere-full-image" alt=""><button type="button" class="atmosphere-lightbox-next" aria-label="Следующая фотография">→</button><span class="atmosphere-lightbox-count" aria-live="polite"></span>';
+  document.body.append(lightbox);
+  const closeButton=lightbox.querySelector('.atmosphere-lightbox-close');
+  const display=lightbox.querySelector('img');
+  const counter=lightbox.querySelector('.atmosphere-lightbox-count');
+  let photos=[],index=0,previousFocus=null,startX=null;
+
+  const refresh=()=>{
+    photos=[...film.querySelectorAll('.shot')];
+    photos.forEach((shot,i)=>{
+      const img=shot.querySelector('img');
+      shot.setAttribute('role','button');
+      shot.setAttribute('tabindex','0');
+      shot.setAttribute('aria-hidden','false');
+      shot.setAttribute('aria-label','Открыть фото '+(i+1)+': '+(img?.alt||'Мероприятие'));
+    });
+  };
+  const show=at=>{
+    if(!photos.length)return;
+    index=(at+photos.length)%photos.length;
+    const image=photos[index].querySelector('img');
+    if(!image)return;
+    display.src=image.currentSrc||image.src;
+    display.alt=image.alt||'Фотография мероприятия';
+    counter.textContent=(index+1)+' / '+photos.length;
+  };
+  const open=at=>{
+    refresh();
+    if(!photos.length)return;
+    previousFocus=document.activeElement;
+    show(at);
+    lightbox.hidden=false;
+    document.body.classList.add('modal-open');
+    closeButton.focus();
+  };
+  const close=()=>{
+    lightbox.hidden=true;
+    document.body.classList.remove('modal-open');
+    previousFocus?.focus?.();
+  };
+  const move=step=>show(index+step);
+
+  // Capture clicks before the legacy carousel's card listener, which otherwise only rotates cards.
+  film.addEventListener('click',event=>{
+    const shot=event.target.closest('.shot');
+    if(!shot)return;
+    event.preventDefault();
+    event.stopPropagation();
+    open([...film.querySelectorAll('.shot')].indexOf(shot));
+  },true);
+  film.addEventListener('keydown',event=>{
+    const shot=event.target.closest('.shot');
+    if(!shot)return;
+    if(event.key==='Enter'||event.key===' '){
+      event.preventDefault();
+      event.stopPropagation();
+      open([...film.querySelectorAll('.shot')].indexOf(shot));
+    }else if(event.key==='ArrowRight'||event.key==='ArrowLeft'){
+      event.preventDefault();
+      event.stopPropagation();
+      const cards=[...film.querySelectorAll('.shot')];
+      const next=(cards.indexOf(shot)+(event.key==='ArrowRight'?1:-1)+cards.length)%cards.length;
+      cards[next]?.focus();
+    }
+  },true);
+  // Mobile uses native horizontal scrolling. Prevent the old swipe-carousel listener from also rotating.
+  film.addEventListener('touchend',event=>event.stopPropagation(),true);
+  closeButton.addEventListener('click',close);
+  lightbox.querySelector('.atmosphere-lightbox-prev').addEventListener('click',()=>move(-1));
+  lightbox.querySelector('.atmosphere-lightbox-next').addEventListener('click',()=>move(1));
+  lightbox.addEventListener('click',event=>{if(event.target===lightbox)close()});
+  lightbox.addEventListener('touchstart',event=>{startX=event.touches[0]?.clientX??null},{passive:true});
+  lightbox.addEventListener('touchend',event=>{
+    if(startX===null)return;
+    const shift=event.changedTouches[0].clientX-startX;
+    startX=null;
+    if(Math.abs(shift)>45)move(shift<0?1:-1);
+  },{passive:true});
+  document.addEventListener('keydown',event=>{
+    if(lightbox.hidden)return;
+    if(event.key==='Escape'){event.stopImmediatePropagation();close()}
+    else if(event.key==='ArrowLeft'){event.preventDefault();move(-1)}
+    else if(event.key==='ArrowRight'){event.preventDefault();move(1)}
+    else if(event.key==='Tab'){
+      event.preventDefault();
+      const actions=[closeButton,lightbox.querySelector('.atmosphere-lightbox-prev'),lightbox.querySelector('.atmosphere-lightbox-next')];
+      const pos=actions.indexOf(document.activeElement);
+      actions[(pos+(event.shiftKey?-1:1)+actions.length)%actions.length].focus();
+    }
+  },true);
+
+  section.classList.add('atmosphere-cascade');
+  refresh();
+  document.addEventListener('cms-gallery-updated',refresh);
+});
