@@ -73,3 +73,15 @@ a.cta svg.seo-arrow{width:17px!important;height:17px!important;min-height:17px;m
  .seo-mobile-links a{color:#f5f3f5;font-size:14px;text-decoration:none;padding:11px 13px;border-radius:8px;display:block;white-space:nowrap}
  .seo-mobile-links a:focus-visible,.seo-mobile-links a:hover{background:#ffffff1a}
 }
+
+/* New Year photo gallery; frames display a friendly fallback until media is uploaded. */
+.costume-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px;margin:22px 0 24px}
+.costume-card{margin:0;overflow:hidden;background:#ffffff0c;border:1px solid #ffffff2a;border-radius:18px}
+.costume-frame{position:relative;aspect-ratio:4/3;background:linear-gradient(135deg,#333142,#23222d);display:flex;align-items:center;justify-content:center}
+.costume-frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.costume-fallback{font-size:13px;color:#bbb7c3}
+.costume-card figcaption{padding:14px;display:grid;gap:7px}
+.costume-card figcaption strong{font-size:14px;line-height:1.3}
+.costume-card figcaption span{font-size:12px;line-height:1.45;color:#c4bfca}
+.gallery-next{margin-top:24px}.gallery-next a{display:inline-flex;align-items:center;gap:8px;color:#f4f1f4;font-weight:700;text-decoration:underline;text-underline-offset:5px}
+@media(max-width:760px){.costume-grid{grid-template-columns:1fr;gap:14px}.costume-frame{aspect-ratio:4/3}.costume-card figcaption{padding:14px 16px}}
