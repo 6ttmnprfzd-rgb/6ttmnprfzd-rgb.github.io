@@ -1049,6 +1049,22 @@ document.addEventListener('DOMContentLoaded',()=>{
    }
    details.append(summary,panel);
    old.replaceWith(details);
+   // Match the original main navigation links instead of using the smaller hardcoded font.
+   if(nav.classList.contains('links')){
+     const sync=()=>{
+       const reference=nav.querySelector('a[href="/"],a[href="#home"],a:not(.formats-nav-dropdown-panel a)');
+       if(!reference)return;
+       const computed=getComputedStyle(reference);
+       summary.style.font=computed.font;
+       summary.style.fontSize=computed.fontSize;
+       summary.style.fontWeight=computed.fontWeight;
+       summary.style.letterSpacing=computed.letterSpacing;
+       summary.style.lineHeight=computed.lineHeight;
+       summary.style.textTransform=computed.textTransform;
+     };
+     sync();
+     window.addEventListener('resize',sync,{passive:true});
+   }
    menus.push(details);
  }
  if(!menus.length)return;
