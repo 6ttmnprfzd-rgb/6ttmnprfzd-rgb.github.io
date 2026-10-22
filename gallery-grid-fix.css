@@ -1622,3 +1622,32 @@ html.club-cursor-active #atmosphere-lightbox button {cursor:pointer!important}
 @media(prefers-reduced-motion:reduce){
  .top .formats-nav-dropdown>summary::after{transition:none!important}
 }
+
+/* Home mobile navigation: restored item 02 for the Formats disclosure. */
+@media(max-width:850px){
+ header.top .mobile-menu-panel > .formats-nav-dropdown{
+   width:100%!important;
+   border-bottom:1px solid #e8e5e1;
+ }
+ header.top .mobile-menu-panel > .formats-nav-dropdown > summary{
+   display:flex!important;align-items:center!important;justify-content:flex-start!important;
+   gap:12px!important;width:100%!important;min-height:50px!important;
+   margin:0!important;padding:14px 16px!important;
+   font:850 17px/1.15 Arial,Helvetica,sans-serif!important;
+   letter-spacing:-.025em!important;text-transform:uppercase!important;
+   color:#19191d!important;background:transparent!important;
+   border:0!important;border-radius:11px!important;
+   transform:none!important;box-shadow:none!important;
+ }
+ header.top .mobile-menu-panel > .formats-nav-dropdown > summary::before{
+   content:"02"!important;display:block!important;flex:0 0 20px!important;
+   font:900 11px/1 Arial,Helvetica,sans-serif!important;
+   letter-spacing:0!important;color:#ed082c!important;transform:none!important;
+ }
+ header.top .mobile-menu-panel > .formats-nav-dropdown > summary::after{
+   margin-left:auto!important;flex:none!important;
+ }
+ header.top .mobile-menu-panel .formats-nav-dropdown-panel a::before{
+   content:none!important;display:none!important;
+ }
+}
