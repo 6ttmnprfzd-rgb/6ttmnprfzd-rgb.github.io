@@ -22,11 +22,17 @@
       const base=parseFloat(style.fontSize);
       const available=title.clientWidth-4;
       if(!base||available<=0)continue;
-      const words=(title.textContent||'').trim().split(/\s+/);
+      // CSS turns labels uppercase, so canvas must measure the displayed glyphs,
+      // not the shorter, mixed-case source text.
+      const words=(title.textContent||'').trim().split(/\s+/).map(w=>w.toLocaleUpperCase('ru-RU'));
+      const spacing=parseFloat(style.letterSpacing)||0;
       measuring.font=style.fontWeight+' '+base+'px '+style.fontFamily;
-      const longest=Math.max(0,...words.map(word=>measuring.measureText(word).width));
+      const longest=Math.max(0,...words.map(word=>
+        measuring.measureText(word).width+Math.max(0,word.length-1)*spacing
+      ));
       if(longest>available){
-        const fitted=Math.max(11,Math.floor(base*available/longest));
+        const minimum=container===grid?9:11;
+        const fitted=Math.max(minimum,Math.floor(base*available/longest));
         title.style.fontSize=fitted+'px';
       }
     }
