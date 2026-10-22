@@ -31,3 +31,27 @@ body[data-artist-slug] .artist-seo-related a:focus-visible{outline:2px solid #ff
  }
  body[data-artist-slug] .artist-seo-related ul{gap:9px 14px}
 }
+
+/* Standalone genre pages: related links follow the primary card content, without overlap. */
+body[data-artist-slug] .artist-dialog.stilts-showcase .artist-seo-details{
+  grid-column:1/-1!important;
+  grid-row:7!important;
+  position:relative!important;
+  display:block!important;
+  min-width:0!important;
+  margin:13px 0 0!important;
+  padding:16px 0 0!important;
+  border-top:1px solid rgba(255,255,255,.17)!important;
+  align-self:stretch!important;
+}
+body[data-artist-slug] .artist-seo-details .artist-seo-related{margin:0!important;display:block;min-width:0}
+body[data-artist-slug] .artist-seo-details .artist-seo-related ul{margin:0!important;padding:0!important;display:flex!important;flex-wrap:wrap!important;gap:9px 15px!important;list-style:none!important}
+body[data-artist-slug] .artist-seo-details .artist-seo-related li{position:static!important;min-width:0!important;width:auto!important}
+@media(max-width:650px){
+ body[data-artist-slug] .artist-dialog.stilts-showcase .artist-seo-details{
+   grid-column:1/-1!important;
+   grid-row:9!important;
+   margin:12px 0 0!important;
+   padding:14px 0 0!important;
+ }
+}
