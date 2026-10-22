@@ -657,3 +657,20 @@ section.content .price-box.price-box--structured{
     padding:14px 18px!important;
   }
 }
+
+/* Pricing order: key prices, full price list button, then quiet terms. */
+.price-box--structured > .price-note{
+  grid-column:1/-1!important;
+  max-width:100%!important;
+  margin:0!important;
+  padding-top:15px;
+  border-top:1px solid #e5e2e1;
+  color:#68646a!important;
+  font:500 13px/1.55 Arial,Helvetica,sans-serif!important;
+}
+@media(max-width:760px){
+ .price-box--structured > .price-note{
+   padding-top:15px!important;
+   font-size:13px!important;
+ }
+}
