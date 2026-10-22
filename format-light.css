@@ -335,3 +335,53 @@ section.content[aria-labelledby="about"] .card p{color:rgba(255,255,255,.74)!imp
 @media(prefers-reduced-transparency:reduce){
  section.content[aria-labelledby="about"] .card{background:#30303a!important}
 }
+
+/* Format-page juggling club cursor: same club and behavior as the homepage. */
+@media (hover:hover) and (pointer:fine){
+ html.club-cursor-active,
+ html.club-cursor-active body,
+ html.club-cursor-active a,
+ html.club-cursor-active button,
+ html.club-cursor-active summary,
+ html.club-cursor-active [role="button"]{cursor:none!important}
+ html.club-cursor-active input,
+ html.club-cursor-active textarea,
+ html.club-cursor-active select{cursor:text!important}
+ .club-pointer{
+   position:fixed;left:0;top:0;z-index:2147483640;pointer-events:none;
+   display:flex;align-items:center;gap:9px;opacity:0;
+   transform:translate3d(-100px,-100px,0);will-change:transform;
+   transition:opacity .12s ease;
+ }
+ .club-pointer.visible{opacity:1}
+ .club-pointer svg{
+   width:43px;height:62px;overflow:visible;filter:drop-shadow(0 2px 2px #0004);
+   transform:rotate(-18deg);transform-origin:10px 8px;transition:transform .18s ease;
+ }
+ .club-pointer.action svg{transform:rotate(3deg) scale(.9)}
+ .club-pointer.press svg{transform:rotate(14deg) scale(.82)}
+ .club-pointer-label{
+   display:none;white-space:nowrap;background:#ed082c;color:#fff;
+   border:1px solid #fff4;border-radius:99px;padding:10px 14px;
+   font:800 11px/1 Arial,Helvetica,sans-serif;letter-spacing:.035em;
+   box-shadow:0 6px 20px #0003;text-transform:uppercase;
+ }
+ .club-pointer.action .club-pointer-label{display:block}
+ /* Opening any graphite dialog restores the standard native mouse cursor. */
+ html.club-cursor-active:has(dialog[open]),
+ html.club-cursor-active:has(dialog[open]) body,
+ html.club-cursor-active:has(dialog[open]) a,
+ html.club-cursor-active:has(dialog[open]) button,
+ html.club-cursor-active:has(dialog[open]) summary{cursor:auto!important}
+ html.club-cursor-active:has(dialog[open]) .club-pointer{display:none!important}
+ html.club-cursor-active dialog[open],
+ html.club-cursor-active dialog[open] *{cursor:default!important}
+ html.club-cursor-active dialog[open] a[href],
+ html.club-cursor-active dialog[open] button,
+ html.club-cursor-active dialog[open] summary{cursor:pointer!important}
+ html.club-cursor-active dialog[open] input,
+ html.club-cursor-active dialog[open] textarea{cursor:text!important}
+}
+@media(prefers-reduced-motion:reduce){
+ .club-pointer,.club-pointer svg{transition:none!important}
+}
