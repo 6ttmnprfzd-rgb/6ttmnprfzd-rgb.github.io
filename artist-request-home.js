@@ -964,3 +964,19 @@ document.addEventListener('DOMContentLoaded',()=>{
   refresh();
   document.addEventListener('cms-gallery-updated',refresh);
 });
+
+/* Main navigation: Genres and Gallery open their existing modals, not page anchors. */
+document.addEventListener('DOMContentLoaded',()=>{
+  document.querySelectorAll('header nav a[href="#genres"], header nav a[href="#gallery"]').forEach(link=>{
+    link.addEventListener('click',event=>{
+      const target=link.getAttribute('href')==='#genres'
+        ?document.querySelector('#genres .genre-all-toggle')
+        :document.getElementById('open-media');
+      if(!target)return; // Keep the original anchor as fallback.
+      event.preventDefault();
+      const mobileMenu=link.closest('details.mobile-menu');
+      if(mobileMenu)mobileMenu.open=false;
+      target.click();
+    });
+  });
+});
