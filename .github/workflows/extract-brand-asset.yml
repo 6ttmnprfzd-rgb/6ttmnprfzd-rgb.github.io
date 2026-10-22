@@ -1,0 +1,40 @@
+name: Extract original homepage brush logo
+on:
+  push:
+    paths:
+      - .github/workflows/extract-brand-asset.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Copy logo embedded in the actual homepage
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import base64,re
+          page=Path("index.html").read_text(encoding="utf-8")
+          found=re.search(r'\.logo\.brand-brush\{[^{}]*?background-image:url\("data:image/png;base64,([^"]+)"\)',page,re.S)
+          if not found:
+            raise RuntimeError("Could not locate original brush-logo PNG inside homepage CSS")
+          raw=base64.b64decode(found.group(1))
+          if not raw.startswith(b'\x89PNG\r\n\x1a\n'):raise RuntimeError("not a PNG")
+          target=Path("brand-brush-original.png")
+          target.write_bytes(raw)
+          print("Brand logo bytes",len(raw))
+          PY
+      - name: Publish extracted original brand asset
+        shell: bash
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add brand-brush-original.png
+          if ! git diff --cached --quiet; then
+            git commit -m "Сохранить оригинальный логотип главной для остальных страниц"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
