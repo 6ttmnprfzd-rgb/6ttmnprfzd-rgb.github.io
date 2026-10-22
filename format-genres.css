@@ -148,9 +148,15 @@
    background:transparent!important;
    color:#111114!important;
    font:900 13px/1.2 Arial,Helvetica,sans-serif!important;
+   font-size:0!important;
    letter-spacing:.055em!important;
    text-transform:uppercase!important;
    box-shadow:none!important;
+ }
+ .format-genres-all::before{
+   content:"ВСЕ ЖАНРЫ";
+   font:900 13px/1.2 Arial,Helvetica,sans-serif;
+   letter-spacing:.055em;
  }
  .format-genres-all svg{
    width:16px;height:16px;transform:rotate(90deg);
