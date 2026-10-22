@@ -838,3 +838,15 @@ section.content .gallery-next a svg{
 section.content[aria-labelledby="new-year-costumes"] .costume-card figcaption span{
   color:#b45f75!important;
 }
+
+/* Balanced two-line composition for long section headings, like homepage. */
+main > section.content > h2{
+  max-width:min(100%,740px)!important;
+  text-wrap:balance!important;
+  word-break:normal!important;
+  overflow-wrap:normal!important;
+  hyphens:none!important;
+}
+@media(max-width:650px){
+  main > section.content > h2{max-width:100%!important}
+}
