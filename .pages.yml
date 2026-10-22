@@ -231,6 +231,9 @@ content:
       - name: hero_poster
         label: Заставка главного видео
         type: image
+      - name: raus_hero_video
+        label: Видео на странице РАУС (MP4)
+        type: file
       - name: format_raus
         label: Формат РАУС
         type: image
