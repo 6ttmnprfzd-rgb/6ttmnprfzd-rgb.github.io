@@ -1,0 +1,109 @@
+/* Light editorial theme, aligned with welcirc.pro homepage.
+   Loaded after seo-landing.css on only the four format landing pages. */
+:root{
+  color-scheme:light;
+  --bg:#fff;--card:#fafafa;--ink:#121216;--muted:#69676b;
+  --line:#e7e5e4;--red:#ed082c;
+}
+html{background:#fff}
+body{
+  background:#fff!important;color:#121216!important;
+  font-family:Arial,Helvetica,sans-serif!important;
+}
+body,body *{-webkit-tap-highlight-color:transparent}
+a:focus-visible,button:focus-visible,summary:focus-visible{
+  outline:2px solid #ec1237;outline-offset:3px;
+}
+.wrap{width:min(1240px,calc(100% - 56px));}
+.crumb{color:#77757b!important;font-size:12px}
+.crumb a{color:#29272c}
+.hero{
+  background:transparent!important;
+  border:0!important;border-radius:0!important;
+  margin:0!important;padding:58px 0 66px!important;
+  box-shadow:none!important;
+  backdrop-filter:none!important;-webkit-backdrop-filter:none!important;
+}
+.eyebrow,.kicker{color:#ed082c!important;font-weight:900}
+h1,h2,h3{color:#141317;letter-spacing:-.045em}
+h1{font-weight:950;line-height:1.03}
+.hero .lead{color:#49474c!important;line-height:1.65}
+.pills span{
+  color:#464248!important;background:#f8f6f6!important;
+  border:1px solid #e7e4e4!important;font-size:12px;
+}
+.cta{background:#ed082c!important;color:#fff!important;border-radius:14px}
+.cta:hover{background:#c70027!important}
+.hero-media img{
+  border:1px solid #eee!important;
+  box-shadow:0 19px 48px rgba(20,18,26,.14)!important;
+}
+.hero-media figcaption{color:#fff}
+section.content{
+  background:transparent!important;border:0!important;
+  border-top:1px solid #e5e4e3!important;
+  border-radius:0!important;margin:0!important;
+  padding:59px 0 64px!important;
+  box-shadow:none!important;
+  -webkit-backdrop-filter:none!important;backdrop-filter:none!important;
+}
+.section-lead{color:#66646a!important}
+section.content .card{
+  background:#f8f7f6!important;border:1px solid #eae7e7!important;
+  color:#1a191b!important;box-shadow:none!important;
+}
+section.content .card h3{color:#18171a!important}
+section.content .card p{color:#67636a!important}
+section.content .artists{scrollbar-color:#c5c1c2 transparent}
+section.content .artist{
+  border:1px solid rgba(30,26,35,.10)!important;
+  background:#f3f0ee!important;
+  box-shadow:0 10px 25px -14px rgba(21,21,25,.28)!important;
+}
+section.content .artist span{color:#fff!important;text-shadow:0 1px 7px #0008}
+.price-box,section.content .price-box{
+  background:#f8f7f6!important;border:1px solid #e7e5e4!important;
+}
+.price-box p{color:#66636a!important}
+.price-box strong{color:#151519!important}
+.faq details{border-color:#e7e4e4!important}
+.faq summary{color:#1b1a1e!important}
+.faq p{color:#676269!important}
+.related a{
+  border:1px solid #dcd9db!important;color:#29262b!important;
+  background:#fff!important;
+}
+.related a:hover{border-color:#ed082c!important;color:#ed082c!important}
+.end-cta{padding:48px 0 62px}
+.end-cta .inner{
+  background:#f7f6f5!important;color:#111114!important;
+  border:1px solid #e8e5e6!important;
+  box-shadow:none!important;
+  backdrop-filter:none!important;-webkit-backdrop-filter:none!important;
+}
+.end-cta .inner p{color:#605d63!important}
+.costume-card{background:#fff!important;border:1px solid #ebe7e8!important}
+.costume-frame{background:#f3f0f0!important}
+.costume-fallback{color:#706e73}
+.costume-card figcaption strong{color:#171519}
+.costume-card figcaption span{color:#66646a!important}
+.gallery-next a{color:#252228!important;text-decoration-color:#ed082c!important}
+.seo-footer,footer{
+  color:#68656a!important;
+  border-color:#e7e3e5!important;
+}
+.seo-footer a,footer a{color:#211e23!important}
+.seo-footer-geography strong{color:#222126!important}
+.seo-footer-geography small{color:#69656a!important}
+@media(max-width:760px){
+  .wrap{width:calc(100% - 34px)}
+  .hero{padding:34px 0 44px!important;gap:24px}
+  section.content{padding:42px 0 48px!important}
+  .end-cta{padding:34px 0 52px}
+  .end-cta .inner{padding:26px!important}
+  .cards{gap:12px}
+  h1{font-size:clamp(37px,10vw,58px)}
+}
+@media(prefers-reduced-transparency:reduce){
+  .site-head{background:#fff!important;backdrop-filter:none!important}
+}
