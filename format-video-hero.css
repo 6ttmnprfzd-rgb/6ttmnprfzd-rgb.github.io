@@ -1,8 +1,8 @@
-/* Shared first-screen video hero for SEO format pages; currently enabled on RAUS only.
+/* Shared first-screen video hero for the four SEO format pages.
    The video fills the screen, while text aligns to the site's 1120px content width. */
 .format-video-hero{
-  position:relative;left:50%;transform:translateX(-50%);
-  width:100vw;min-height:clamp(560px,83svh,850px);
+  position:relative;left:auto;transform:none;
+  width:100%;min-height:clamp(560px,83svh,850px);
   display:flex;align-items:center;isolation:isolate;overflow:hidden;
   background:#16151a;color:#fff;
   margin:0 0 26px!important;padding:72px 0!important;border:0!important;
