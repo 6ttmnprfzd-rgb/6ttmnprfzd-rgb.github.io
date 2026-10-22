@@ -877,6 +877,7 @@ document.addEventListener('DOMContentLoaded',()=>{
   let photos=[],index=0,previousFocus=null,startX=null;
 
   const refresh=()=>{
+    film.removeAttribute('tabindex');
     photos=[...film.querySelectorAll('.shot')];
     photos.forEach((shot,i)=>{
       const img=shot.querySelector('img');
@@ -935,7 +936,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     }
   },true);
   // Mobile uses native horizontal scrolling. Prevent the old swipe-carousel listener from also rotating.
-  film.addEventListener('touchend',event=>event.stopPropagation(),true);
+  film.addEventListener('touchend',event=>event.stopImmediatePropagation(),true);
   closeButton.addEventListener('click',close);
   lightbox.querySelector('.atmosphere-lightbox-prev').addEventListener('click',()=>move(-1));
   lightbox.querySelector('.atmosphere-lightbox-next').addEventListener('click',()=>move(1));
