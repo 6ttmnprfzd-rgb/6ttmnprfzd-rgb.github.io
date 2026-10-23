@@ -35,3 +35,248 @@
  .request-overlay .request-fields{grid-template-columns:1fr}
  .request-overlay .request-field.wide{grid-column:1}
 }
+
+/* Request dialog: readable graphite glass, matching the other website popups. */
+#request-overlay.request-overlay:not([hidden]) {
+  background:rgba(13,12,15,.43)!important;
+  -webkit-backdrop-filter:blur(3px)!important;
+  backdrop-filter:blur(3px)!important;
+}
+#request-overlay .request-panel {
+  background:rgba(20,20,25,.88)!important;
+  -webkit-backdrop-filter:blur(12px) saturate(115%)!important;
+  backdrop-filter:blur(12px) saturate(115%)!important;
+  border:1px solid rgba(255,255,255,.20)!important;
+  box-shadow:0 28px 85px rgba(0,0,0,.42),inset 0 1px 0 rgba(255,255,255,.10)!important;
+  color:#f7f7f9!important;
+  border-radius:22px!important;
+  overscroll-behavior:contain;
+}
+#request-overlay .request-brand-kicker {
+  padding-right:45px;
+  margin-bottom:20px;
+  font:800 11px/1.35 Arial,Helvetica,sans-serif;
+  letter-spacing:.15em;
+  color:#ff6078;
+}
+#request-overlay .request-brand-small-v {font-size:.72em;letter-spacing:0}
+#request-overlay .request-panel h2 {
+  color:#fff!important;
+  font-weight:900!important;
+  letter-spacing:-.05em;
+  margin-bottom:18px!important;
+}
+#request-overlay .request-panel h2::after {
+  content:"";
+  display:block;
+  width:75px;
+  height:4px;
+  background:#ed082c;
+  border-radius:4px;
+  margin-top:16px;
+}
+#request-overlay .request-panel > p {color:#dedee3!important;line-height:1.55!important}
+#request-overlay .request-field {color:#f7f7f9!important}
+#request-overlay .request-field input,
+#request-overlay .request-field select,
+#request-overlay .request-field textarea {
+  background:rgba(255,255,255,.085)!important;
+  border:1px solid rgba(255,255,255,.26)!important;
+  border-radius:10px!important;
+  color:#fff!important;
+  font:500 16px/1.4 Arial,Helvetica,sans-serif!important;
+  -webkit-text-fill-color:#fff;
+  color-scheme:dark;
+}
+#request-overlay .request-field input::placeholder,
+#request-overlay .request-field textarea::placeholder {
+  color:#c4c4cb!important;
+  opacity:1;
+}
+#request-overlay .request-field input:focus-visible,
+#request-overlay .request-field select:focus-visible,
+#request-overlay .request-field textarea:focus-visible {
+  outline:2px solid #ff6078!important;
+  outline-offset:2px;
+}
+#request-overlay .request-field select option {
+  background:#28282e;
+  color:#fff;
+}
+#request-overlay .request-close {
+  background:rgba(255,255,255,.09)!important;
+  border:1px solid rgba(255,255,255,.24)!important;
+  color:#fff!important;
+  box-shadow:none!important;
+}
+#request-overlay .request-close:hover {background:rgba(255,255,255,.17)!important}
+#request-overlay .request-close:focus-visible {outline:2px solid #ff6078!important}
+#request-overlay .request-send {
+  border-radius:13px!important;
+  box-shadow:none!important;
+  background:#ed082c!important;
+  color:#fff!important;
+}
+#request-overlay .request-send:hover:not(:disabled) {box-shadow:none!important}
+#request-overlay .request-copy {
+  background:transparent!important;
+  box-shadow:none!important;
+  color:#f2f2f5!important;
+  text-underline-offset:3px;
+}
+#request-overlay .request-note {color:#d6d6dd!important}
+@media(max-width:550px) {
+  #request-overlay.request-overlay {padding:13px!important}
+  #request-overlay .request-panel {
+    width:100%;
+    max-height:calc(100dvh - 26px)!important;
+    padding:29px 22px 30px!important;
+    border-radius:19px!important;
+  }
+  #request-overlay .request-panel h2 {
+    font-size:clamp(29px,7.6vw,38px)!important;
+    line-height:1.04!important;
+    padding-right:30px;
+  }
+}
+
+/* iPhone: date input must fit its grid column without expanding the form. */
+#request-overlay .request-fields {min-width:0;grid-template-columns:repeat(2,minmax(0,1fr))}
+#request-overlay .request-field {min-width:0;max-width:100%}
+#request-overlay .request-field input[type="date"] {
+  display:block;
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  box-sizing:border-box!important;
+}
+@media(max-width:550px) {
+  #request-overlay .request-fields {grid-template-columns:minmax(0,1fr)!important}
+}
+
+/* Request performer checklist: compact, collapsible, accessible on iPhone. */
+#request-overlay .request-performers.request-field {
+  display:block!important;
+  min-width:0;
+}
+#request-overlay .request-performers > summary {
+  cursor:pointer!important;
+  list-style-position:inside;
+  padding:15px 14px;
+  border:1px solid rgba(255,255,255,.26);
+  background:rgba(255,255,255,.085);
+  border-radius:10px;
+  color:#fff;
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:.04em;
+}
+#request-overlay .request-performers > summary:focus-visible {
+  outline:2px solid #ff6078;
+  outline-offset:2px;
+}
+#request-overlay .request-performers-count {
+  color:#d0d0d7;
+  font-weight:500;
+  font-size:11px;
+  letter-spacing:0;
+  text-transform:none;
+}
+#request-overlay .request-performers-list {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:9px 16px;
+  padding:16px 3px 5px;
+}
+#request-overlay .request-performer-option {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  min-width:0;
+  cursor:pointer;
+  color:#f1f1f5;
+  font-size:13px;
+  font-weight:500;
+  letter-spacing:0;
+  text-transform:none;
+  line-height:1.4;
+}
+#request-overlay .request-performer-option input[type="checkbox"] {
+  display:block;
+  flex:0 0 19px;
+  width:19px!important;
+  height:19px!important;
+  min-width:19px!important;
+  margin:0!important;
+  padding:0!important;
+  border-radius:4px!important;
+  background:initial!important;
+  -webkit-appearance:checkbox!important;
+  appearance:auto!important;
+  accent-color:#ed082c;
+  cursor:pointer!important;
+}
+html.club-cursor-active #request-overlay .request-performer-option input[type="checkbox"] {
+  cursor:pointer!important;
+}
+@media(max-width:550px) {
+  #request-overlay .request-performers-list {
+    grid-template-columns:minmax(0,1fr);
+    gap:13px;
+  }
+  #request-overlay .request-performer-option {font-size:14px}
+}
+
+/* Quantity per requested performer; hide the number input until selected. */
+#request-overlay .request-performer-row {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  min-width:0;
+}
+#request-overlay .request-performer-row .request-performer-option {
+  flex:1 1 auto;
+  min-width:0;
+}
+#request-overlay .request-performer-quantity:not([hidden]) {
+  display:block!important;
+  flex:0 0 66px!important;
+  width:66px!important;
+  min-width:0!important;
+  max-width:66px!important;
+  padding:7px 6px!important;
+  text-align:center;
+  font-size:14px!important;
+  font-weight:750!important;
+  line-height:1.25!important;
+}
+#request-overlay .request-performer-quantity[hidden] {display:none!important}
+#request-overlay .request-performers-count {white-space:normal}
+
+/* Mobile Safari: neutralize intrinsic date width while keeping native date picker. */
+@media(max-width:550px) {
+  #request-overlay .request-field:has(> input[type="date"]) {
+    width:100%!important;
+    min-width:0!important;
+    max-width:100%!important;
+    overflow:hidden;
+  }
+  #request-overlay .request-field > input[type="date"] {
+    -webkit-appearance:none!important;
+    appearance:none!important;
+    display:block!important;
+    flex:0 1 auto!important;
+    inline-size:100%!important;
+    min-inline-size:0!important;
+    max-inline-size:100%!important;
+    box-sizing:border-box!important;
+    overflow:hidden!important;
+    font-size:16px!important;
+  }
+  #request-overlay .request-field > input[type="date"]::-webkit-date-and-time-value {
+    min-width:0!important;
+    max-width:100%!important;
+    text-align:center;
+  }
+}
