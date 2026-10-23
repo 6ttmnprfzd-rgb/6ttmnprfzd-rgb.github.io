@@ -2,6 +2,24 @@
 if(!document.getElementById('request-overlay')){
   document.body.insertAdjacentHTML('beforeend',"<div aria-labelledby=\"request-title\" aria-modal=\"true\" class=\"request-overlay\" hidden=\"\" id=\"request-overlay\" role=\"dialog\">\n<div class=\"request-panel\" tabindex=\"-1\"><button aria-label=\"Закрыть форму\" class=\"request-close\" type=\"button\">×</button>\n<h2 id=\"request-title\">Расскажите о мероприятии</h2><p>Заполните то, что уже известно. Мы уточним остальные детали при общении.</p>\n<form id=\"request-form\"><div class=\"request-fields\">\n<label class=\"request-field wide\">Как к вам обращаться *<input autocomplete=\"name\" maxlength=\"120\" name=\"name\" placeholder=\"Ваше имя\" required=\"\"/></label>\n<div aria-hidden=\"true\" class=\"request-honeypot\"><label>Сайт<input autocomplete=\"off\" name=\"website\" tabindex=\"-1\"/></label></div>\n<label class=\"request-field\">Дата мероприятия<input name=\"date\" type=\"date\"/></label>\n<label class=\"request-field\">Время<input name=\"time\" placeholder=\"Например, 18:00\"/></label>\n<label class=\"request-field wide\">Место проведения<input name=\"place\" placeholder=\"Город, площадка или адрес\"/></label>\n<label class=\"request-field\">Формат<select name=\"format\"><option value=\"Пока выбираю\">Пока выбираю</option><option>Раус / встреча гостей</option><option>Шоу</option><option>Отдельный номер</option></select></label>\n<label class=\"request-field\">Количество артистов<input name=\"count\" placeholder=\"Например, 3\"/></label>\n<label class=\"request-field\">Продолжительность<input name=\"duration\" placeholder=\"Например, 2 часа\"/></label>\n<label class=\"request-field\">Телефон для связи *<input autocomplete=\"tel\" maxlength=\"80\" name=\"phone\" placeholder=\"+7 ...\" required=\"\" type=\"tel\"/></label>\n<label class=\"request-field wide\">Пожелания<textarea name=\"notes\" placeholder=\"Интересующие артисты и другие детали\"></textarea></label>\n</div><button class=\"request-send\" type=\"submit\">ОТПРАВИТЬ ЗАЯВКУ →</button><p aria-live=\"polite\" class=\"request-note\" id=\"request-status\" role=\"status\">Заявка поступит напрямую нашей команде. Мы свяжемся с вами по указанному телефону.</p><button class=\"request-copy\" type=\"button\">Скопировать текст заявки</button></form>\n</div></div>");
 }
+/* Match the homepage request popup's brand heading and introduction. */
+(()=>{
+ const panel=document.querySelector('#request-overlay .request-panel');
+ const title=panel?.querySelector('#request-title');
+ if(!title||panel.querySelector('.request-brand-kicker'))return;
+ const kicker=document.createElement('div');
+ kicker.className='request-brand-kicker';
+ kicker.append('НОГИ ');
+ const small=document.createElement('span');
+ small.className='request-brand-small-v';
+ small.textContent='в';
+ kicker.append(small,' РУКИ / ЗАЯВКА');
+ title.before(kicker);
+ const intro=title.nextElementSibling;
+ if(intro?.tagName==='P'){
+   intro.textContent='Укажите детали мероприятия, чтобы мы могли подготовить предложение и рассчитать стоимость.';
+ }
+})();
 (()=>{const overlay=document.getElementById('request-overlay'),panel=overlay.querySelector('.request-panel'),form=document.getElementById('request-form');let previous=null;
 function open(e){if(e)e.preventDefault();previous=document.activeElement;overlay.hidden=false;document.body.style.overflow='hidden';panel.focus()}
 function close(){overlay.hidden=true;document.body.style.overflow='';previous?.focus()}
