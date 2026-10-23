@@ -174,3 +174,8 @@ section.end-cta.format-end-cta .inner{
     object-position:50% 9%!important;
   }
 }
+
+/* No blank gap between the closing photograph and the compact footer. */
+section.end-cta.format-end-cta{
+  margin-bottom:0!important;
+}
