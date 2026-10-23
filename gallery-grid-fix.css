@@ -1760,48 +1760,19 @@ footer.footer.home-format-footer .seo-footer-contact svg{
   }
 }
 
-/* SEO navigation: secondary, unobtrusive text links. Existing genre cards keep their popups. */
-#genres .genre-landing-links{
-  margin:13px auto 0;
-  padding:0 12px;
-  max-width:960px;
-  text-align:center;
-  color:#625e5e;
-  font:500 12px/1.55 Arial,Helvetica,sans-serif;
+/* SEO links are part of the existing photo cards. Keep exactly the prior card look. */
+#genres .genre h3 .genre-seo-card-link,
+#all-genres-dialog .genre h3 .genre-seo-card-link{
+  color:inherit!important;
+  font:inherit!important;
+  letter-spacing:inherit!important;
+  line-height:inherit!important;
+  text-transform:inherit!important;
+  text-decoration:none!important;
+  cursor:inherit;
 }
-#genres .genre-landing-links > summary{
-  display:inline-flex;
-  align-items:center;
-  gap:6px;
-  cursor:pointer;
-  font-size:12px;
-  line-height:1.5;
-  border-bottom:1px solid #bbb3b1;
-  padding:4px 0;
-  list-style:none;
-}
-#genres .genre-landing-links > summary::-webkit-details-marker{display:none}
-#genres .genre-landing-links > summary::after{content:"⌄";color:#ed082c;font-size:16px}
-#genres .genre-landing-links[open] > summary::after{content:"⌃"}
-#genres .genre-landing-links > summary:hover{color:#ed082c;border-bottom-color:#ed082c}
-#genres .genre-landing-links > summary:focus-visible{outline:2px solid #ed082c;outline-offset:4px}
-#genres .genre-landing-links nav{
-  display:flex;
-  flex-wrap:wrap;
-  justify-content:center;
-  column-gap:16px;
-  row-gap:10px;
-  padding:16px 0 10px;
-}
-#genres .genre-landing-links nav a{
-  color:#343137;
-  text-decoration:underline;
-  text-underline-offset:3px;
-  text-decoration-color:#c7c3c3;
-}
-#genres .genre-landing-links nav a:hover,
-#genres .genre-landing-links nav a:focus-visible{color:#d6062b;text-decoration-color:#d6062b}
-@media(max-width:650px){
-  #genres .genre-landing-links{margin-top:6px;text-align:right;padding:0 3px}
-  #genres .genre-landing-links nav{justify-content:flex-start;text-align:left;column-gap:14px}
+#genres .genre h3 .genre-seo-card-link:focus-visible,
+#all-genres-dialog .genre h3 .genre-seo-card-link:focus-visible{
+  outline:2px solid #ed082c;
+  outline-offset:3px;
 }
