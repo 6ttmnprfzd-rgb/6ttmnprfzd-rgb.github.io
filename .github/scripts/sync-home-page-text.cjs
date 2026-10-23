@@ -77,6 +77,30 @@ if(data.seo){
   html=one(html,/(<title>)([\s\S]*?)(<\/title>)/,escape(data.seo.title),'SEO title');
   html=one(html,/(<meta content=")([^"]*)(" name="description"\/>)/,escape(data.seo.description),'SEO description');
 }
+/* One canonical Organization record helps search engines connect the site to our verified brand. */
+const org={
+  '@context':'https://schema.org',
+  '@type':'Organization',
+  '@id':'https://welcirc.pro/#organization',
+  name:'НОГИ в РУКИ',
+  url:'https://welcirc.pro/',
+  logo:'https://welcirc.pro/nogi-logo-header.png',
+  description:'Цирковая команда: артисты для встречи гостей, цирковые шоу и отдельные номера на мероприятиях в Москве и Московской области.',
+  telephone:'+79019060656',
+  email:'info@welcirc.ru',
+  areaServed:['Москва','Московская область'],
+  sameAs:[
+    'https://www.instagram.com/welcirc/',
+    'https://vk.ru/welcirc',
+    'https://www.youtube.com/@welcirc'
+  ]
+};
+const orgMarker='https://welcirc.pro/#organization';
+if(!html.includes(orgMarker)){
+  const canonical='<link href="https://welcirc.pro/" rel="canonical"/>';
+  if(!html.includes(canonical))throw Error('Homepage canonical anchor missing');
+  html=html.replace(canonical,canonical+'\n<script type="application/ld+json">'+JSON.stringify(org)+'</script>');
+}
 if(!html.includes('rel="canonical"')&&!html.includes('rel="canonical"'))throw Error('Canonical missing');
 if(!html.includes('id="genres"')||!html.includes('id="contacts"'))throw Error('Homepage content structure missing');
 if(html!==original){
