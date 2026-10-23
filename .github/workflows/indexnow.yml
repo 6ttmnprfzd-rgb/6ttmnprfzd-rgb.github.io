@@ -1,0 +1,83 @@
+name: Notify IndexNow of changed SEO pages
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'index.html'
+      - '**/index.html'
+      - 'sitemap.xml'
+      - 'home-page-content.json'
+      - 'format-pages-content.json'
+      - 'artist-content.json'
+      - 'format-home-genres.json'
+      - 'site-media.json'
+      - 'artist-media.json'
+      - 'gallery-data.json'
+      - 'videos-data.json'
+      - 'price-data.json'
+      - '.github/scripts/indexnow-submit.cjs'
+      - '.github/workflows/indexnow.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: indexnow-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out current main
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Identify changed files
+        shell: bash
+        env:
+          BEFORE: ${{ github.event.before }}
+          AFTER: ${{ github.sha }}
+          EVENT_NAME: ${{ github.event_name }}
+        run: |
+          if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
+            echo '__ALL__' > changed-files.txt
+          else
+            git diff --name-only "$BEFORE" "$AFTER" > changed-files.txt
+          fi
+          echo 'Detected file changes:'
+          cat changed-files.txt
+
+      - name: Validate IndexNow script
+        run: node --check .github/scripts/indexnow-submit.cjs
+
+      - name: Allow GitHub Pages to publish changes
+        run: sleep 45
+
+      - name: Confirm public IndexNow verification file
+        shell: bash
+        run: |
+          KEY='16cda67c1e6c13d8f5f74ddeb35d10e78758350f'
+          KEY_URL="https://welcirc.pro/$KEY.txt"
+          for attempt in $(seq 1 12); do
+            BODY=$(curl --fail --silent --show-error --max-time 15 "$KEY_URL" || true)
+            if [ "$BODY" = "$KEY" ]; then
+              echo 'IndexNow key file is publicly accessible and correct.'
+              exit 0
+            fi
+            echo "Public verification file not ready (attempt $attempt/12)."
+            sleep 15
+          done
+          echo 'ERROR: Public IndexNow key file could not be verified.'
+          exit 1
+
+      - name: Submit canonical URLs to IndexNow
+        run: node .github/scripts/indexnow-submit.cjs changed-files.txt
