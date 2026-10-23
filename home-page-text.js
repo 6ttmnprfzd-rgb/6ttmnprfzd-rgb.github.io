@@ -34,6 +34,7 @@
         if(i)h1.insertBefore(document.createElement('br'),span);
         h1.insertBefore(document.createTextNode(part),span);
       });
+      h1.insertBefore(document.createElement('br'),span);
     }
     multi(span,accent);
   }
