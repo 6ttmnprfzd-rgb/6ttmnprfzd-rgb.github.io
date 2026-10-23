@@ -1121,3 +1121,11 @@ document.addEventListener('DOMContentLoaded',()=>{
   else nav.appendChild(link);
   link.addEventListener('click',()=>{const menu=nav.closest('details');if(menu)menu.open=false});
 });
+
+/* Apply texts saved in Pages CMS without changing the large homepage HTML. */
+(()=>{
+  const script=document.createElement('script');
+  script.src='/home-page-text.js';
+  script.defer=true;
+  document.head.appendChild(script);
+})();
