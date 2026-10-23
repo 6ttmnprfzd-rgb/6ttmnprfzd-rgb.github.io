@@ -1748,3 +1748,14 @@ footer.footer.home-format-footer .seo-footer-contact svg{
 @media(max-width:650px){
   #media-overlay .media-panel .media-tabs{padding:4px!important}
 }
+
+/* On phones, cancel the old homepage footer's column direction. */
+@media(max-width:850px){
+  footer.footer.home-format-footer > .container{
+    display:flex!important;
+    flex-direction:row!important;
+    flex-wrap:nowrap!important;
+    align-items:center!important;
+    justify-content:space-between!important;
+  }
+}
