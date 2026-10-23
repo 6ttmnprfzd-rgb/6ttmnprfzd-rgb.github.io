@@ -1047,6 +1047,18 @@ document.addEventListener('DOMContentLoaded',()=>{
      }
      panel.appendChild(link);
    }
+   // Show the seasonal option in the desktop dropdown; mobile has its own top-level link.
+   if(nav.classList.contains('links')){
+     const seasonal=document.createElement('a');
+     seasonal.href='/novogodniy-korporativ/';
+     seasonal.style.cssText='display:flex;align-items:center;gap:8px;';
+     const snowflake=document.createElement('span');
+     snowflake.textContent='❄';
+     snowflake.setAttribute('aria-hidden','true');
+     snowflake.style.cssText='color:#ed082c;font-size:16px;line-height:1;flex:none;';
+     seasonal.append(snowflake,document.createTextNode('Новый год'));
+     panel.appendChild(seasonal);
+   }
    details.append(summary,panel);
    old.replaceWith(details);
    // Match the original main navigation links instead of using the smaller hardcoded font.
