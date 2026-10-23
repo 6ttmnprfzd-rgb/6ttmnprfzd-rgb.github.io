@@ -1,0 +1,46 @@
+name: Sync homepage CMS texts to SEO HTML
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'home-page-content.json'
+      - '.github/scripts/sync-home-page-text.cjs'
+      - '.github/workflows/sync-home-page-text.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+  pages: write
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Validate homepage copy and update static SEO HTML
+        run: |
+          node --check .github/scripts/sync-home-page-text.cjs
+          node --check home-page-text.js
+          node .github/scripts/sync-home-page-text.cjs
+      - name: Commit static HTML if texts differ
+        id: commit
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html
+          if git diff --cached --quiet; then
+            echo 'changed=false' >> "$GITHUB_OUTPUT"
+          else
+            git commit -m 'SEO: обновить тексты главной из CMS'
+            git pull --rebase origin main
+            git push origin HEAD:main
+            echo 'changed=true' >> "$GITHUB_OUTPUT"
+          fi
+      - name: Request GitHub Pages rebuild after automated commit
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api -X POST "repos/${{ github.repository }}/pages/builds" ||
+            echo 'CMS data remains available even when the build request is unsupported.'
