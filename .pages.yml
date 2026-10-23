@@ -219,6 +219,120 @@ content:
             label: Название
             type: string
 
+  - name: home_page_text
+    label: Тексты главной страницы
+    type: file
+    path: home-page-content.json
+    format: json
+    fields:
+      - name: hero
+        label: Главный экран
+        type: object
+        fields:
+          - name: title
+            label: Первая часть заголовка (перенос по Enter)
+            type: string
+          - name: accent
+            label: Красная часть заголовка
+            type: string
+          - name: description
+            label: Описание
+            type: text
+          - name: button
+            label: Текст кнопки
+            type: string
+          - name: tag
+            label: Круглая подпись (по строкам)
+            type: string
+      - name: formats
+        label: Форматы работы
+        type: object
+        fields:
+          - name: title
+            label: Заголовок раздела
+            type: string
+          - name: cards
+            label: Карточки (РАУС, ШОУ, НОМЕРА)
+            type: object
+            list:
+              collapsible:
+                collapsed: true
+                summary: "Карточка {index}"
+            fields:
+              - name: title
+                label: Название формата
+                type: string
+              - name: subtitle
+                label: Подзаголовок
+                type: string
+              - name: description
+                label: Описание формата
+                type: text
+              - name: button
+                label: Текст кнопки Подробнее
+                type: string
+              - name: duration
+                label: Продолжительность
+                type: string
+      - name: genres
+        label: Наши жанры
+        type: object
+        fields:
+          - name: title
+            label: Заголовок раздела
+            type: string
+          - name: button
+            label: Кнопка Все жанры
+            type: string
+          - name: hint
+            label: Подпись Листайте жанры
+            type: string
+      - name: gallery
+        label: Атмосфера и галерея
+        type: object
+        fields:
+          - name: title
+            label: Заголовок раздела
+            type: string
+          - name: description
+            label: Описание галереи
+            type: text
+          - name: button
+            label: Кнопка просмотра галереи
+            type: string
+          - name: caption
+            label: Текст под кнопкой
+            type: string
+      - name: price
+        label: Карточка прайса на главной
+        type: object
+        fields:
+          - name: eyebrow
+            label: Маленькая надпись
+            type: string
+          - name: title
+            label: Заголовок прайса
+            type: string
+          - name: subtitle
+            label: Подпись о форматах
+            type: string
+          - name: button
+            label: Текст кнопки прайса
+            type: string
+      - name: contacts
+        label: Финальный блок Контакты
+        type: object
+        fields:
+          - name: title
+            label: Заголовок блока
+            type: string
+          - name: description
+            label: Описание
+            type: text
+          - name: button
+            label: Текст кнопки заявки
+            type: string
+
   - name: format_pages_text
     label: Тексты дополнительных страниц
     type: file
