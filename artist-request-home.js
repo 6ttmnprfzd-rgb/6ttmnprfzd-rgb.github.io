@@ -217,7 +217,11 @@ document.addEventListener('DOMContentLoaded',()=>{
     placeholder.textContent='НОГИ В РУКИ';
     visual.appendChild(placeholder);
     const label=document.createElement('h3');
-    label.textContent=info.title;
+    const seoLink=document.createElement('a');
+    seoLink.className='genre-seo-card-link';
+    seoLink.href='/'+info.slug+'/';
+    seoLink.textContent=info.title;
+    label.appendChild(seoLink);
     if(info.title.length>=23)label.classList.add('genre-title-verylong');
     else if(info.title.length>=16)label.classList.add('genre-title-long');
     card.append(visual,label);
@@ -493,7 +497,9 @@ document.addEventListener('DOMContentLoaded',()=>{
           '#all-genres-dialog .genre-all-grid .genre[data-artist="'+item.key+'"]'
         ).forEach(card=>{
           const label=card.querySelector('h3');
-          if(label&&label.textContent!==item.cmsTitle)label.textContent=item.cmsTitle;
+          const link=label?.querySelector('a.genre-seo-card-link');
+          if(link){if(link.textContent!==item.cmsTitle)link.textContent=item.cmsTitle;}
+          else if(label&&label.textContent!==item.cmsTitle)label.textContent=item.cmsTitle;
           card.setAttribute('aria-label','Подробнее: '+item.cmsTitle);
         });
       });
@@ -1129,3 +1135,12 @@ document.addEventListener('DOMContentLoaded',()=>{
   script.defer=true;
   document.head.appendChild(script);
 })();
+
+/* Keep normal taps on linked genre names opening the existing popup.
+   Ctrl/Cmd/long-press remain standard links to individual SEO pages. */
+document.addEventListener('click',event=>{
+  const link=event.target.closest?.('a.genre-seo-card-link');
+  if(!link || !link.closest('#genres .genres-featured, #all-genres-dialog .genre-all-grid'))return;
+  if(event.defaultPrevented || event.button!==0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey)return;
+  event.preventDefault();
+},true);
