@@ -151,48 +151,63 @@ section.end-cta.format-end-cta{
   margin-bottom:0!important;
 }
 
-/* Mobile finale: retain the landscape photo and blend it into the text area. */
+/* Mobile finale: the photo itself softly blurs under the text, then becomes sharp.
+   Both layers load the same CMS image; preserve the landscape composition. */
 @media(max-width:760px){
   section.end-cta.format-end-cta{
     min-height:670px!important;
     align-items:flex-start!important;
-    background:#28222b!important;
+    background:#171519!important;
+  }
+  section.end-cta.format-end-cta .end-cta-photo-blur{
+    display:block;
+    position:absolute;
+    inset:-30px!important;
+    width:calc(100% + 60px)!important;
+    height:calc(100% + 60px)!important;
+    max-width:none!important;
+    object-fit:cover!important;
+    object-position:center 45%!important;
+    filter:blur(28px) saturate(.87) brightness(.78);
+    z-index:-3;
+    pointer-events:none;
   }
   section.end-cta.format-end-cta .end-cta-photo{
     position:absolute!important;
-    inset:auto auto 0 50%!important;
+    inset:auto 0 0!important;
     top:auto!important;
-    width:132%!important;
-    max-width:none!important;
+    bottom:0!important;
+    width:100%!important;
     height:auto!important;
     max-height:none!important;
-    transform:translateX(-50%);
+    transform:none!important;
     object-fit:contain!important;
     object-position:center bottom!important;
-    -webkit-mask-image:linear-gradient(to bottom,transparent 0%,rgba(0,0,0,.16) 18%,rgba(0,0,0,.77) 53%,#000 82%);
-    mask-image:linear-gradient(to bottom,transparent 0%,rgba(0,0,0,.16) 18%,rgba(0,0,0,.77) 53%,#000 82%);
+    -webkit-mask-image:linear-gradient(to bottom,
+      transparent 0%,rgba(0,0,0,.08) 17%,
+      rgba(0,0,0,.48) 46%,rgba(0,0,0,.86) 72%,#000 100%);
+    mask-image:linear-gradient(to bottom,
+      transparent 0%,rgba(0,0,0,.08) 17%,
+      rgba(0,0,0,.48) 46%,rgba(0,0,0,.86) 72%,#000 100%);
   }
   section.end-cta.format-end-cta::before{
     background:linear-gradient(180deg,
-      rgba(40,34,43,.96) 0%,
-      rgba(40,34,43,.87) 30%,
-      rgba(40,34,43,.49) 60%,
-      rgba(40,34,43,.08) 100%)!important;
+      rgba(15,13,19,.82) 0%,
+      rgba(15,13,19,.72) 37%,
+      rgba(15,13,19,.39) 68%,
+      rgba(15,13,19,.12) 100%)!important;
   }
   section.end-cta.format-end-cta .inner{
     align-self:flex-start!important;
     padding-top:43px!important;
-    padding-bottom:clamp(160px,50vw,215px)!important;
+    padding-bottom:clamp(160px,46vw,220px)!important;
   }
-  /* Snowy photos need a softer, slate-toned fade instead of near-black. */
-  section.end-cta.format-end-cta[data-photo-field="newyear_end_photo"]{
-    background:#39434b!important;
-  }
+  /* On snowy photos use a cool dark tint, not a flat grey rectangle. */
   section.end-cta.format-end-cta[data-photo-field="newyear_end_photo"]::before{
     background:linear-gradient(180deg,
-      rgba(57,67,75,.93) 0%,
-      rgba(57,67,75,.83) 33%,
-      rgba(57,67,75,.44) 63%,
-      rgba(57,67,75,.06) 100%)!important;
+      rgba(17,24,35,.76) 0%,
+      rgba(17,24,35,.65) 37%,
+      rgba(17,24,35,.30) 67%,
+      rgba(17,24,35,.07) 100%)!important;
   }
 }
