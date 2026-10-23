@@ -1141,6 +1141,8 @@ document.addEventListener('DOMContentLoaded',()=>{
 document.addEventListener('click',event=>{
   const link=event.target.closest?.('a.genre-seo-card-link');
   if(!link || !link.closest('#genres .genres-featured, #all-genres-dialog .genre-all-grid'))return;
-  if(event.defaultPrevented || event.button!==0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey)return;
+  if(event.defaultPrevented || event.button!==0)return;
+  // Modified clicks navigate to the SEO page without opening the popup as well.
+  if(event.metaKey || event.ctrlKey || event.shiftKey || event.altKey){event.stopPropagation();return;}
   event.preventDefault();
 },true);
