@@ -13,6 +13,8 @@ section.end-cta.format-end-cta {
   background:#211d23;
   color:#fff;
 }
+/* Blur layer is used only on phones; leave desktop layouts unchanged. */
+.format-end-cta .end-cta-photo-blur {display:none}
 .format-end-cta .end-cta-photo {
   position:absolute;
   inset:0;
