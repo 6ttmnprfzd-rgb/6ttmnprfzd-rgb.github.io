@@ -107,3 +107,19 @@
 @media(max-width:650px){
   #media-overlay .media-panel .media-tabs{padding:10px 2px!important}
 }
+
+/* Match homepage's compact floating Photos / Videos controls. */
+#media-overlay .media-panel .media-tabs{
+  width:max-content!important;
+  max-width:calc(100% - 12px)!important;
+  display:flex!important;
+  padding:5px!important;
+  margin:0 0 14px!important;
+  border:1px solid rgba(255,255,255,.18)!important;
+  border-radius:999px!important;
+  background:rgba(29,28,34,.87)!important;
+  box-shadow:0 7px 24px rgba(0,0,0,.26)!important;
+}
+@media(max-width:650px){
+  #media-overlay .media-panel .media-tabs{padding:4px!important}
+}
