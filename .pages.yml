@@ -225,6 +225,16 @@ content:
     path: home-page-content.json
     format: json
     fields:
+      - name: seo
+        label: SEO главной (заголовок в поиске и описание)
+        type: object
+        fields:
+          - name: title
+            label: Заголовок вкладки и поиска (title)
+            type: string
+          - name: description
+            label: Описание в поиске (meta description)
+            type: text
       - name: hero
         label: Главный экран
         type: object
