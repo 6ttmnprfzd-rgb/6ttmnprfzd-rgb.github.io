@@ -48,6 +48,13 @@ section('<section class="section" id="genres"','<section class="section" id="gal
   s=one(s,/(<div class="section-heading"><h2>)([\s\S]*?)(<\/h2>)/,lines(d.title),'genre heading');
   s=one(s,/(<button[^>]+class="genre-all-toggle"[^>]*>)([\s\S]*?)(<svg)/,escape(d.button)+' ','genre button');
   s=one(s,/(<span class="genre-swipe-hint"><svg[\s\S]*?<\/svg>)([\s\S]*?)(<\/span>)/,' '+escape(d.hint),'genre hint');
+  // Plain crawlable links coexist with the interactive modal artist cards.
+  if(!s.includes('class="genre-landing-links"')){
+    const anchor='<div aria-hidden="true" class="genres-progress">';
+    if(!s.includes(anchor))throw Error('Genre progress anchor missing');
+    const genreLandingMarkup="<details class=\"genre-landing-links\"><summary>Страницы цирковых жанров</summary><nav aria-label=\"Перейти на страницы артистов\"><a href=\"/hodulisty/\">Ходулисты</a><a href=\"/zhonglery/\">Жонглёры</a><a href=\"/mimy/\">Мимы</a><a href=\"/unitsiklisty/\">Унициклисты</a><a href=\"/mikromag/\">Микромаг</a><a href=\"/akrobaty/\">Акробаты</a><a href=\"/koleso-sira/\">Колесо Сира</a><a href=\"/balans-na-nozhe/\">Баланс на ноже</a><a href=\"/ekvilibr-na-trostyah/\">Эквилибр на тростях</a><a href=\"/hulahupy/\">Хулахупы</a><a href=\"/gimnastka-v-zorb-share/\">Гимнастка в Зорб-шаре</a><a href=\"/gimnastka-v-parternom-koltse/\">Гимнастка в партерном кольце</a><a href=\"/diabolo/\">Диаболо</a><a href=\"/ekvilibr-na-katushkah/\">Эквилибр на катушках</a><a href=\"/ekvilibr-na-stulyah/\">Эквилибр на стульях</a><a href=\"/kontaktnoe-zhonglirovanie/\">Контактное жонглирование</a><a href=\"/volnostoyashchaya-lestnitsa/\">Вольностоящая лестница</a><a href=\"/shlyapnik/\">Шляпник</a></nav></details>";
+    s=s.replace(anchor,genreLandingMarkup+anchor);
+  }
   return s;
 });
 section('<section class="section" id="gallery">','<section class="section" id="price"',s=>{
