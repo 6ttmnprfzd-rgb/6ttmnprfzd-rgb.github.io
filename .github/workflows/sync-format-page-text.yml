@@ -1,0 +1,43 @@
+name: Sync format page CMS text and SEO HTML
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'format-pages-content.json'
+      - '.github/scripts/sync-format-page-text.cjs'
+      - '.github/workflows/sync-format-page-text.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+  pages: write
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Apply editable copy to initial HTML for search engines
+        run: node .github/scripts/sync-format-page-text.cjs
+      - name: Commit refreshed static SEO text
+        id: commit
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add raus/index.html show/index.html nomera/index.html novogodniy-korporativ/index.html
+          if git diff --cached --quiet; then
+            echo 'changed=false' >> "$GITHUB_OUTPUT"
+          else
+            git commit -m 'SEO: синхронизировать тексты страниц из CMS'
+            git pull --rebase origin main
+            git push origin HEAD:main
+            echo 'changed=true' >> "$GITHUB_OUTPUT"
+          fi
+      - name: Request Pages rebuild for the bot-generated HTML
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api -X POST "repos/${{ github.repository }}/pages/builds" ||
+            echo 'Pages rebuild could not be started; text still loads from CMS JSON.'
