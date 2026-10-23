@@ -108,6 +108,18 @@
       }
       panel.appendChild(a);
    }
+   // Desktop formats also include the seasonal landing page.
+   if(nav.classList.contains('links')){
+     const seasonal=document.createElement('a');
+     seasonal.href='/novogodniy-korporativ/';
+     seasonal.style.cssText='display:flex;align-items:center;gap:8px;';
+     const snowflake=document.createElement('span');
+     snowflake.textContent='❄';
+     snowflake.setAttribute('aria-hidden','true');
+     snowflake.style.cssText='color:#ed082c;font-size:16px;line-height:1;flex:none;';
+     seasonal.append(snowflake,document.createTextNode('Новый год'));
+     panel.appendChild(seasonal);
+   }
    menu.append(summary,panel);
    link.replaceWith(menu);
    disclosures.push(menu);
