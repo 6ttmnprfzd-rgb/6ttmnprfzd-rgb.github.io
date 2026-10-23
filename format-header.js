@@ -8,6 +8,16 @@
  window.addEventListener('scroll',update,{passive:true});
  const menu=header.querySelector('.mobile-menu');
  if(!menu)return;
+ // Match the homepage: Новый год follows Галерея in the phone menu.
+ const mobileNav=menu.querySelector('.mobile-menu-panel');
+ if(mobileNav&&!mobileNav.querySelector('a[href="/novogodniy-korporativ/"]')){
+   const newYear=document.createElement('a');
+   newYear.href='/novogodniy-korporativ/';
+   newYear.textContent='Новый год';
+   const gallery=mobileNav.querySelector('a[href="/#gallery"]');
+   if(gallery)gallery.after(newYear);
+   else mobileNav.appendChild(newYear);
+ }
  menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{menu.open=false}));
  document.addEventListener('pointerdown',e=>{if(menu.open&&!menu.contains(e.target))menu.open=false},{passive:true});
  document.addEventListener('keydown',e=>{if(e.key==='Escape')menu.open=false});
