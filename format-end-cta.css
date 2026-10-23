@@ -179,3 +179,34 @@ section.end-cta.format-end-cta .inner{
 section.end-cta.format-end-cta{
   margin-bottom:0!important;
 }
+
+/* Mobile photographic finale: text and photo form one image-backed composition. */
+@media(max-width:760px){
+  section.end-cta.format-end-cta{
+    min-height:620px!important;
+    align-items:center!important;
+    background:#1a141c!important;
+  }
+  section.end-cta.format-end-cta .end-cta-photo{
+    position:absolute!important;
+    inset:0!important;
+    top:0!important;
+    bottom:0!important;
+    width:100%!important;
+    height:100%!important;
+    object-fit:cover!important;
+    object-position:center center!important;
+  }
+  section.end-cta.format-end-cta::before{
+    background:linear-gradient(180deg,
+      rgba(13,10,17,.88) 0%,
+      rgba(13,10,17,.78) 30%,
+      rgba(13,10,17,.61) 63%,
+      rgba(13,10,17,.34) 100%)!important;
+  }
+  section.end-cta.format-end-cta .inner{
+    align-self:center!important;
+    padding-top:58px!important;
+    padding-bottom:58px!important;
+  }
+}
