@@ -383,12 +383,12 @@ content:
                     collapsed: true
                     summary: "{index}"
                 fields:
-              - name: title
-                label: Заголовок
-                type: string
-              - name: description
-                label: Текст
-                type: text
+                  - name: title
+                    label: Заголовок
+                    type: string
+                  - name: description
+                    label: Текст
+                    type: text
           - name: genres
             label: Раздел с жанрами
             type: object
@@ -534,12 +534,12 @@ content:
                     collapsed: true
                     summary: "{index}"
                 fields:
-              - name: title
-                label: Заголовок
-                type: string
-              - name: description
-                label: Текст
-                type: text
+                  - name: title
+                    label: Заголовок
+                    type: string
+                  - name: description
+                    label: Текст
+                    type: text
           - name: genres
             label: Раздел с жанрами
             type: object
@@ -685,12 +685,12 @@ content:
                     collapsed: true
                     summary: "{index}"
                 fields:
-              - name: title
-                label: Заголовок
-                type: string
-              - name: description
-                label: Текст
-                type: text
+                  - name: title
+                    label: Заголовок
+                    type: string
+                  - name: description
+                    label: Текст
+                    type: text
           - name: genres
             label: Раздел с жанрами
             type: object
@@ -836,12 +836,12 @@ content:
                     collapsed: true
                     summary: "{index}"
                 fields:
-              - name: title
-                label: Заголовок
-                type: string
-              - name: description
-                label: Текст
-                type: text
+                  - name: title
+                    label: Заголовок
+                    type: string
+                  - name: description
+                    label: Текст
+                    type: text
           - name: genres
             label: Раздел с жанрами
             type: object
@@ -873,12 +873,12 @@ content:
                     collapsed: true
                     summary: "{index}"
                 fields:
-              - name: title
-                label: Заголовок
-                type: string
-              - name: description
-                label: Текст
-                type: text
+                  - name: title
+                    label: Заголовок
+                    type: string
+                  - name: description
+                    label: Текст
+                    type: text
               - name: gallery_button
                 label: Текст кнопки галереи
                 type: string
