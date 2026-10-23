@@ -219,6 +219,647 @@ content:
             label: Название
             type: string
 
+  - name: format_pages_text
+    label: Тексты дополнительных страниц
+    type: file
+    path: format-pages-content.json
+    format: json
+    fields:
+      - name: raus
+        label: РАУС
+        type: object
+        fields:
+          - name: hero
+            label: Первый экран и видео
+            type: object
+            fields:
+              - name: eyebrow
+                label: Надпись над заголовком
+                type: string
+              - name: title
+                label: Заголовок, первая часть
+                type: string
+              - name: accent
+                label: Заголовок, вторая часть
+                type: string
+              - name: description
+                label: Описание на первом экране
+                type: text
+              - name: button
+                label: Текст кнопки
+                type: string
+          - name: about
+            label: Описание формата и три карточки
+            type: object
+            fields:
+              - name: eyebrow
+                label: Маленькая надпись
+                type: string
+              - name: title
+                label: Заголовок
+                type: string
+              - name: description
+                label: Текст
+                type: text
+              - name: cards
+                label: Три карточки с преимуществами
+                type: object
+                list:
+                  collapsible:
+                    collapsed: true
+                    summary: "{index}"
+                fields:
+              - name: title
+                label: Заголовок
+                type: string
+              - name: description
+                label: Текст
+                type: text
+          - name: genres
+            label: Раздел с жанрами
+            type: object
+            fields:
+              - name: eyebrow
+                label: Маленькая надпись
+                type: string
+              - name: title
+                label: Заголовок
+                type: string
+          - name: price
+            label: Блок стоимости и пояснение
+            type: object
+            fields:
+              - name: eyebrow
+                label: Маленькая надпись
+                type: string
+              - name: title
+                label: Заголовок стоимости
+                type: string
+              - name: points
+                label: Строки с ценами и условиями
+                type: object
+                list:
+                  collapsible:
+                    collapsed: true
+                    summary: "{index}"
+                fields:
+                  - name: label
+                    label: Что указано
+                    type: string
+                  - name: value
+                    label: Значение
+                    type: string
+                  - name: unit
+                    label: Единицы, если нужны
+                    type: string
+              - name: note
+                label: Примечание под стоимостью
+                type: text
+          - name: faq
+            label: Вопросы заказчиков
+            type: object
+            fields:
+              - name: eyebrow
+                label: Маленькая надпись
+                type: string
+              - name: title
+                label: Заголовок
+                type: string
+              - name: items
+                label: Вопросы и ответы
+                type: object
+                list:
+                  collapsible:
+                    collapsed: true
+                    summary: "{index}"
+                fields:
+                  - name: question
+                    label: Вопрос
+                    type: string
+                  - name: answer
+                    label: Ответ
+                    type: text
+          - name: related
+            label: Ссылки на другие форматы
+            type: object
+            fields:
+              - name: eyebrow
+                label: Маленькая надпись
+                type: string
+              - name: title
+                label: Заголовок
+                type: string
+              - name: links
+                label: Подписи ссылок (адреса остаются прежними)
+                type: object
+                list:
+                  collapsible:
+                    collapsed: true
+                    summary: "{index}"
+                fields:
+                  - name: text
+                    label: Подпись ссылки
+                    type: string
+          - name: final
+            label: Последний блок с фотографией
+            type: object
+            fields:
+              - name: eyebrow
+                label: Маленькая надпись
+                type: string
+              - name: title
+                label: Заголовок заявки
+                type: string
+              - name: description
+                label: Текст под заголовком
+                type: text
+              - name: button
+                label: Текст кнопки заявки
+                type: string
+      - name: show
+        label: ШОУ
+        type: object
+        fields:
+          - name: hero
+            label: Первый экран и видео
+            type: object
+            fields:
+              - name: eyebrow
+                label: Надпись над заголовком
+                type: string
+              - name: title
+                label: Заголовок, первая часть
+                type: string
+              - name: accent
+                label: Заголовок, вторая часть
+                type: string
+              - name: description
+                label: Описание на первом экране
+                type: text
+              - name: button
+                label: Текст кнопки
+                type: string
+          - name: about
+            label: Описание формата и три карточки
+            type: object
+            fields:
+              - name: eyebrow
+                label: Маленькая надпись
+                type: string
+              - name: title
+                label: Заголовок
+                type: string
+              - name: description
+                label: Текст
+                type: text
+              - name: cards
+                label: Три карточки с преимуществами
+                type: object
+                list:
+                  collapsible:
+                    collapsed: true
+                    summary: "{index}"
+                fields:
+              - name: title
+                label: Заголовок
+                type: string
+              - name: description
+                label: Текст
+                type: text
+          - name: genres
+            label: Раздел с жанрами
+            type: object
+            fields:
+              - name: eyebrow
+                label: Маленькая надпись
+                type: string
+              - name: title
+                label: Заголовок
+                type: string
+          - name: price
+            label: Блок стоимости и пояснение
+            type: object
+            fields:
+              - name: eyebrow
+                label: Маленькая надпись
+                type: string
+              - name: title
+                label: Заголовок стоимости
+                type: string
+              - name: points
+                label: Строки с ценами и условиями
+                type: object
+                list:
+                  collapsible:
+                    collapsed: true
+                    summary: "{index}"
+                fields:
+                  - name: label
+                    label: Что указано
+                    type: string
+                  - name: value
+                    label: Значение
+                    type: string
+                  - name: unit
+                    label: Единицы, если нужны
+                    type: string
+              - name: note
+                label: Примечание под стоимостью
+                type: text
+          - name: faq
+            label: Вопросы заказчиков
+            type: object
+            fields:
+              - name: eyebrow
+                label: Маленькая надпись
+                type: string
+              - name: title
+                label: Заголовок
+                type: string
+              - name: items
+                label: Вопросы и ответы
+                type: object
+                list:
+                  collapsible:
+                    collapsed: true
+                    summary: "{index}"
+                fields:
+                  - name: question
+                    label: Вопрос
+                    type: string
+                  - name: answer
+                    label: Ответ
+                    type: text
+          - name: related
+            label: Ссылки на другие форматы
+            type: object
+            fields:
+              - name: eyebrow
+                label: Маленькая надпись
+                type: string
+              - name: title
+                label: Заголовок
+                type: string
+              - name: links
+                label: Подписи ссылок (адреса остаются прежними)
+                type: object
+                list:
+                  collapsible:
+                    collapsed: true
+                    summary: "{index}"
+                fields:
+                  - name: text
+                    label: Подпись ссылки
+                    type: string
+          - name: final
+            label: Последний блок с фотографией
+            type: object
+            fields:
+              - name: eyebrow
+                label: Маленькая надпись
+                type: string
+              - name: title
+                label: Заголовок заявки
+                type: string
+              - name: description
+                label: Текст под заголовком
+                type: text
+              - name: button
+                label: Текст кнопки заявки
+                type: string
+      - name: nomera
+        label: НОМЕРА
+        type: object
+        fields:
+          - name: hero
+            label: Первый экран и видео
+            type: object
+            fields:
+              - name: eyebrow
+                label: Надпись над заголовком
+                type: string
+              - name: title
+                label: Заголовок, первая часть
+                type: string
+              - name: accent
+                label: Заголовок, вторая часть
+                type: string
+              - name: description
+                label: Описание на первом экране
+                type: text
+              - name: button
+                label: Текст кнопки
+                type: string
+          - name: about
+            label: Описание формата и три карточки
+            type: object
+            fields:
+              - name: eyebrow
+                label: Маленькая надпись
+                type: string
+              - name: title
+                label: Заголовок
+                type: string
+              - name: description
+                label: Текст
+                type: text
+              - name: cards
+                label: Три карточки с преимуществами
+                type: object
+                list:
+                  collapsible:
+                    collapsed: true
+                    summary: "{index}"
+                fields:
+              - name: title
+                label: Заголовок
+                type: string
+              - name: description
+                label: Текст
+                type: text
+          - name: genres
+            label: Раздел с жанрами
+            type: object
+            fields:
+              - name: eyebrow
+                label: Маленькая надпись
+                type: string
+              - name: title
+                label: Заголовок
+                type: string
+          - name: price
+            label: Блок стоимости и пояснение
+            type: object
+            fields:
+              - name: eyebrow
+                label: Маленькая надпись
+                type: string
+              - name: title
+                label: Заголовок стоимости
+                type: string
+              - name: points
+                label: Строки с ценами и условиями
+                type: object
+                list:
+                  collapsible:
+                    collapsed: true
+                    summary: "{index}"
+                fields:
+                  - name: label
+                    label: Что указано
+                    type: string
+                  - name: value
+                    label: Значение
+                    type: string
+                  - name: unit
+                    label: Единицы, если нужны
+                    type: string
+              - name: note
+                label: Примечание под стоимостью
+                type: text
+          - name: faq
+            label: Вопросы заказчиков
+            type: object
+            fields:
+              - name: eyebrow
+                label: Маленькая надпись
+                type: string
+              - name: title
+                label: Заголовок
+                type: string
+              - name: items
+                label: Вопросы и ответы
+                type: object
+                list:
+                  collapsible:
+                    collapsed: true
+                    summary: "{index}"
+                fields:
+                  - name: question
+                    label: Вопрос
+                    type: string
+                  - name: answer
+                    label: Ответ
+                    type: text
+          - name: related
+            label: Ссылки на другие форматы
+            type: object
+            fields:
+              - name: eyebrow
+                label: Маленькая надпись
+                type: string
+              - name: title
+                label: Заголовок
+                type: string
+              - name: links
+                label: Подписи ссылок (адреса остаются прежними)
+                type: object
+                list:
+                  collapsible:
+                    collapsed: true
+                    summary: "{index}"
+                fields:
+                  - name: text
+                    label: Подпись ссылки
+                    type: string
+          - name: final
+            label: Последний блок с фотографией
+            type: object
+            fields:
+              - name: eyebrow
+                label: Маленькая надпись
+                type: string
+              - name: title
+                label: Заголовок заявки
+                type: string
+              - name: description
+                label: Текст под заголовком
+                type: text
+              - name: button
+                label: Текст кнопки заявки
+                type: string
+      - name: newyear
+        label: НОВЫЙ ГОД
+        type: object
+        fields:
+          - name: hero
+            label: Первый экран и видео
+            type: object
+            fields:
+              - name: eyebrow
+                label: Надпись над заголовком
+                type: string
+              - name: title
+                label: Заголовок, первая часть
+                type: string
+              - name: accent
+                label: Заголовок, вторая часть
+                type: string
+              - name: description
+                label: Описание на первом экране
+                type: text
+              - name: button
+                label: Текст кнопки
+                type: string
+          - name: about
+            label: Описание формата и три карточки
+            type: object
+            fields:
+              - name: eyebrow
+                label: Маленькая надпись
+                type: string
+              - name: title
+                label: Заголовок
+                type: string
+              - name: description
+                label: Текст
+                type: text
+              - name: cards
+                label: Три карточки с преимуществами
+                type: object
+                list:
+                  collapsible:
+                    collapsed: true
+                    summary: "{index}"
+                fields:
+              - name: title
+                label: Заголовок
+                type: string
+              - name: description
+                label: Текст
+                type: text
+          - name: genres
+            label: Раздел с жанрами
+            type: object
+            fields:
+              - name: eyebrow
+                label: Маленькая надпись
+                type: string
+              - name: title
+                label: Заголовок
+                type: string
+          - name: costumes
+            label: Новогодние костюмы
+            type: object
+            fields:
+              - name: eyebrow
+                label: Маленькая надпись
+                type: string
+              - name: title
+                label: Заголовок
+                type: string
+              - name: description
+                label: Текст
+                type: text
+              - name: cards
+                label: Три карточки костюмов
+                type: object
+                list:
+                  collapsible:
+                    collapsed: true
+                    summary: "{index}"
+                fields:
+              - name: title
+                label: Заголовок
+                type: string
+              - name: description
+                label: Текст
+                type: text
+              - name: gallery_button
+                label: Текст кнопки галереи
+                type: string
+          - name: price
+            label: Блок стоимости и пояснение
+            type: object
+            fields:
+              - name: eyebrow
+                label: Маленькая надпись
+                type: string
+              - name: title
+                label: Заголовок стоимости
+                type: string
+              - name: points
+                label: Строки с ценами и условиями
+                type: object
+                list:
+                  collapsible:
+                    collapsed: true
+                    summary: "{index}"
+                fields:
+                  - name: label
+                    label: Что указано
+                    type: string
+                  - name: value
+                    label: Значение
+                    type: string
+                  - name: unit
+                    label: Единицы, если нужны
+                    type: string
+              - name: note
+                label: Примечание под стоимостью
+                type: text
+          - name: faq
+            label: Вопросы заказчиков
+            type: object
+            fields:
+              - name: eyebrow
+                label: Маленькая надпись
+                type: string
+              - name: title
+                label: Заголовок
+                type: string
+              - name: items
+                label: Вопросы и ответы
+                type: object
+                list:
+                  collapsible:
+                    collapsed: true
+                    summary: "{index}"
+                fields:
+                  - name: question
+                    label: Вопрос
+                    type: string
+                  - name: answer
+                    label: Ответ
+                    type: text
+          - name: related
+            label: Ссылки на другие форматы
+            type: object
+            fields:
+              - name: eyebrow
+                label: Маленькая надпись
+                type: string
+              - name: title
+                label: Заголовок
+                type: string
+              - name: links
+                label: Подписи ссылок (адреса остаются прежними)
+                type: object
+                list:
+                  collapsible:
+                    collapsed: true
+                    summary: "{index}"
+                fields:
+                  - name: text
+                    label: Подпись ссылки
+                    type: string
+          - name: final
+            label: Последний блок с фотографией
+            type: object
+            fields:
+              - name: eyebrow
+                label: Маленькая надпись
+                type: string
+              - name: title
+                label: Заголовок заявки
+                type: string
+              - name: description
+                label: Текст под заголовком
+                type: text
+              - name: button
+                label: Текст кнопки заявки
+                type: string
+
   - name: site_media
     label: Главный экран, форматы и артисты
     type: file
