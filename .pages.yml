@@ -255,6 +255,18 @@ content:
       - name: newyear_end_photo
         label: Финальное фото НОВЫЙ ГОД
         type: image
+      - name: raus_end_photo_mobile
+        label: РАУС - финальное фото для телефона (вертикальное)
+        type: image
+      - name: show_end_photo_mobile
+        label: ШОУ - финальное фото для телефона (вертикальное)
+        type: image
+      - name: nomera_end_photo_mobile
+        label: НОМЕРА - финальное фото для телефона (вертикальное)
+        type: image
+      - name: newyear_end_photo_mobile
+        label: НОВЫЙ ГОД - финальное фото для телефона (вертикальное)
+        type: image
       - name: format_raus
         label: Формат РАУС
         type: image
