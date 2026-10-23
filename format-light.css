@@ -885,3 +885,13 @@ section.content[aria-labelledby="new-year-costumes"] .gallery-next a:hover,
 section.content[aria-labelledby="new-year-costumes"] .gallery-next a:focus-visible{
   color:#ed082c!important;
 }
+
+/* Native mouse pointer in all div-based popups, not only native dialogs. */
+@media(hover:hover) and (pointer:fine){
+  html.club-cursor-active:has(:is(#price-overlay:not([hidden]),#media-overlay:not([hidden]),#wc-contact-overlay:not([hidden]),#request-overlay:not([hidden]))) .club-pointer{display:none!important}
+  html.club-cursor-active:has(:is(#price-overlay:not([hidden]),#media-overlay:not([hidden]),#wc-contact-overlay:not([hidden]),#request-overlay:not([hidden]))),
+  html.club-cursor-active:has(:is(#price-overlay:not([hidden]),#media-overlay:not([hidden]),#wc-contact-overlay:not([hidden]),#request-overlay:not([hidden]))) body,
+  html.club-cursor-active:has(:is(#price-overlay:not([hidden]),#media-overlay:not([hidden]),#wc-contact-overlay:not([hidden]),#request-overlay:not([hidden]))) :is(a,button,summary){cursor:auto!important}
+  html.club-cursor-active:has(:is(#price-overlay:not([hidden]),#media-overlay:not([hidden]),#wc-contact-overlay:not([hidden]),#request-overlay:not([hidden]))) :is(#price-overlay,#media-overlay,#wc-contact-overlay,#request-overlay) :is(a[href],button,summary){cursor:pointer!important}
+  html.club-cursor-active:has(:is(#price-overlay:not([hidden]),#media-overlay:not([hidden]),#wc-contact-overlay:not([hidden]),#request-overlay:not([hidden]))) :is(#price-overlay,#media-overlay,#wc-contact-overlay,#request-overlay) :is(input,textarea,select){cursor:text!important}
+}
