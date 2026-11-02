@@ -1836,3 +1836,43 @@ footer.footer.home-format-footer .seo-footer-contact svg{
     white-space:nowrap!important;
   }
 }
+
+/* Full homepage photo stream: retain the six-card desktop composition while scrolling all CMS photos. */
+@media(min-width:851px){
+  #gallery.atmosphere-cascade.atmosphere-full-gallery .gallery-film{
+    display:flex!important;
+    grid-template-columns:none!important;
+    flex-wrap:nowrap!important;
+    align-items:center!important;
+    gap:1.5%!important;
+    overflow-x:auto!important;
+    overflow-y:hidden!important;
+    scroll-snap-type:x mandatory!important;
+    scroll-behavior:smooth!important;
+    scrollbar-width:none!important;
+    -webkit-overflow-scrolling:touch;
+    padding:8px 0 15px!important;
+    box-sizing:border-box!important;
+  }
+  #gallery.atmosphere-cascade.atmosphere-full-gallery .gallery-film::-webkit-scrollbar{
+    display:none!important;
+  }
+  #gallery.atmosphere-cascade.atmosphere-full-gallery .gallery-film .shot{
+    flex:0 0 15.4%!important;
+    width:15.4%!important;
+    min-width:0!important;
+    height:95%!important;
+    scroll-snap-align:start!important;
+  }
+  #gallery.atmosphere-cascade.atmosphere-full-gallery .gallery-film .shot:nth-child(n+7){
+    display:block!important;
+  }
+  #gallery.atmosphere-cascade.atmosphere-full-gallery .gallery-film .shot:nth-child(6n+1),
+  #gallery.atmosphere-cascade.atmosphere-full-gallery .gallery-film .shot:nth-child(6n){
+    height:55%!important;
+  }
+  #gallery.atmosphere-cascade.atmosphere-full-gallery .gallery-film .shot:nth-child(6n+2),
+  #gallery.atmosphere-cascade.atmosphere-full-gallery .gallery-film .shot:nth-child(6n+5){
+    height:74%!important;
+  }
+}
