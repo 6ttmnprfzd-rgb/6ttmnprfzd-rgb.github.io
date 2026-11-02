@@ -1146,3 +1146,45 @@ document.addEventListener('click',event=>{
   if(event.metaKey || event.ctrlKey || event.shiftKey || event.altKey){event.stopPropagation();return;}
   event.preventDefault();
 },true);
+
+/* Download currently displayed gallery photo, including new CMS photos. */
+document.addEventListener('DOMContentLoaded',()=>{
+  const lightbox=document.getElementById('photo-lightbox');
+  const photo=lightbox?.querySelector('img');
+  if(!lightbox||!photo||lightbox.querySelector('.lightbox-download'))return;
+
+  const link=document.createElement('a');
+  link.className='lightbox-download';
+  link.textContent='↓ Скачать фото';
+  link.setAttribute('aria-label','Скачать открытую фотографию');
+
+  function updateDownload(){
+    const source=photo.getAttribute('src');
+    if(!source){link.removeAttribute('href');link.removeAttribute('download');return;}
+    const url=new URL(source,location.href);
+    if(url.origin!==location.origin){link.removeAttribute('href');link.removeAttribute('download');return;}
+    link.href=url.href;
+    link.download=decodeURIComponent(url.pathname.split('/').pop()||'photo.jpg');
+  }
+  new MutationObserver(updateDownload).observe(photo,{attributes:true,attributeFilter:['src']});
+  updateDownload();
+
+  const style=document.createElement('style');
+  style.textContent=[
+    '#photo-lightbox .lightbox-download{',
+    'position:absolute;left:calc(16px + env(safe-area-inset-left, 0px));',
+    'top:calc(17px + env(safe-area-inset-top, 0px));z-index:3;',
+    'display:inline-flex;align-items:center;justify-content:center;',
+    'min-height:42px;padding:9px 15px;border-radius:24px;',
+    'color:#fff;background:rgba(25,25,28,.82);',
+    'border:1px solid rgba(255,255,255,.3);',
+    'font-family:inherit;font-weight:600;font-size:13px;line-height:1.2;text-decoration:none;',
+    '-webkit-tap-highlight-color:transparent;backdrop-filter:blur(8px);cursor:pointer;',
+    '}',
+    '#photo-lightbox .lightbox-download:hover{background:rgba(65,65,69,.94)}',
+    '#photo-lightbox .lightbox-download:focus-visible{outline:2px solid #fff;outline-offset:3px}'
+  ].join('');
+  document.head.appendChild(style);
+  lightbox.appendChild(link);
+});
+
