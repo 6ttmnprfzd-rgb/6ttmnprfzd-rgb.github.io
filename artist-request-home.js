@@ -1457,3 +1457,74 @@ document.addEventListener('DOMContentLoaded',()=>{
   ].join('');
   document.head.appendChild(style);
 });
+
+/* Homepage atmosphere: use the complete CMS photo gallery, not only six covers. */
+document.addEventListener('DOMContentLoaded',()=>{
+  const section=document.getElementById('gallery');
+  const film=section?.querySelector('.gallery-film');
+  const grid=document.querySelector('#media-overlay [data-media-content="photos"] .media-grid');
+  const counter=section?.querySelector('.film-counter');
+  if(!film||!grid)return;
+  let populated=false;
+
+  function photoIndex(){
+    const cards=[...film.querySelectorAll('.shot')];
+    if(!cards.length)return 0;
+    const offset=film.scrollLeft;
+    const start=cards[0].offsetLeft;
+    let nearest=0,distance=Infinity;
+    cards.forEach((card,i)=>{
+      const delta=Math.abs(card.offsetLeft-start-offset);
+      if(delta<distance){distance=delta;nearest=i;}
+    });
+    return nearest;
+  }
+  function updateCount(){
+    if(!populated||!counter)return;
+    const total=film.querySelectorAll('.shot').length;
+    counter.textContent=String(photoIndex()+1).padStart(2,'0')+' / '+String(total).padStart(2,'0');
+  }
+  function scrollToPhoto(index){
+    const cards=[...film.querySelectorAll('.shot')];
+    if(!cards.length)return;
+    const i=(index+cards.length)%cards.length;
+    film.scrollTo({left:cards[i].offsetLeft-cards[0].offsetLeft,behavior:'smooth'});
+    if(counter)counter.textContent=String(i+1).padStart(2,'0')+' / '+String(cards.length).padStart(2,'0');
+  }
+  function syncFromCMS(){
+    const images=[...grid.querySelectorAll('.media-tile img')];
+    if(!images.length)return;
+    const fragment=document.createDocumentFragment();
+    images.forEach((source,i)=>{
+      const card=document.createElement('div');
+      card.className='shot';
+      card.setAttribute('role','button');
+      card.setAttribute('tabindex','0');
+      card.setAttribute('aria-hidden','false');
+      card.setAttribute('aria-label','Открыть фото '+(i+1)+': '+(source.alt||'Мероприятие'));
+      const img=document.createElement('img');
+      img.src=source.getAttribute('src')||source.src;
+      img.alt=source.alt||'Фотография мероприятия';
+      img.loading=i<6?'eager':'lazy';
+      card.append(img);
+      fragment.append(card);
+    });
+    film.replaceChildren(fragment);
+    film.scrollLeft=0;
+    populated=true;
+    section.classList.add('atmosphere-full-gallery');
+    updateCount();
+  }
+  document.addEventListener('cms-gallery-updated',syncFromCMS);
+  film.addEventListener('scroll',updateCount,{passive:true});
+  [['.film-prev',-1],['.film-next',1]].forEach(([selector,step])=>{
+    const button=section.querySelector(selector);
+    button?.addEventListener('click',event=>{
+      if(!populated)return;
+      event.preventDefault();
+      event.stopImmediatePropagation();
+      scrollToPhoto(photoIndex()+step);
+    },true);
+  });
+});
+
