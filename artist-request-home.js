@@ -1314,10 +1314,10 @@ document.addEventListener('DOMContentLoaded',()=>{
       dir.setUint16(6,20,true);
       dir.setUint16(8,0x0800,true);
       dir.setUint16(12,0,true);
-      dir.setUint16(16,33,true);
-      dir.setUint32(18,crc,true);
-      dir.setUint32(22,bytes.length,true);
-      dir.setUint32(26,bytes.length,true);
+      dir.setUint16(14,33,true);
+      dir.setUint32(16,crc,true);
+      dir.setUint32(20,bytes.length,true);
+      dir.setUint32(24,bytes.length,true);
       dir.setUint16(28,name.length,true);
       dir.setUint32(42,offset,true);
       central.set(name,46);
