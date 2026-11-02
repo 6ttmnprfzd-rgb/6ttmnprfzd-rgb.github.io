@@ -1160,9 +1160,12 @@ document.addEventListener('DOMContentLoaded',()=>{
  function makeImg(item){const img=document.createElement('img');img.src=imagePath(item.image);img.alt=typeof item.alt==='string'?item.alt:'';img.loading='lazy';return img}
  fetch('gallery-data.json',{cache:'no-store'}).then(response=>{if(!response.ok)throw new Error('gallery-data.json unavailable');return response.json()}).then(data=>{
   const homepage=validItems(data.homepage),photos=validItems(data.photos);
+  const bulk=Array.isArray(data.bulk_photos)?data.bulk_photos.map(image=>({image,alt:'Фотография цирковой команды'})).filter(item=>imagePath(item.image)):[];
+  const seen=new Set();
+  const fullGallery=[...photos,...bulk].filter(item=>{const path=imagePath(item.image);if(!path||seen.has(path))return false;seen.add(path);return true});
   if(homepage.length){gallery.replaceChildren(...homepage.map(item=>{const shot=document.createElement('div');shot.className='shot';shot.append(makeImg(item));return shot}));bindSlides()}
-  if(Array.isArray(data.photos)){
-   grid.replaceChildren(...photos.map(item=>{const btn=document.createElement('button');btn.type='button';btn.className='media-tile';btn.setAttribute('aria-label','Открыть фотографию: '+(item.alt||'Фотография'));btn.append(makeImg(item));return btn}));
+  if(Array.isArray(data.photos)||Array.isArray(data.bulk_photos)){
+   grid.replaceChildren(...fullGallery.map(item=>{const btn=document.createElement('button');btn.type='button';btn.className='media-tile';btn.setAttribute('aria-label','Открыть фотографию: '+(item.alt||'Фотография'));btn.append(makeImg(item));return btn}));
    document.dispatchEvent(new Event('cms-gallery-updated'));
   }
  }).catch(error=>console.warn('Using built-in photo gallery because CMS data could not load:',error));
