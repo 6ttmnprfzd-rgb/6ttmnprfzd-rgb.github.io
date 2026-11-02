@@ -1776,3 +1776,17 @@ footer.footer.home-format-footer .seo-footer-contact svg{
   outline:2px solid #ed082c;
   outline-offset:3px;
 }
+
+/* Home mobile menu: align Contacts as numbered item 07. */
+@media(max-width:850px){
+  header.top .mobile-menu-panel > a[data-contacts-open]::before{
+    content:"07"!important;
+    display:block!important;
+    flex:0 0 20px!important;
+    font:900 11px/1 Arial,Helvetica,sans-serif!important;
+    font-style:normal!important;
+    letter-spacing:0!important;
+    color:#ed082c!important;
+    transform:none!important;
+  }
+}
