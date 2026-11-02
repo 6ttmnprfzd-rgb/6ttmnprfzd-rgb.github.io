@@ -1405,3 +1405,53 @@ document.addEventListener('DOMContentLoaded',()=>{
     });
   });
 });
+
+/* Keep the gallery close control visible alongside the floating media tabs. */
+document.addEventListener('DOMContentLoaded',()=>{
+  const overlay=document.getElementById('media-overlay');
+  const panel=overlay?.querySelector('.media-panel');
+  const tabs=panel?.querySelector('.media-tabs');
+  const originalClose=panel?.querySelector('.media-head .media-close');
+  if(!panel||!tabs||!originalClose||panel.querySelector('.media-floating-controls'))return;
+
+  const controls=document.createElement('div');
+  controls.className='media-floating-controls';
+  const close=document.createElement('button');
+  close.type='button';
+  close.className='media-floating-close';
+  close.setAttribute('aria-label','Закрыть галерею');
+  close.textContent='×';
+  close.addEventListener('click',()=>originalClose.click());
+  tabs.parentNode.insertBefore(controls,tabs);
+  controls.append(tabs,close);
+
+  const style=document.createElement('style');
+  style.textContent=[
+    '#media-overlay .media-panel .media-floating-controls{',
+    'position:sticky;top:0;z-index:36;',
+    'display:flex;align-items:flex-start;justify-content:space-between;',
+    'gap:10px;margin:0 0 14px;pointer-events:none;',
+    '}',
+    '#media-overlay .media-panel .media-floating-controls > .media-tabs{',
+    'position:static!important;top:auto!important;',
+    'margin:0!important;pointer-events:auto;',
+    '}',
+    '#media-overlay .media-floating-close{',
+    'flex:0 0 44px;width:44px;height:44px;border-radius:50%;',
+    'display:grid;place-items:center;padding:0;',
+    'border:1px solid rgba(255,255,255,.32);',
+    'background:rgba(29,28,34,.87);color:#fff;',
+    'font-family:inherit;font-size:28px;line-height:1;font-weight:400;',
+    'box-shadow:0 7px 24px rgba(0,0,0,.26);',
+    'backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);',
+    'cursor:pointer;pointer-events:auto;',
+    '}',
+    '#media-overlay .media-floating-close:hover{background:rgba(58,56,63,.95)}',
+    '#media-overlay .media-floating-close:focus-visible{outline:2px solid #ff6078;outline-offset:3px}',
+    '@media(max-width:650px){',
+    '#media-overlay .media-floating-controls{gap:7px}',
+    '#media-overlay .media-floating-close{flex-basis:42px;width:42px;height:42px}',
+    '}'
+  ].join('');
+  document.head.appendChild(style);
+});
