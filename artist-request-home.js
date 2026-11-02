@@ -1466,23 +1466,26 @@ document.addEventListener('DOMContentLoaded',()=>{
   const counter=section?.querySelector('.film-counter');
   if(!film||!grid)return;
   let populated=false;
+  let activeIndex=-1;
+  let scrollScheduled=false;
 
   function photoIndex(){
-    const cards=[...film.querySelectorAll('.shot')];
+    const cards=film.querySelectorAll('.shot');
     if(!cards.length)return 0;
-    const offset=film.scrollLeft;
-    const start=cards[0].offsetLeft;
-    let nearest=0,distance=Infinity;
-    cards.forEach((card,i)=>{
-      const delta=Math.abs(card.offsetLeft-start-offset);
-      if(delta<distance){distance=delta;nearest=i;}
-    });
-    return nearest;
+    const stride=cards.length>1?cards[1].offsetLeft-cards[0].offsetLeft:0;
+    return stride>0?Math.max(0,Math.min(cards.length-1,Math.round(film.scrollLeft/stride))):0;
   }
   function updateCount(){
-    if(!populated||!counter)return;
-    const total=film.querySelectorAll('.shot').length;
-    counter.textContent=String(photoIndex()+1).padStart(2,'0')+' / '+String(total).padStart(2,'0');
+    if(!populated)return;
+    const cards=film.querySelectorAll('.shot');
+    if(!cards.length)return;
+    const nextIndex=photoIndex();
+    if(nextIndex!==activeIndex){
+      if(activeIndex>=0)cards[activeIndex]?.classList.remove('is-spotlight');
+      cards[nextIndex]?.classList.add('is-spotlight');
+      activeIndex=nextIndex;
+    }
+    if(counter)counter.textContent=String(nextIndex+1).padStart(2,'0')+' / '+String(cards.length).padStart(2,'0');
   }
   function scrollToPhoto(index){
     const cards=[...film.querySelectorAll('.shot')];
@@ -1512,11 +1515,19 @@ document.addEventListener('DOMContentLoaded',()=>{
     film.replaceChildren(fragment);
     film.scrollLeft=0;
     populated=true;
+    activeIndex=-1;
     section.classList.add('atmosphere-full-gallery');
     updateCount();
   }
   document.addEventListener('cms-gallery-updated',syncFromCMS);
-  film.addEventListener('scroll',updateCount,{passive:true});
+  film.addEventListener('scroll',()=>{
+    if(scrollScheduled)return;
+    scrollScheduled=true;
+    requestAnimationFrame(()=>{
+      scrollScheduled=false;
+      updateCount();
+    });
+  },{passive:true});
   [['.film-prev',-1],['.film-next',1]].forEach(([selector,step])=>{
     const button=section.querySelector(selector);
     button?.addEventListener('click',event=>{
