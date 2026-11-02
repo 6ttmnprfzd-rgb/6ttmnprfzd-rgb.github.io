@@ -1949,3 +1949,56 @@ footer.footer.home-format-footer .seo-footer-contact svg{
     gap:8px!important;
   }
 }
+
+/* Gallery recovery: keep the homepage photos visible on iPhone even before CMS JavaScript completes. */
+@media(max-width:850px){
+  #gallery .gallery-film{
+    position:relative!important;
+    display:flex!important;
+    align-items:center!important;
+    flex-wrap:nowrap!important;
+    gap:12px!important;
+    width:100%!important;
+    height:clamp(330px,99vw,470px)!important;
+    padding:18px 12% 24px!important;
+    overflow-x:auto!important;
+    overflow-y:hidden!important;
+    scroll-snap-type:x mandatory!important;
+    scroll-padding-inline:12%!important;
+    scrollbar-width:none!important;
+    box-sizing:border-box!important;
+  }
+  #gallery .gallery-film .shot,
+  #gallery .gallery-film .shot:first-child,
+  #gallery .gallery-film .shot:nth-child(4){
+    position:relative!important;
+    display:block!important;
+    visibility:visible!important;
+    top:auto!important;
+    left:auto!important;
+    flex:0 0 76%!important;
+    width:76%!important;
+    height:87%!important;
+    min-width:0!important;
+    margin:0!important;
+    opacity:.86!important;
+    filter:none!important;
+    transform:translateY(18px) scale(.88)!important;
+    scroll-snap-align:center!important;
+    pointer-events:auto!important;
+    z-index:1!important;
+  }
+  #gallery .gallery-film .shot.is-spotlight{
+    opacity:1!important;
+    transform:translateY(-6px) scale(1)!important;
+    z-index:3!important;
+  }
+  #gallery .gallery-film .shot img{
+    display:block!important;
+    visibility:visible!important;
+    opacity:1!important;
+    width:100%!important;
+    height:100%!important;
+    object-fit:cover!important;
+  }
+}
