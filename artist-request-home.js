@@ -1240,3 +1240,149 @@ document.addEventListener('DOMContentLoaded',()=>{
   new MutationObserver(addVideoDownloads).observe(library,{childList:true});
 });
 
+/* Build a ZIP of all published CMS gallery photos on demand. */
+document.addEventListener('DOMContentLoaded',()=>{
+  const photosPanel=document.querySelector('#media-overlay [data-media-content="photos"]');
+  const grid=photosPanel?.querySelector('.media-grid');
+  if(!photosPanel||!grid||photosPanel.querySelector('.gallery-zip-download'))return;
+
+  const button=document.createElement('button');
+  button.type='button';
+  button.className='gallery-zip-download';
+  button.textContent='↓ Скачать все фото (ZIP)';
+  button.setAttribute('aria-label','Скачать все фотографии галереи одним ZIP-архивом');
+  photosPanel.insertBefore(button,grid);
+
+  const style=document.createElement('style');
+  style.textContent=[
+    '#media-overlay .gallery-zip-download{',
+    'display:inline-flex;align-items:center;justify-content:center;',
+    'margin:0 0 18px;padding:12px 17px;min-height:43px;',
+    'border-radius:25px;border:1px solid rgba(255,255,255,.28);',
+    'background:rgba(30,30,33,.94);color:#fff;',
+    'font-family:inherit;font-size:13px;font-weight:700;line-height:1.2;',
+    'cursor:pointer;-webkit-tap-highlight-color:transparent;',
+    '}',
+    '#media-overlay .gallery-zip-download:hover{background:#424247}',
+    '#media-overlay .gallery-zip-download:focus-visible{outline:2px solid #ed082c;outline-offset:3px}',
+    '#media-overlay .gallery-zip-download:disabled{opacity:.7;cursor:wait}'
+  ].join('');
+  document.head.appendChild(style);
+
+  const crcTable=new Uint32Array(256);
+  for(let i=0;i<256;i++){
+    let n=i;
+    for(let j=0;j<8;j++)n=(n&1)?(0xedb88320^(n>>>1)):(n>>>1);
+    crcTable[i]=n>>>0;
+  }
+  function crc32(bytes){
+    let crc=0xffffffff;
+    for(const b of bytes)crc=crcTable[(crc^b)&255]^(crc>>>8);
+    return (crc^0xffffffff)>>>0;
+  }
+  function validImage(value){
+    if(typeof value!=='string')return null;
+    const path=value.replace(/^\/+/,'');
+    return /^images\/[a-zA-Z0-9_./-]+$/.test(path)&&!path.includes('..')?path:null;
+  }
+  function zipPhotos(files){
+    const encoder=new TextEncoder();
+    const chunks=[],directory=[];
+    let offset=0,directoryLength=0;
+    for(const file of files){
+      const name=encoder.encode(file.name);
+      const bytes=file.bytes;
+      const crc=crc32(bytes);
+      const local=new Uint8Array(30+name.length);
+      const head=new DataView(local.buffer);
+      head.setUint32(0,0x04034b50,true);
+      head.setUint16(4,20,true);
+      head.setUint16(6,0x0800,true);
+      head.setUint16(8,0,true);
+      head.setUint16(12,33,true);
+      head.setUint32(14,crc,true);
+      head.setUint32(18,bytes.length,true);
+      head.setUint32(22,bytes.length,true);
+      head.setUint16(26,name.length,true);
+      local.set(name,30);
+      chunks.push(local,bytes);
+
+      const central=new Uint8Array(46+name.length);
+      const dir=new DataView(central.buffer);
+      dir.setUint32(0,0x02014b50,true);
+      dir.setUint16(4,20,true);
+      dir.setUint16(6,20,true);
+      dir.setUint16(8,0x0800,true);
+      dir.setUint16(12,0,true);
+      dir.setUint16(16,33,true);
+      dir.setUint32(18,crc,true);
+      dir.setUint32(22,bytes.length,true);
+      dir.setUint32(26,bytes.length,true);
+      dir.setUint16(28,name.length,true);
+      dir.setUint32(42,offset,true);
+      central.set(name,46);
+      directory.push(central);
+      directoryLength+=central.length;
+      offset+=local.length+bytes.length;
+    }
+    const end=new Uint8Array(22);
+    const footer=new DataView(end.buffer);
+    footer.setUint32(0,0x06054b50,true);
+    footer.setUint16(8,files.length,true);
+    footer.setUint16(10,files.length,true);
+    footer.setUint32(12,directoryLength,true);
+    footer.setUint32(16,offset,true);
+    return new Blob([...chunks,...directory,end],{type:'application/zip'});
+  }
+
+  button.addEventListener('click',async()=>{
+    if(button.disabled)return;
+    button.disabled=true;
+    try{
+      button.textContent='Подготавливаем фотографии...';
+      const listResponse=await fetch('gallery-data.json',{cache:'no-store'});
+      if(!listResponse.ok)throw Error('Gallery list unavailable');
+      const gallery=await listResponse.json();
+      if(!Array.isArray(gallery.photos))throw Error('Invalid gallery list');
+      const paths=[...new Set(gallery.photos.map(item=>validImage(item?.image)).filter(Boolean))];
+      if(!paths.length||paths.length>500)throw Error('Invalid photo count');
+
+      const files=new Array(paths.length);
+      let next=0,finished=0,totalBytes=0;
+      const worker=async()=>{
+        while(next<paths.length){
+          const i=next++;
+          const response=await fetch(paths[i],{cache:'default'});
+          if(!response.ok)throw Error('Photo unavailable: '+paths[i]);
+          const bytes=new Uint8Array(await response.arrayBuffer());
+          totalBytes+=bytes.length;
+          if(totalBytes>150*1024*1024)throw Error('Gallery too large for browser ZIP');
+          files[i]={
+            name:String(i+1).padStart(3,'0')+'-'+paths[i].split('/').pop(),
+            bytes
+          };
+          finished++;
+          button.textContent='Загружаем фото: '+finished+' / '+paths.length;
+        }
+      };
+      await Promise.all(Array.from({length:Math.min(4,paths.length)},()=>worker()));
+      button.textContent='Собираем ZIP...';
+      const archive=zipPhotos(files);
+      const url=URL.createObjectURL(archive);
+      const link=document.createElement('a');
+      link.href=url;
+      link.download='nogi-v-ruki-photos.zip';
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      setTimeout(()=>URL.revokeObjectURL(url),60000);
+    }catch(error){
+      console.error('Gallery ZIP download failed:',error);
+      alert('Не удалось скачать все фотографии. Попробуйте ещё раз или скачайте нужные фото по отдельности.');
+    }finally{
+      button.disabled=false;
+      button.textContent='↓ Скачать все фото (ZIP)';
+    }
+  });
+});
+
