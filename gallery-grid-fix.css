@@ -1928,3 +1928,24 @@ footer.footer.home-format-footer .seo-footer-contact svg{
     transition:none!important;
   }
 }
+
+/* Desktop gallery: show existing arrows and count to make the full photo stream discoverable. */
+@media(min-width:851px){
+  #gallery.atmosphere-cascade.atmosphere-full-gallery .film-controls{
+    display:flex!important;
+    align-items:center!important;
+    justify-content:flex-end!important;
+    gap:18px!important;
+    margin:0 0 8px!important;
+  }
+  #gallery.atmosphere-cascade.atmosphere-full-gallery .film-counter{
+    display:inline-block!important;
+    font:700 12px/1.2 Arial,Helvetica,sans-serif!important;
+    letter-spacing:.03em!important;
+    color:#555056!important;
+  }
+  #gallery.atmosphere-cascade.atmosphere-full-gallery .film-buttons{
+    display:flex!important;
+    gap:8px!important;
+  }
+}
