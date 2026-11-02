@@ -1163,7 +1163,17 @@ document.addEventListener('DOMContentLoaded',()=>{
   const bulk=Array.isArray(data.bulk_photos)?data.bulk_photos.map(image=>({image,alt:'Фотография цирковой команды'})).filter(item=>imagePath(item.image)):[];
   const seen=new Set();
   const fullGallery=[...photos,...bulk].filter(item=>{const path=imagePath(item.image);if(!path||seen.has(path))return false;seen.add(path);return true});
-  if(homepage.length){gallery.replaceChildren(...homepage.map(item=>{const shot=document.createElement('div');shot.className='shot';shot.append(makeImg(item));return shot}));bindSlides()}
+  // On phones, keep the six selected covers first, then continue through
+  // the full CMS library in the same floating/swipeable carousel.
+  const mobileSeen=new Set();
+  const mobileStream=[...homepage,...fullGallery].filter(item=>{
+   const path=imagePath(item.image);
+   if(!path||mobileSeen.has(path))return false;
+   mobileSeen.add(path);
+   return true;
+  });
+  const homepageStream=window.matchMedia('(max-width:850px)').matches?mobileStream:homepage;
+  if(homepage.length){gallery.replaceChildren(...homepageStream.map(item=>{const shot=document.createElement('div');shot.className='shot';shot.append(makeImg(item));return shot}));bindSlides()}
   if(Array.isArray(data.photos)||Array.isArray(data.bulk_photos)){
    grid.replaceChildren(...fullGallery.map(item=>{const btn=document.createElement('button');btn.type='button';btn.className='media-tile';btn.setAttribute('aria-label','Открыть фотографию: '+(item.alt||'Фотография'));btn.append(makeImg(item));return btn}));
    document.dispatchEvent(new Event('cms-gallery-updated'));
