@@ -2002,3 +2002,10 @@ footer.footer.home-format-footer .seo-footer-contact svg{
     object-fit:cover!important;
   }
 }
+
+/* Keep every gallery video download link visible on desktop, not only on hover. */
+#media-overlay .video-library .video-card .video-download{
+  opacity:1!important;
+  visibility:visible!important;
+  pointer-events:auto!important;
+}
