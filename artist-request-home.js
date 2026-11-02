@@ -1188,3 +1188,55 @@ document.addEventListener('DOMContentLoaded',()=>{
   lightbox.appendChild(link);
 });
 
+/* Download links for each video, including newly added CMS videos. */
+document.addEventListener('DOMContentLoaded',()=>{
+  const library=document.querySelector('#media-overlay [data-media-content="videos"] .video-library');
+  if(!library)return;
+
+  function addVideoDownloads(){
+    library.querySelectorAll('.video-card').forEach((card,i)=>{
+      if(card.querySelector('.video-download'))return;
+      const videoButton=card.querySelector('.video-cover[data-video]');
+      if(!videoButton)return;
+      const source=videoButton.dataset.video;
+      if(!source)return;
+      const url=new URL(source,location.href);
+      if(url.origin!==location.origin)return;
+
+      const link=document.createElement('a');
+      link.className='video-download';
+      link.href=url.href;
+      link.download=decodeURIComponent(url.pathname.split('/').pop()||('video-'+(i+1)+'.mp4'));
+      link.setAttribute('aria-label','Скачать видео '+(i+1));
+      link.textContent='↓ Скачать';
+      link.addEventListener('click',event=>event.stopPropagation());
+      card.appendChild(link);
+    });
+  }
+
+  const style=document.createElement('style');
+  style.textContent=[
+    '#media-overlay .video-card{position:relative}',
+    '#media-overlay .video-download{',
+    'position:absolute;top:12px;right:12px;z-index:2;',
+    'display:inline-flex;align-items:center;justify-content:center;',
+    'min-height:38px;padding:8px 12px;border-radius:20px;',
+    'background:rgba(25,25,28,.85);color:#fff;',
+    'border:1px solid rgba(255,255,255,.32);',
+    'font-family:inherit;font-size:12px;font-weight:700;line-height:1.2;text-decoration:none;',
+    'backdrop-filter:blur(8px);-webkit-tap-highlight-color:transparent;',
+    '}',
+    '#media-overlay .video-download:hover{background:rgba(65,65,69,.95)}',
+    '#media-overlay .video-download:focus-visible{outline:2px solid #fff;outline-offset:2px}',
+    '@media(hover:hover) and (pointer:fine){',
+    '#media-overlay .video-download{opacity:0;pointer-events:none;transition:opacity .18s ease}',
+    '#media-overlay .video-card:hover .video-download,',
+    '#media-overlay .video-card:focus-within .video-download{opacity:1;pointer-events:auto}',
+    '}'
+  ].join('');
+  document.head.appendChild(style);
+
+  addVideoDownloads();
+  new MutationObserver(addVideoDownloads).observe(library,{childList:true});
+});
+
