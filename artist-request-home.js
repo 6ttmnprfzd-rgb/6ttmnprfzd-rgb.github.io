@@ -1344,7 +1344,9 @@ document.addEventListener('DOMContentLoaded',()=>{
       if(!listResponse.ok)throw Error('Gallery list unavailable');
       const gallery=await listResponse.json();
       if(!Array.isArray(gallery.photos))throw Error('Invalid gallery list');
-      const paths=[...new Set(gallery.photos.map(item=>validImage(item?.image)).filter(Boolean))];
+      const individual=gallery.photos.map(item=>validImage(item?.image));
+      const bulk=Array.isArray(gallery.bulk_photos)?gallery.bulk_photos.map(validImage):[];
+      const paths=[...new Set([...individual,...bulk].filter(Boolean))];
       if(!paths.length||paths.length>500)throw Error('Invalid photo count');
 
       const files=new Array(paths.length);
