@@ -1790,3 +1790,49 @@ footer.footer.home-format-footer .seo-footer-contact svg{
     transform:none!important;
   }
 }
+
+/* Light frosted floating gallery controls - approved mobile preview. */
+#media-overlay .media-panel .media-floating-controls > .media-tabs{
+  background:rgba(244,240,243,.83)!important;
+  border:1px solid rgba(255,255,255,.78)!important;
+  border-bottom:1px solid rgba(255,255,255,.78)!important;
+  box-shadow:0 8px 26px rgba(0,0,0,.20),inset 0 1px 0 rgba(255,255,255,.46)!important;
+  -webkit-backdrop-filter:blur(22px) saturate(130%)!important;
+  backdrop-filter:blur(22px) saturate(130%)!important;
+}
+#media-overlay .media-panel .media-floating-controls > .media-tabs .media-tab{
+  background:rgba(255,255,255,.72)!important;
+  border:1px solid rgba(255,255,255,.35)!important;
+  color:#1b191d!important;
+  transition:background .18s ease,color .18s ease!important;
+}
+#media-overlay .media-panel .media-floating-controls > .media-tabs .media-tab[aria-selected="true"]{
+  background:#ed082c!important;
+  color:#fff!important;
+  border-color:#ed082c!important;
+}
+#media-overlay .media-panel .media-floating-controls > .media-tabs .media-tab:not([aria-selected="true"]):hover{
+  background:#fff!important;
+}
+#media-overlay .media-panel .media-floating-close{
+  background:rgba(250,248,249,.93)!important;
+  color:#161419!important;
+  border:1px solid rgba(255,255,255,.82)!important;
+  box-shadow:0 8px 25px rgba(0,0,0,.20),inset 0 1px 0 rgba(255,255,255,.5)!important;
+  -webkit-backdrop-filter:blur(22px) saturate(130%)!important;
+  backdrop-filter:blur(22px) saturate(130%)!important;
+}
+#media-overlay .media-panel .media-floating-close:hover{
+  background:#fff!important;
+}
+@media(max-width:650px){
+  #media-overlay .media-panel .media-floating-controls > .media-tabs{
+    padding:4px!important;
+    max-width:calc(100% - 52px)!important;
+  }
+  #media-overlay .media-panel .media-floating-controls > .media-tabs .media-tab{
+    padding:12px 13px!important;
+    font-size:12px!important;
+    white-space:nowrap!important;
+  }
+}
