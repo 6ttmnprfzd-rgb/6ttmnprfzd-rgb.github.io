@@ -1466,7 +1466,9 @@ document.addEventListener('DOMContentLoaded',()=>{
   const film=section?.querySelector('.gallery-film');
   const grid=document.querySelector('#media-overlay [data-media-content="photos"] .media-grid');
   const counter=section?.querySelector('.film-counter');
-  if(!film||!grid)return;
+  // Keep the original six-photo floating carousel on phones. The complete CMS
+  // library belongs in the gallery modal, not the mobile homepage stack.
+  if(!film||!grid||window.matchMedia('(max-width:850px)').matches)return;
   let populated=false;
   let activeIndex=-1;
   let scrollScheduled=false;
