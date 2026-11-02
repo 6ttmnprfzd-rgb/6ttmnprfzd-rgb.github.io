@@ -194,6 +194,15 @@ content:
           - name: alt
             label: Описание
             type: string
+      - name: bulk_photos
+        label: Загрузить сразу несколько фотографий
+        type: image
+        options:
+          multiple:
+            max: 300
+          unique: true
+          rename: random
+          extensions: [jpg, jpeg, png, webp]
 
   - name: videos
     label: Видео сайта
