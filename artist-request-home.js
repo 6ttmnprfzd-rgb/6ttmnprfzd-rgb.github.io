@@ -1386,3 +1386,22 @@ document.addEventListener('DOMContentLoaded',()=>{
   });
 });
 
+/* Gallery tabs: return to the beginning of the selected media list. */
+document.addEventListener('DOMContentLoaded',()=>{
+  const overlay=document.getElementById('media-overlay');
+  const panel=overlay?.querySelector('.media-panel');
+  const tabs=overlay?.querySelector('.media-tabs');
+  if(!panel||!tabs)return;
+  tabs.querySelectorAll('[data-media-tab]').forEach(tab=>{
+    tab.addEventListener('click',()=>{
+      const target=overlay.querySelector('[data-media-content="'+tab.dataset.mediaTab+'"]');
+      if(!target)return;
+      requestAnimationFrame(()=>{
+        const first=target.querySelector('.video-card, .media-tile')||target;
+        const stickyHeight=tabs.getBoundingClientRect().height;
+        const desired=panel.scrollTop+first.getBoundingClientRect().top-panel.getBoundingClientRect().top-stickyHeight-12;
+        panel.scrollTop=Math.max(0,desired);
+      });
+    });
+  });
+});
