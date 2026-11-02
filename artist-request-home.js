@@ -1424,9 +1424,11 @@ document.addEventListener('DOMContentLoaded',()=>{
   close.addEventListener('click',()=>originalClose.click());
   tabs.parentNode.insertBefore(controls,tabs);
   controls.append(tabs,close);
+  overlay.classList.add('has-floating-close');
 
   const style=document.createElement('style');
   style.textContent=[
+    '#media-overlay.has-floating-close .media-head .media-close{display:none!important}',
     '#media-overlay .media-panel .media-floating-controls{',
     'position:sticky;top:0;z-index:36;',
     'display:flex;align-items:flex-start;justify-content:space-between;',
