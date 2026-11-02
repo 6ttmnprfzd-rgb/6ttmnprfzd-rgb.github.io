@@ -1161,8 +1161,18 @@ document.addEventListener('DOMContentLoaded',()=>{
  fetch('gallery-data.json',{cache:'no-store'}).then(response=>{if(!response.ok)throw new Error('gallery-data.json unavailable');return response.json()}).then(data=>{
   const homepage=validItems(data.homepage),photos=validItems(data.photos);
   const bulk=Array.isArray(data.bulk_photos)?data.bulk_photos.map(image=>({image,alt:'Фотография цирковой команды'})).filter(item=>imagePath(item.image)):[];
+  // Keep all CMS and bulk-uploaded photos in one balanced sequence instead
+  // of showing the first collection and then the second one.
+  const mixed=[];
+  let curatedIndex=0,bulkIndex=0;
+  const total=photos.length+bulk.length;
+  for(let i=0;i<total;i++){
+   const curatedTarget=Math.ceil((i+1)*photos.length/total);
+   const takeCurated=curatedIndex<photos.length&&(bulkIndex>=bulk.length||curatedIndex<curatedTarget);
+   mixed.push(takeCurated?photos[curatedIndex++]:bulk[bulkIndex++]);
+  }
   const seen=new Set();
-  const fullGallery=[...photos,...bulk].filter(item=>{const path=imagePath(item.image);if(!path||seen.has(path))return false;seen.add(path);return true});
+  const fullGallery=mixed.filter(item=>{const path=imagePath(item.image);if(!path||seen.has(path))return false;seen.add(path);return true});
   // On phones, keep the six selected covers first, then continue through
   // the full CMS library in the same floating/swipeable carousel.
   const mobileSeen=new Set();
