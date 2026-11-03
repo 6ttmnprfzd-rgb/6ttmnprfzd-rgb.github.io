@@ -1,4 +1,4 @@
-/* Load each format page's own hero video from Pages CMS; leave other videos untouched. */
+/* Start each format hero immediately from HTML, then sync changes made in Pages CMS. */
 (()=>{
  'use strict';
  const hero=document.querySelector('.format-video-hero[data-video-field]');
@@ -11,20 +11,30 @@
    !path.includes('..');
  video.muted=true;
  video.playsInline=true;
+ video.setAttribute('webkit-playsinline','');
+ const reducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)');
+ const tryPlay=()=>{
+   if(reducedMotion.matches||document.hidden)return;
+   const attempt=video.play();
+   if(attempt&&typeof attempt.catch==='function')attempt.catch(()=>{});
+ };
  video.addEventListener('canplay',()=>{
    hero.classList.add('has-video');
-   if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
-     const attempt=video.play();
-     if(attempt&&typeof attempt.catch==='function')attempt.catch(()=>{});
-   }
- },{once:true});
+   tryPlay();
+ });
  video.addEventListener('error',()=>hero.classList.remove('has-video'));
+ window.addEventListener('pageshow',tryPlay);
+ document.addEventListener('visibilitychange',()=>{if(!document.hidden)tryPlay()});
  fetch('/site-media.json',{cache:'no-store'})
   .then(r=>{if(!r.ok)throw Error('site-media.json unavailable');return r.json()})
   .then(data=>{
     if(!data||!validPath(data[key]))return;
-    video.src='/'+data[key].trim();
-    video.load();
+    const nextSrc='/'+data[key].trim();
+    if(video.getAttribute('src')!==nextSrc){
+      hero.classList.remove('has-video');
+      video.src=nextSrc;
+      video.load();
+    }
   })
   .catch(err=>console.warn('Format hero uses poster image:',err));
 })();
