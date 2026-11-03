@@ -233,6 +233,7 @@
         const src=safePath(entry.cover,'images')||safePath(entry.cover,'videos');
         if(src)cover.src=src;
         b.append(cover,element('span','video-cover-play','▶'));
+        b.dataset.video=safePath(entry.video,'videos')||'';
         b.addEventListener('click',()=>viewVideo(safePath(entry.video,'videos')));
         const desc=element('div','video-card-info');
         desc.appendChild(element('strong','',entry.title||'Выступление'));
@@ -272,3 +273,154 @@
     });
   });
 })();
+
+
+/* Format gallery: homepage controls and downloads. */
+document.addEventListener('DOMContentLoaded',()=>{
+  'use strict';
+  const overlay=document.getElementById('media-overlay');
+  const panel=overlay?.querySelector('.media-panel');
+  const tabs=panel?.querySelector('.media-tabs');
+  const closeOriginal=panel?.querySelector('.media-head .media-close');
+  const photos=panel?.querySelector('[data-media-content="photos"]');
+  const grid=photos?.querySelector('.media-grid');
+  const videos=panel?.querySelector('[data-media-content="videos"] .video-library');
+  if(!overlay||!panel||!tabs||!closeOriginal||!grid||!videos)return;
+  const bar=document.createElement('div');
+  bar.className='media-floating-controls';
+  const close=document.createElement('button');
+  close.type='button';close.className='media-floating-close';
+  close.textContent='×';close.setAttribute('aria-label','Закрыть галерею');
+  close.addEventListener('click',()=>closeOriginal.click());
+  tabs.before(bar);bar.append(tabs,close);
+  panel.classList.add('media-has-floating-controls');
+  const style=document.createElement('style');
+  style.textContent=[
+    '#media-overlay .media-panel .media-floating-controls{position:sticky;top:0;z-index:36;display:flex;align-items:center;justify-content:space-between;width:100%;gap:10px;margin:0 0 16px;pointer-events:none}',
+    '#media-overlay .media-panel .media-floating-controls>.media-tabs{position:static!important;top:auto!important;flex:0 1 auto;margin:0!important;pointer-events:auto}',
+    '#media-overlay .media-has-floating-controls .media-head .media-close{display:none!important}',
+    '#media-overlay .media-floating-close{flex:0 0 44px;width:44px;height:44px;display:grid;place-items:center;border-radius:50%;border:1px solid rgba(255,255,255,.32);background:rgba(29,28,34,.9);color:#fff;font:400 28px/1 Arial,sans-serif;cursor:pointer;pointer-events:auto;box-shadow:0 7px 24px #0004;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}',
+    'html body #media-overlay .media-panel .media-tabs .media-tab[aria-selected="true"]{background:#ed082c!important;border-color:#ed082c!important;color:white!important;box-shadow:0 3px 14px #ed082c55}',
+    '#media-overlay .gallery-zip-download{display:inline-flex;align-items:center;justify-content:center;margin:0 0 18px;padding:12px 17px;min-height:43px;border-radius:25px;border:1px solid #ffffff47;background:#1e1e21;color:white;font:700 13px/1.2 Arial,sans-serif;cursor:pointer}',
+    '#media-overlay .gallery-zip-download:disabled{opacity:.72;cursor:wait}',
+    '#media-overlay .video-card{position:relative}',
+    '#media-overlay .video-download{position:absolute;top:12px;right:12px;z-index:2;display:inline-flex;align-items:center;justify-content:center;min-height:38px;padding:8px 12px;border-radius:20px;color:#fff;background:#19191cdd;border:1px solid #ffffff52;font:700 12px/1.2 Arial,sans-serif;text-decoration:none}',
+    '.format-pop-media .format-pop-download{position:absolute;left:16px;top:14px;z-index:3;min-height:42px;padding:10px 15px;border-radius:24px;display:inline-flex;align-items:center;justify-content:center;background:#19191cdd;color:#fff;text-decoration:none;border:1px solid #ffffff55;font:700 13px/1.2 Arial,sans-serif}',
+    '.format-pop-media .format-pop-download[hidden]{display:none!important}',
+    '@media(max-width:650px){#media-overlay .media-floating-close{flex-basis:42px;width:42px;height:42px}#media-overlay .media-panel .media-floating-controls{gap:7px}}'
+  ].join('');
+  document.head.appendChild(style);
+
+  // The viewer remains on this page; the download is for its current image.
+  const viewer=document.querySelector('.format-pop-media');
+  const viewerBody=viewer?.querySelector('div');
+  if(viewer&&viewerBody){
+    const link=document.createElement('a');link.className='format-pop-download';
+    link.textContent='↓ Скачать фото';link.hidden=true;viewer.appendChild(link);
+    function syncPhoto(){
+      const src=viewerBody.querySelector('img')?.getAttribute('src');
+      const valid=typeof src==='string'&&/^\/images\/[A-Za-z0-9_.-]+$/.test(src);
+      link.hidden=!valid;
+      if(valid){link.href=src;link.download=src.split('/').pop();}
+      else link.removeAttribute('href');
+    }
+    new MutationObserver(syncPhoto).observe(viewerBody,{childList:true});
+    viewer.addEventListener('close',()=>{link.hidden=true});
+  }
+
+  // New video thumbnails loaded from the CMS receive a direct download link.
+  function addVideoDownloads(){
+    for(const card of videos.querySelectorAll('.video-card')){
+      if(card.querySelector('.video-download'))continue;
+      const src=card.querySelector('.video-cover')?.dataset.video;
+      if(typeof src!=='string'||!/^\/videos\/[A-Za-z0-9_.-]+$/.test(src))continue;
+      const link=document.createElement('a');link.className='video-download';
+      link.href=src;link.download=src.split('/').pop();link.textContent='↓ Скачать';
+      link.setAttribute('aria-label','Скачать видео');
+      link.addEventListener('click',event=>event.stopPropagation());
+      card.appendChild(link);
+    }
+  }
+  new MutationObserver(addVideoDownloads).observe(videos,{childList:true});
+  addVideoDownloads();
+
+  if(photos.querySelector('.gallery-zip-download'))return;
+  const button=document.createElement('button');
+  button.type='button';button.className='gallery-zip-download';
+  button.textContent='↓ Скачать все фото (ZIP)';
+  button.setAttribute('aria-label','Скачать все фотографии галереи одним ZIP-архивом');
+  grid.before(button);
+
+  const table=new Uint32Array(256);
+  for(let i=0;i<256;i++){
+    let n=i;for(let j=0;j<8;j++)n=(n&1)?(0xedb88320^(n>>>1)):(n>>>1);
+    table[i]=n>>>0;
+  }
+  function crc32(bytes){
+    let n=0xffffffff;
+    for(const b of bytes)n=table[(n^b)&255]^(n>>>8);
+    return (n^0xffffffff)>>>0;
+  }
+  function zip(files){
+    const enc=new TextEncoder(),chunks=[],directory=[];
+    let offset=0,dirLength=0;
+    for(const file of files){
+      const name=enc.encode(file.name),bytes=file.bytes,crc=crc32(bytes);
+      const local=new Uint8Array(30+name.length),h=new DataView(local.buffer);
+      h.setUint32(0,0x04034b50,true);h.setUint16(4,20,true);h.setUint16(6,0x0800,true);
+      h.setUint16(8,0,true);h.setUint16(12,33,true);
+      h.setUint32(14,crc,true);h.setUint32(18,bytes.length,true);h.setUint32(22,bytes.length,true);
+      h.setUint16(26,name.length,true);local.set(name,30);chunks.push(local,bytes);
+      const central=new Uint8Array(46+name.length),c=new DataView(central.buffer);
+      c.setUint32(0,0x02014b50,true);c.setUint16(4,20,true);c.setUint16(6,20,true);
+      c.setUint16(8,0x0800,true);c.setUint16(12,0,true);c.setUint16(16,33,true);
+      c.setUint32(18,crc,true);c.setUint32(22,bytes.length,true);c.setUint32(26,bytes.length,true);
+      c.setUint16(28,name.length,true);c.setUint32(42,offset,true);
+      central.set(name,46);directory.push(central);
+      offset+=local.length+bytes.length;dirLength+=central.length;
+    }
+    const end=new Uint8Array(22),e=new DataView(end.buffer);
+    e.setUint32(0,0x06054b50,true);e.setUint16(8,files.length,true);e.setUint16(10,files.length,true);
+    e.setUint32(12,dirLength,true);e.setUint32(16,offset,true);
+    return new Blob([...chunks,...directory,end],{type:'application/zip'});
+  }
+  button.addEventListener('click',async()=>{
+    if(button.disabled)return;
+    button.disabled=true;
+    try{
+      button.textContent='Подготавливаем фотографии...';
+      const response=await fetch('/gallery-data.json',{cache:'no-store'});
+      if(!response.ok)throw Error('Gallery list unavailable');
+      const data=await response.json();
+      if(!Array.isArray(data.photos))throw Error('Invalid gallery list');
+      const safe=p=>typeof p==='string'&&/^images\/[A-Za-z0-9_.-]+$/.test(p)?p:null;
+      const individual=data.photos.map(x=>safe(x?.image));
+      const bulk=Array.isArray(data.bulk_photos)?data.bulk_photos.map(safe):[];
+      const paths=[...new Set([...individual,...bulk].filter(Boolean))];
+      if(!paths.length||paths.length>500)throw Error('Invalid photo count');
+      let next=0,done=0,total=0;
+      const files=new Array(paths.length);
+      const worker=async()=>{
+        while(next<paths.length){
+          const i=next++;
+          const r=await fetch('/'+paths[i]);
+          if(!r.ok)throw Error('Missing photo '+paths[i]);
+          const bytes=new Uint8Array(await r.arrayBuffer());
+          total+=bytes.length;
+          if(total>150*1024*1024)throw Error('Gallery too large');
+          files[i]={name:String(i+1).padStart(3,'0')+'-'+paths[i].split('/').pop(),bytes};
+          done++;button.textContent='Загружаем фото: '+done+' / '+paths.length;
+        }
+      };
+      await Promise.all(Array.from({length:Math.min(4,paths.length)},()=>worker()));
+      button.textContent='Собираем ZIP...';
+      const url=URL.createObjectURL(zip(files));
+      const link=document.createElement('a');link.href=url;link.download='nogi-v-ruki-photos.zip';
+      document.body.appendChild(link);link.click();link.remove();
+      setTimeout(()=>URL.revokeObjectURL(url),60000);
+    }catch(error){
+      console.error('Gallery ZIP download failed:',error);
+      alert('Не удалось скачать все фотографии. Попробуйте ещё раз или скачайте нужные фото по отдельности.');
+    }finally{button.disabled=false;button.textContent='↓ Скачать все фото (ZIP)';}
+  });
+});
